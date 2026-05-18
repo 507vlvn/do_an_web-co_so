@@ -1,0 +1,100 @@
+@model do_an.Models.Voucher
+@{
+    ViewData["Title"] = "Tạo voucher";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Header -->
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div>
+                    <h4 class="fw-800 text-dark mb-1" style="letter-spacing: -1px;">Tạo chương trình ưu đãi</h4>
+                    <p class="text-muted small fw-600 mb-0">Thiết lập mã giảm giá mới cho khách hàng.</p>
+                </div>
+                <a asp-action="Index" class="btn btn-light rounded-pill px-4 fw-800 text-muted border transition-all">
+                    <i class="bi bi-arrow-left me-2"></i> Quay lại
+                </a>
+            </div>
+
+            <div class="bg-white rounded-5 shadow-sm border p-0 overflow-hidden" style="border-color: #f1f5f9 !important;">
+                <form asp-action="Create" method="post" class="p-0">
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="p-4 p-lg-5">
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-4 border-0 shadow-sm px-4 py-3 mb-5 small fw-600" style="background: #fef2f2; color: #991b1b;"></div>
+                        }
+
+                        <div class="row g-4">
+                            <!-- Voucher Code Styling -->
+                            <div class="col-12 mb-2">
+                                <div class="bg-brand-soft bg-opacity-10 border-2 border-brand border-dashed rounded-4 p-4 text-center">
+                                    <label asp-for="MaVoucher" class="form-label fw-800 text-brand small text-uppercase mb-2" style="letter-spacing: 1px;">Mã Voucher ưu đãi</label>
+                                    <input asp-for="MaVoucher" class="form-control form-control-lg rounded-pill border-0 shadow-sm text-center fw-800 text-uppercase font-monospace py-3" 
+                                           placeholder="VD: PHARMA20" style="letter-spacing: 2px;" />
+                                    <span asp-validation-for="MaVoucher" class="text-danger small mt-2 fw-bold d-block"></span>
+                                    <p class="text-muted small fw-600 mt-3 mb-0">Mã này sẽ được khách hàng nhập tại bước thanh toán.</p>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="MoTa" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                <input asp-for="MoTa" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="Chi tiết chương trình (VD: Giảm 20% cho đơn hàng từ 500k)..." />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="PhanTramGiam" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                <div class="input-group">
+                                    <input asp-for="PhanTramGiam" class="form-control rounded-start-4 py-3 bg-light border-0 shadow-none fw-800" type="number" min="1" max="100" />
+                                    <span class="input-group-text rounded-end-4 bg-light border-0 fw-800 text-brand px-3">%</span>
+                                </div>
+                                <span asp-validation-for="PhanTramGiam" class="text-danger small mt-1 fw-bold"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="GiamToiDa" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                <div class="input-group">
+                                    <input asp-for="GiamToiDa" class="form-control rounded-start-4 py-3 bg-light border-0 shadow-none fw-800" type="number" min="0" placeholder="0" />
+                                    <span class="input-group-text rounded-end-4 bg-light border-0 fw-800 text-muted px-3">đ</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="DonHangToiThieu" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                <div class="input-group">
+                                    <input asp-for="DonHangToiThieu" class="form-control rounded-start-4 py-3 bg-light border-0 shadow-none fw-800" type="number" min="0" />
+                                    <span class="input-group-text rounded-end-4 bg-light border-0 fw-800 text-muted px-3">đ</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="SoLanSuDung" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                <input asp-for="SoLanSuDung" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-800" type="number" min="1" placeholder="Số lượng mã phát hành" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="NgayBatDau" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                <input asp-for="NgayBatDau" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" type="date" />
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="NgayHetHan" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                <input asp-for="NgayHetHan" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600 text-danger" type="date" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="p-4 bg-light bg-opacity-50 border-top d-flex justify-content-end gap-3 px-lg-5">
+                        <button type="submit" class="btn btn-brand rounded-pill px-5 py-3 fw-800 text-white shadow-brand"
+                                style="background: linear-gradient(135deg, var(--brand-light), var(--brand)); border: none;">
+                            <i class="bi bi-ticket-perforated me-2 fs-5"></i> PHÁT HÀNH VOUCHER
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

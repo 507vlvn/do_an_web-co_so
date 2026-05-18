@@ -1,0 +1,332 @@
+@model List<do_an.Models.SanPham>
+@{
+    ViewData["Title"] = "Quản lý sản phẩm Website";
+    bool isAdmin = ViewBag.IsAdmin == true;
+}
+
+<style>
+    .product-img-wrapper {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .product-img-wrapper img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+    }
+    .status-switch {
+        cursor: pointer;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        transition: all 0.2s;
+        border: 1px solid transparent;
+    }
+</style>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4 py-3" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4 py-3" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-1 text-dark"><i class="bi bi-shop text-brand me-2"></i>Sản Phẩm Website</h4>
+        <p class="text-muted small mb-0">Hiển thị và quản lý sản phẩm bán trực tuyến</p>
+    </div>
+    @if (isAdmin)
+    {
+        <a asp-action="Create" class="btn btn-brand px-4 rounded-pill">
+            <i class="bi bi-plus-lg me-1"></i> Thêm Sản Phẩm
+        </a>
+    }
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-header bg-white py-4 px-4 border-0">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-5">
+                <label class="form-label small fw-bold text-muted text-uppercase">Tên sản phẩm</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                    <input type="text" name="search" class="form-control bg-light border-0" placeholder="Nhập tên sản phẩm để tìm..."
+                           value="@ViewBag.Search" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label small fw-bold text-muted text-uppercase">Danh mục</label>
+                <select name="danhMucId" class="form-select bg-light border-0">
+                    <option value="">-- Tất cả danh mục --</option>
+                    @if (ViewBag.DanhMucs is List<do_an.Models.DanhMucSanPham> dms)
+                    {
+                        foreach (var dm in dms)
+                        {
+                            <option value="@dm.Id" selected="@(ViewBag.DanhMucId?.ToString() == dm.Id.ToString())">
+                                @dm.TenDanhMuc
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-3 d-flex gap-2">
+                <button type="submit" class="btn btn-brand rounded-pill flex-fill">Lọc</button>
+                <a asp-action="Index" class="btn btn-light rounded-pill">Xóa</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4">Sản phẩm</th>
+                        <th>Phân loại</th>
+                        <th class="text-end">Giá bán</th>
+                        <th class="text-center">Tồn kho</th>
+                        <th>Ngày SX</th>
+                        <th>Hạn SD</th>
+                        <th>Công dụng</th>
+                        <th>Thành phần</th>
+                        <th>Tác dụng phụ</th>
+                        <th class="text-center">Trạng thái</th>
+                        @if (isAdmin)
+                        {
+                            <th class="text-center pe-4">Thao tác</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var sp in Model)
+                    {
+                        var hinh = sp.HinhAnhDaiDien;
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="product-img-wrapper">
+                                        <img src="@hinh" onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=No+Img'" />
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark">@sp.TenSanPham</div>
+                                        <div class="d-flex gap-1 mt-1">
+                                            @if (sp.IsThuoc)
+                                            {
+                                                <span class="badge bg-primary bg-opacity-10 text-primary x-small">
+                                                    <i class="bi bi-capsule-pill"></i> Thuốc kê đơn
+                                                </span>
+                                            }
+                                            @if (sp.NoiBat)
+                                            {
+                                                <span class="badge bg-warning bg-opacity-10 text-warning x-small">
+                                                    <i class="bi bi-star-fill"></i> Nổi bật
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="text-muted small fw-medium">@sp.DanhMuc?.TenDanhMuc</span>
+                            </td>
+                            <td class="text-end">
+                                <span class="fw-bold text-brand">@sp.GiaBan.ToString("N0")đ</span>
+                                @if (sp.GiaGoc.HasValue && sp.GiaGoc > sp.GiaBan)
+                                {
+                                    <div class="text-muted text-decoration-line-through x-small">@sp.GiaGoc.Value.ToString("N0")đ</div>
+                                }
+                            </td>
+                             <td class="text-center">
+                                @{
+                                    var stockColor = sp.SoLuong < 5 ? "danger" : "success";
+                                }
+                                <span class="badge bg-@stockColor bg-opacity-10 text-@stockColor px-3 py-1 rounded-pill fw-bold">
+                                    @sp.SoLuong
+                                </span>
+                            </td>
+                            <td>
+                                @if (sp.IsThuoc)
+                                {
+                                    var loHienTai = sp.DanhSachLo?
+                                        .Where(l => l.TrangThai && l.SoLuongKhaDung > 0 && l.HanSuDung > DateTime.Today)
+                                        .OrderBy(l => l.HanSuDung).FirstOrDefault();
+                                    if (loHienTai != null)
+                                    {
+                                        <span class="small text-muted">@loHienTai.NgaySX.ToString("dd/MM/yyyy")</span>
+                                    }
+                                    else if (sp.NgaySX.HasValue)
+                                    {
+                                        <span class="small text-muted fst-italic">@sp.NgaySX.Value.ToString("dd/MM/yyyy")</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="small text-muted fst-italic">—</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="small text-muted">@(sp.NgaySX.HasValue ? sp.NgaySX.Value.ToString("dd/MM/yyyy") : "—")</span>
+                                }
+                            </td>
+                            <td>
+                                @if (sp.IsThuoc)
+                                {
+                                    var tongLo = sp.DanhSachLo?.Count(l => l.TrangThai) ?? 0;
+                                    var soLoConHang = sp.DanhSachLo?.Count(l => l.TrangThai && l.SoLuongKhaDung > 0) ?? 0;
+                                    var loFEFO = sp.DanhSachLo?
+                                        .Where(l => l.TrangThai && l.SoLuongKhaDung > 0 && l.HanSuDung > DateTime.Today)
+                                        .OrderBy(l => l.HanSuDung).FirstOrDefault();
+                                    if (loFEFO != null)
+                                    {
+                                        var daysLeft = (loFEFO.HanSuDung - DateTime.Today).Days;
+                                        var hsdClass = daysLeft <= 60 ? "text-warning fw-bold" : "text-muted";
+                                        <div class="d-flex align-items-center gap-1">
+                                            <span class="small @hsdClass">
+                                                @loFEFO.HanSuDung.ToString("dd/MM/yyyy")
+                                                @if (daysLeft <= 60) { <i class="bi bi-exclamation-triangle-fill"></i> }
+                                            </span>
+                                        </div>
+                                        <a asp-controller="LoThuoc" asp-action="Index" asp-route-sanPhamId="@sp.Id"
+                                           class="badge bg-info bg-opacity-10 text-info rounded-pill x-small text-decoration-none mt-1 d-inline-block">
+                                            <i class="bi bi-box-seam"></i> @tongLo lô
+                                        </a>
+                                    }
+                                    else if (sp.HanSuDung.HasValue)
+                                    {
+                                        var isExp = sp.HanSuDung.Value <= DateTime.Today;
+                                        <span class="small @(isExp ? "text-danger fw-bold" : "text-muted") fst-italic">
+                                            @sp.HanSuDung.Value.ToString("dd/MM/yyyy")
+                                            @if (isExp) { <i class="bi bi-exclamation-triangle-fill"></i> }
+                                        </span>
+                                        @if (tongLo > 0)
+                                        {
+                                            <a asp-controller="LoThuoc" asp-action="Index" asp-route-sanPhamId="@sp.Id"
+                                               class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill x-small text-decoration-none mt-1 d-inline-block">
+                                                <i class="bi bi-box-seam"></i> @tongLo lô
+                                            </a>
+                                        }
+                                    }
+                                    else if (tongLo > 0)
+                                    {
+                                        <span class="small text-muted fst-italic">Hết hàng</span>
+                                        <a asp-controller="LoThuoc" asp-action="Index" asp-route-sanPhamId="@sp.Id"
+                                           class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill x-small text-decoration-none mt-1 d-inline-block">
+                                            <i class="bi bi-box-seam"></i> @tongLo lô
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="small text-muted fst-italic">Chưa có lô</span>
+                                    }
+                                }
+                                else
+                                {
+                                    @if (sp.HanSuDung.HasValue)
+                                    {
+                                        var isExpired = sp.HanSuDung.Value < DateTime.Now;
+                                        <span class="small @(isExpired ? "text-danger fw-bold" : "text-muted")">
+                                            @sp.HanSuDung.Value.ToString("dd/MM/yyyy")
+                                            @if (isExpired) { <i class="bi bi-exclamation-triangle-fill"></i> }
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="small text-muted">—</span>
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <span class="small text-muted" title="@sp.CongDung">@(sp.CongDung != null && sp.CongDung.Length > 50 ? sp.CongDung.Substring(0, 50) + "..." : sp.CongDung ?? "—")</span>
+                            </td>
+                            <td>
+                                <span class="small text-muted" title="@sp.ThanhPhan">@(sp.ThanhPhan != null && sp.ThanhPhan.Length > 50 ? sp.ThanhPhan.Substring(0, 50) + "..." : sp.ThanhPhan ?? "—")</span>
+                            </td>
+                            <td>
+                                <span class="small text-muted" title="@sp.TacDungPhu">@(sp.TacDungPhu != null && sp.TacDungPhu.Length > 50 ? sp.TacDungPhu.Substring(0, 50) + "..." : sp.TacDungPhu ?? "—")</span>
+                            </td>
+                            <td class="text-center">
+                                @if (isAdmin)
+                                {
+                                    <form asp-action="ToggleTrenKe" asp-route-id="@sp.Id" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" 
+                                                class="status-switch @(sp.TrenKe ? "bg-success bg-opacity-10 text-success border-success" : "bg-light text-muted border-secondary opacity-50")">
+                                            <i class="bi @(sp.TrenKe ? "bi-check-circle-fill" : "bi-eye-slash-fill")"></i>
+                                            @(sp.TrenKe ? "Đang Bán" : "Đã Ẩn")
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span class="status-switch @(sp.TrenKe ? "bg-success bg-opacity-10 text-success" : "bg-light text-muted")">
+                                        @(sp.TrenKe ? "Đang Bán" : "Ẩn")
+                                    </span>
+                                }
+                            </td>
+                            @if (isAdmin)
+                            {
+                                <td class="text-center pe-4">
+                                    <div class="btn-group">
+                                        <a asp-action="Edit" asp-route-id="@sp.Id"
+                                           class="btn btn-sm btn-light rounded-circle me-1" title="Sửa">
+                                            <i class="bi bi-pencil-square text-primary"></i>
+                                        </a>
+                                        @if (sp.IsThuoc)
+                                        {
+                                            <a asp-controller="LoThuoc" asp-action="NhapLo" asp-route-sanPhamId="@sp.Id"
+                                               class="btn btn-sm btn-light rounded-circle me-1" title="Nhập lô thuốc">
+                                                <i class="bi bi-plus-square-fill text-success"></i>
+                                            </a>
+                                        }
+                                        <form asp-action="Delete" asp-route-id="@sp.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-light rounded-circle me-1"
+                                                    onclick="return confirm('Bạn chắc chắn muốn xóa vĩnh viễn sản phẩm này khỏi cơ sở dữ liệu? (Lịch sử đơn hàng sẽ được giữ lại nhờ Snapshot)')" title="Xóa vĩnh viễn">
+                                                <i class="bi bi-trash text-danger"></i>
+                                            </button>
+                                        </form>
+                                        <form asp-action="NgungSanXuat" asp-route-id="@sp.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-light rounded-circle"
+                                                    onclick="return confirm('Ngưng sản xuất sản phẩm này? (Ẩn khỏi cửa hàng, giữ trong danh sách quản lý)')" 
+                                                    title="Ngưng sản xuất">
+                                                <i class="bi bi-x-octagon text-secondary"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="11" class="text-center py-5">
+                                <i class="bi bi-archive fs-1 text-muted opacity-25 d-block mb-3"></i>
+                                <p class="text-muted">Không tìm thấy sản phẩm nào trên Website.</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+              

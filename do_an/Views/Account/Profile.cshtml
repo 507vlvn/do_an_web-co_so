@@ -1,0 +1,108 @@
+@model do_an.ViewModels.ProfileViewModel
+@{
+    ViewData["Title"] = "Hồ sơ cá nhân";
+    bool isStore = Model.VaiTro == "KhachHang";
+    Layout = isStore ? "_StoreLayout" : "_Layout";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="d-flex align-items-center mb-4 gap-3">
+            @if (!isStore)
+            {
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-sm">← Quay lại</a>
+            }
+            <h4 class="fw-bold mb-0">
+                <i class="bi bi-person-circle me-2"></i>Hồ sơ cá nhân
+            </h4>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom">
+                    <div class="rounded-circle bg-primary bg-opacity-10 p-3">
+                        <i class="bi bi-person-fill text-primary fs-3"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0">@(Model.HoTen.Length > 0 ? Model.HoTen : Model.TenDangNhap)</h5>
+                        <div class="small text-muted">
+                            @@Model.TenDangNhap —
+                            @switch (Model.VaiTro)
+                            {
+                                case "Admin":
+                                    <span class="badge bg-danger">Admin</span>
+                                    break;
+                                case "NhanVien":
+                                    <span class="badge bg-primary">Nhân viên</span>
+                                    break;
+                                default:
+                                    <span class="badge bg-success">Khách hàng</span>
+                                    break;
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <form asp-action="Profile" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger small py-2"></div>
+
+                    <h6 class="fw-bold mb-3">Thông tin cá nhân</h6>
+
+                    <div class="mb-3">
+                        <label asp-for="HoTen" class="form-label fw-medium"></label>
+                        <input asp-for="HoTen" class="form-control" />
+                        <span asp-validation-for="HoTen" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label fw-medium"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="SoDienThoai" class="form-label fw-medium"></label>
+                        <input asp-for="SoDienThoai" class="form-control" />
+                        <span asp-validation-for="SoDienThoai" class="text-danger small"></span>
+                    </div>
+                    @if (Model.VaiTro == "KhachHang")
+                    {
+                        <div class="mb-3">
+                            <label asp-for="DiaChi" class="form-label fw-medium"></label>
+                            <input asp-for="DiaChi" class="form-control"
+                                   placeholder="Số nhà, đường, phường, quận, tỉnh/thành phố" />
+                            <span class="form-text text-success">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Thông tin này sẽ được tự động điền khi đặt hàng.
+                            </span>
+                        </div>
+                    }
+
+                    <hr class="my-4" />
+                    <h6 class="fw-bold mb-3">Đổi mật khẩu <span class="text-muted fw-normal small">(để trống nếu không đổi)</span></h6>
+
+                    <div class="mb-3">
+                        <label asp-for="MatKhauHienTai" class="form-label fw-medium"></label>
+                        <input asp-for="MatKhauHienTai" class="form-control" />
+                        <span asp-validation-for="MatKhauHienTai" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="MatKhauMoi" class="form-label fw-medium"></label>
+                        <input asp-for="MatKhauMoi" class="form-control" />
+                        <span asp-validation-for="MatKhauMoi" class="text-danger small"></span>
+                    </div>
+                    <div class="mb-4">
+                        <label asp-for="XacNhanMatKhauMoi" class="form-label fw-medium"></label>
+                        <input asp-for="XacNhanMatKhauMoi" class="form-control" />
+                        <span asp-validation-for="XacNhanMatKhauMoi" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-save me-1"></i>Lưu thay đổi
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,301 @@
+@model do_an.Models.SanPham
+@{
+    ViewData["Title"] = "Thêm sản phẩm mới";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <!-- Header -->
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div>
+                    <h4 class="fw-800 text-dark mb-1" style="letter-spacing: -1px;">Thêm sản phẩm cửa hàng</h4>
+                    <p class="text-muted small fw-600 mb-0">Tạo sản phẩm mới hiển thị trên website bán hàng.</p>
+                </div>
+                <a asp-action="Index" class="btn btn-light rounded-pill px-4 fw-800 text-muted border transition-all">
+                    <i class="bi bi-arrow-left me-2"></i> Quay lại
+                </a>
+            </div>
+
+            <div class="bg-white rounded-5 shadow-sm border p-0 overflow-hidden" style="border-color: #f1f5f9 !important;">
+                <form asp-action="Create" method="post" enctype="multipart/form-data" class="p-0">
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="p-4 p-lg-5">
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-4 border-0 shadow-sm px-4 py-3 mb-5 small fw-600" style="background: #fef2f2; color: #991b1b;"></div>
+                        }
+
+                        <div class="row g-5">
+                            <!-- Left Column: Details -->
+                            <div class="col-lg-7">
+                                <div class="mb-5">
+                                    <h5 class="fw-800 text-brand mb-4 d-flex align-items-center">
+                                        <span class="bg-brand-soft rounded-3 p-2 me-3"><i class="bi bi-info-circle"></i></span>
+                                        Thông tin sản phẩm
+                                    </h5>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label asp-for="TenSanPham" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <input asp-for="TenSanPham" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="Tên hiển thị trên website" />
+                                            <span asp-validation-for="TenSanPham" class="text-danger small mt-1 fw-bold"></span>
+                                        </div>
+                                        <div>
+                                            <label asp-for="DanhMucId" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <select asp-for="DanhMucId" asp-items="ViewBag.DanhMucList" class="form-select rounded-4 py-3 bg-light border-0 shadow-none fw-600">
+                                                <option value="">-- Chọn danh mục --</option>
+                                            </select>
+                                            <span asp-validation-for="DanhMucId" class="text-danger small mt-1 fw-bold"></span>
+                                        </div>
+                                        <div>
+                                            <label asp-for="MoTa" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <textarea asp-for="MoTa" class="form-control rounded-4 bg-light border-0 shadow-none fw-600" rows="6" placeholder="Mô tả chi tiết về sản phẩm..."></textarea>
+                                        </div>
+
+                                       
+                                
+                                        <div>
+                                            <label asp-for="DonViTinh" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                             <select id="DonViTinh" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600">
+                                                  <option value="">-- Chọn --</option>
+                                                  <option value="Viên"> Viên</option>
+                                                  <option value="Vĩ"> Vĩ</option>
+                                                  <option value="Hộp"> Hộp</option>
+                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Thuộc tính Y tế -->
+                                <div class="mb-5">
+                                    <h5 class="fw-800 text-brand mb-4 d-flex align-items-center">
+                                        <span class="bg-brand-soft rounded-3 p-2 me-3"><i class="bi bi-capsule-pill"></i></span>
+                                        Thông tin Y tế (Thuốc)
+                                    </h5>
+                                    <div class="space-y-4">
+                                        <div class="form-check form-switch custom-switch p-3 bg-light rounded-4 border d-flex align-items-center gap-3 ps-5">
+                                            <input asp-for="IsThuoc" class="form-check-input ms-0" type="checkbox" role="switch" style="width: 3rem; height: 1.5rem;" />
+                                            <label asp-for="IsThuoc" class="form-check-label fw-800 text-dark small text-uppercase mb-0"></label>
+                                        </div>
+                                        <div>
+                                            <label asp-for="NhaSanXuat" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <input asp-for="NhaSanXuat" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="Tên nhà sản xuất" />
+                                        </div>
+                                        <div class="row g-3" id="hsdManualFields">
+                                            <div class="col-md-6">
+                                                <label asp-for="NgaySX" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                                <input asp-for="NgaySX" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" type="date" />
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label asp-for="HanSuDung" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                                <input asp-for="HanSuDung" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" type="date" />
+                                            </div>
+                                        </div>
+                                        <div id="hsdAutoNotice" class="d-none">
+                                            <div class="alert alert-info rounded-4 border-0 mb-0 py-3 d-flex align-items-center gap-2">
+                                                <i class="bi bi-info-circle-fill fs-5"></i>
+                                                <div class="small fw-600">
+                                                    <strong>Ngày SX & Hạn sử dụng</strong> được quản lý tự động qua <strong>Lô Thuốc</strong> (FEFO).
+                                                    <br/>Sau khi tạo sản phẩm, hãy vào <strong>Quản lý Lô Thuốc</strong> để nhập lô.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label asp-for="ThanhPhan" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <textarea asp-for="ThanhPhan" class="form-control rounded-4 bg-light border-0 shadow-none fw-600" rows="3" placeholder="Thành phần của thuốc..."></textarea>
+                                        </div>
+                                        <div>
+                                            <label asp-for="CongDung" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <textarea asp-for="CongDung" class="form-control rounded-4 bg-light border-0 shadow-none fw-600" rows="3" placeholder="Công dụng / Chỉ định..."></textarea>
+                                        </div>
+                                        <div>
+                                            <label asp-for="TacDungPhu" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <textarea asp-for="TacDungPhu" class="form-control rounded-4 bg-light border-0 shadow-none fw-600" rows="3" placeholder="Tác dụng phụ có thể gặp..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Settings -->
+                            <div class="col-lg-5">
+                                <div class="mb-5">
+                                    <h5 class="fw-800 text-brand mb-4 d-flex align-items-center">
+                                        <span class="bg-brand-soft rounded-3 p-2 me-3"><i class="bi bi-wallet2"></i></span>
+                                        Giá & Tồn kho
+                                    </h5>
+                                    <div class="space-y-4">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label asp-for="GiaBan" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                                <div class="input-group">
+                                                    <input asp-for="GiaBan" class="form-control rounded-start-4 py-3 bg-light border-0 shadow-none fw-800" type="number" min="0" />
+                                                    <span class="input-group-text rounded-end-4 bg-light border-0 fw-800 text-brand px-3">đ</span>
+                                                </div>
+                                                <span asp-validation-for="GiaBan" class="text-danger small mt-1 fw-bold"></span>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label asp-for="GiaGoc" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                                <div class="input-group">
+                                                    <input asp-for="GiaGoc" class="form-control rounded-start-4 py-3 bg-light border-0 shadow-none fw-800 opacity-75" type="number" min="0" placeholder="0" />
+                                                    <span class="input-group-text rounded-end-4 bg-light border-0 fw-800 text-muted px-3">đ</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label asp-for="GiaNhap" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <div class="input-group">
+                                                <input asp-for="GiaNhap" class="form-control rounded-start-4 py-3 bg-light border-0 shadow-none fw-800" type="number" min="0" />
+                                                <span class="input-group-text rounded-end-4 bg-light border-0 fw-800 text-muted px-3">đ</span>
+                                            </div>
+                                            <span asp-validation-for="GiaNhap" class="text-danger small mt-1 fw-bold"></span>
+                                        </div>
+                                        <div>
+                                            <label asp-for="SoLuong" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <input asp-for="SoLuong" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-800" type="number" min="0" placeholder="0" />
+                                            <span asp-validation-for="SoLuong" class="text-danger small mt-1 fw-bold"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    <h5 class="fw-800 text-brand mb-4 d-flex align-items-center">
+                                        <span class="bg-brand-soft rounded-3 p-2 me-3"><i class="bi bi-image"></i></span>
+                                        Hình ảnh
+                                    </h5>
+                                    <div class="bg-light rounded-5 p-4 text-center border overflow-hidden">
+                                        <img id="preview" src="/images/no-image.svg" class="img-fluid rounded-4 shadow-sm mb-3" style="max-height: 200px; display: none;" />
+                                        <div id="placeholder" class="py-5 text-muted">
+                                            <i class="bi bi-images fs-1 opacity-25"></i>
+                                            <p class="small fw-600 mt-2">Chưa có ảnh chọn lọc</p>
+                                        </div>
+                                        <input type="file" name="anhFile" id="anhFileInput" class="d-none" accept="image/*" onchange="previewImg(this)" />
+                                        <button type="button" class="btn btn-brand-soft text-brand fw-800 px-4 py-2 rounded-pill mt-2" onclick="document.getElementById('anhFileInput').click()">
+                                            CHỌN TỪ MÁY TÍNH
+                                        </button>
+                                        <div class="mt-4">
+                                            <label asp-for="HinhAnhUrl" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <input asp-for="HinhAnhUrl" class="form-control rounded-4 py-3 bg-white border-0 shadow-none fw-600 border" placeholder="https://..." />
+                                        </div>
+                                        <hr class="my-4 border-light" />
+                                        <div class="text-start">
+                                            <label class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;">Thư viện ảnh (Ảnh phụ)</label>
+                                            <p class="small text-muted mb-2">Chọn nhiều hình cùng lúc để tạo bộ sưu tập (gallery) cho sản phẩm.</p>
+                                            
+                                            <input type="file" name="thuVienFiles" id="thuVienFilesInput" class="d-none" accept="image/*" multiple onchange="previewGallery(this)" />
+                                            <button type="button" class="btn btn-outline-brand fw-800 px-4 py-2 rounded-pill mt-1 w-100 border-2" onclick="document.getElementById('thuVienFilesInput').click()" style="border-color: var(--brand-light); color: var(--brand);">
+                                                <i class="bi bi-images me-2"></i> CHỌN NHIỀU ẢNH
+                                            </button>
+                                            
+                                            <div id="galleryPreview" class="d-flex flex-wrap gap-2 mt-3 custom-scrollbar overflow-auto pb-2" style="max-height: 200px;">
+                                                <!-- Preview images will appear here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h5 class="fw-800 text-brand mb-4 d-flex align-items-center">
+                                        <span class="bg-brand-soft rounded-3 p-2 me-3"><i class="bi bi-toggle-on"></i></span>
+                                        Hiển thị
+                                    </h5>
+                                    <div class="row g-3">
+                                        <div class="col-6">
+                                            <div class="form-check form-switch custom-switch p-3 bg-light rounded-4 border d-flex align-items-center gap-3 ps-5">
+                                                <input asp-for="TrenKe" class="form-check-input ms-0" type="checkbox" role="switch" style="width: 3rem; height: 1.5rem;" />
+                                                <label asp-for="TrenKe" class="form-check-label fw-800 text-dark small text-uppercase mb-0">Đưa lên kệ</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-check form-switch custom-switch p-3 bg-light rounded-4 border d-flex align-items-center gap-3 ps-5">
+                                                <input asp-for="NoiBat" class="form-check-input ms-0" type="checkbox" role="switch" style="width: 3rem; height: 1.5rem;" />
+                                                <label asp-for="NoiBat" class="form-check-label fw-800 text-dark small text-uppercase mb-0">Sản phẩm nổi bật</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="p-4 bg-light bg-opacity-50 border-top d-flex justify-content-end gap-3 px-lg-5">
+                        <button type="submit" class="btn btn-brand rounded-pill px-5 py-3 fw-800 text-white shadow-brand"
+                                style="background: linear-gradient(135deg, var(--brand-light), var(--brand)); border: none;">
+                            <i class="bi bi-plus-circle me-2 fs-5"></i> THÊM SẢN PHẨM MỚI
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .space-y-4 > *:not(:last-child) { margin-bottom: 1.5rem; }
+    .shadow-inner { box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+    .custom-switch .form-check-input:checked {
+        background-color: var(--brand);
+        border-color: var(--brand);
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function previewImg(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const img = document.getElementById('preview');
+                    const ph = document.getElementById('placeholder');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    ph.style.display = 'none';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function previewGallery(input) {
+            const container = document.getElementById('galleryPreview');
+            container.innerHTML = ''; // Xóa các ảnh preview cũ khi chọn lại
+            if (input.files && input.files.length > 0) {
+                Array.from(input.files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = e => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'rounded-3 shadow-sm border bg-white';
+                        img.style.width = '60px';
+                        img.style.height = '60px';
+                        img.style.objectFit = 'contain';
+                        container.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        // Toggle HSD fields based on IsThuoc checkbox
+        document.addEventListener('DOMContentLoaded', function() {
+            const isThuocCb = document.getElementById('IsThuoc');
+            const manualFields = document.getElementById('hsdManualFields');
+            const autoNotice = document.getElementById('hsdAutoNotice');
+
+            function toggleHSD() {
+                if (isThuocCb.checked) {
+                    manualFields.classList.add('d-none');
+                    autoNotice.classList.remove('d-none');
+                    // Clear date values khi chuyển sang thuốc
+                    manualFields.querySelectorAll('input[type=date]').forEach(i => i.value = '');
+                } else {
+                    manualFields.classList.remove('d-none');
+                    autoNotice.classList.add('d-none');
+                }
+            }
+            isThuocCb.addEventListener('change', toggleHSD);
+            toggleHSD(); // Run on load
+        });
+    </script>
+}

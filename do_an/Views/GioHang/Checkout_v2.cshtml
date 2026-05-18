@@ -1,0 +1,309 @@
+@model do_an.ViewModels.CheckoutViewModel
+@{
+    ViewData["Title"] = "Thanh toán đơn hàng";
+    Layout = "_StoreLayout";
+}
+
+<div class="py-4">
+    <div class="mb-5">
+        <h1 class="display-6 fw-800 text-dark mb-1" style="letter-spacing: -2px;">Thanh toán</h1>
+        <p class="text-muted fw-600 mb-0">Hoàn tất thông tin để nhận hàng siêu tốc</p>
+    </div>
+
+    <form asp-action="DatHang" method="post" id="checkoutForm">
+        @Html.AntiForgeryToken()
+        
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger rounded-4 border-0 p-3 mb-4 shadow-sm">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                    <strong class="fw-800">Có lỗi xảy ra:</strong>
+                </div>
+                <div asp-validation-summary="ModelOnly" class="mb-0 small fw-600 list-unstyled ps-4"></div>
+            </div>
+        }
+        
+        <div class="row g-4">
+            <!-- Cột trái: Thông tin nhận hàng & Thanh toán -->
+            <div class="col-lg-7">
+                <!-- Thông tin giao hàng -->
+                <div class="bg-white rounded-5 shadow-sm border p-4 p-md-5 mb-4" style="border-color: #f1f5f9 !important;">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="rounded-circle bg-brand-soft text-brand p-2">
+                            <i class="bi bi-geo-alt fs-4"></i>
+                        </div>
+                        <h4 class="fw-800 text-dark mb-0">Thông tin giao hàng</h4>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="HoTenNguoiNhan" class="form-label small fw-800 text-muted text-uppercase mb-1" style="letter-spacing: 0.5px;"></label>
+                            <input asp-for="HoTenNguoiNhan" class="form-control rounded-3 border-light bg-light py-3 px-4 fw-600" placeholder="Nguyễn Văn A" />
+                            <span asp-validation-for="HoTenNguoiNhan" class="text-danger small"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="SoDienThoai" class="form-label small fw-800 text-muted text-uppercase mb-1" style="letter-spacing: 0.5px;"></label>
+                            <input asp-for="SoDienThoai" class="form-control rounded-3 border-light bg-light py-3 px-4 fw-600" placeholder="0901 234 567" />
+                            <span asp-validation-for="SoDienThoai" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="DiaChi" class="form-label small fw-800 text-muted text-uppercase mb-1" style="letter-spacing: 0.5px;"></label>
+                            <input asp-for="DiaChi" class="form-control rounded-3 border-light bg-light py-3 px-4 fw-600" placeholder="Số nhà, tên đường, phường/xã..." />
+                            <span asp-validation-for="DiaChi" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="Email" class="form-label small fw-800 text-muted text-uppercase mb-1" style="letter-spacing: 0.5px;"></label>
+                            <input asp-for="Email" class="form-control rounded-3 border-light bg-light py-3 px-4 fw-600" placeholder="email@@example.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="GhiChu" class="form-label small fw-800 text-muted text-uppercase mb-1" style="letter-spacing: 0.5px;"></label>
+                            <textarea asp-for="GhiChu" rows="3" class="form-control rounded-3 border-light bg-light py-3 px-4 fw-600" placeholder="Ghi chú thêm về thời gian giao hàng (không bắt buộc)..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phương thức thanh toán -->
+                <div class="bg-white rounded-5 shadow-sm border p-4 p-md-5" style="border-color: #f1f5f9 !important;">
+                    <div class="d-flex align-items-center gap-3 mb-4">
+                        <div class="rounded-circle bg-brand-soft text-brand p-2">
+                            <i class="bi bi-wallet2 fs-4"></i>
+                        </div>
+                        <h4 class="fw-800 text-dark mb-0">Phương thức thanh toán</h4>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="payment-option p-3 rounded-4 border border-2 transition-all cursor-pointer mb-3" data-target="cod">
+                            <div class="form-check d-flex align-items-center gap-3 mb-0">
+                                <input class="form-check-input" type="radio" name="PhuongThucThanhToan" id="paymentCod" value="ThanhToanOnline" checked>
+                                <label class="form-check-label flex-grow-1" for="paymentCod">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="rounded-3 bg-light p-2"><i class="bi bi-credit-card-2-front fs-5 text-brand"></i></div>
+                                        <div>
+                                            <div class="fw-800 text-dark mb-0">Thanh toán Online (Giả lập)</div>
+                                            <div class="small text-muted fw-600">Thanh toán nhanh chóng, an toàn qua cổng giả lập.</div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="payment-option p-3 rounded-4 border border-2 transition-all cursor-pointer" data-target="online">
+                            <div class="form-check d-flex align-items-center gap-3 mb-0">
+                                <input class="form-check-input" type="radio" name="PhuongThucThanhToan" id="paymentAtStore" value="ThanhToanTaiQuay">
+                                <label class="form-check-label flex-grow-1" for="paymentAtStore">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="rounded-3 bg-light p-2"><i class="bi bi-shop fs-5 text-brand"></i></div>
+                                        <div>
+                                            <div class="fw-800 text-dark mb-0">Thanh toán tại quầy (COD)</div>
+                                            <div class="small text-muted fw-600">Phù hợp cho khách hàng mua trực tiếp tại nhà thuốc.</div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột phải: Tóm tắt đơn hàng & Voucher -->
+            <div class="col-lg-5">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="bg-white rounded-5 shadow-sm border p-4 p-md-5 mb-4" style="border-color: #f1f5f9 !important;">
+                        <h5 class="fw-800 text-dark mb-4">Tóm tắt đơn hàng</h5>
+                        
+                        <!-- List sản phẩm mini -->
+                        <div class="order-items mb-4 max-height-300 overflow-auto pe-2">
+                            @foreach (var item in Model.Items)
+                            {
+                                <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                                    <div class="bg-light rounded-3 p-1 flex-shrink-0" style="width: 60px; height: 60px;">
+                                        <img src="@(item.HinhAnh ?? "/images/no-image.svg")" class="img-fluid rounded-2" style="object-fit: contain; height: 100%; width: 100%;" />
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="fw-800 text-dark small mb-0 line-clamp-2">@item.TenSanPham</div>
+                                        <div class="d-flex justify-content-between align-items-baseline mt-1">
+                                            <span class="text-muted small fw-600">x @item.SoLuong</span>
+                                            <span class="fw-800 text-dark">@item.ThanhTien.ToString("N0")đ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Voucher Section -->
+                        <div class="voucher-box mb-4">
+                            <label class="form-label small fw-800 text-muted text-uppercase mb-2" style="letter-spacing: 0.5px;">Mã giảm giá (Voucher)</label>
+                            <div class="input-group">
+                                <input type="text" asp-for="MaVoucher" id="voucherInput" class="form-control rounded-start-4 border-light bg-light py-2 px-3 fw-800" placeholder="Nhập mã ưu đãi..." />
+                                <button type="button" id="applyVoucherBtn" class="btn btn-dark rounded-end-4 px-4 fw-800 text-uppercase" style="font-size: 0.75rem;">Áp dụng</button>
+                            </div>
+                            <div id="voucherMessage" class="mt-2 small fw-600" style="display:none;"></div>
+                        </div>
+
+                        <!-- Price Breakdown -->
+                        <div class="space-y-3 mb-4">
+                            <div class="d-flex justify-content-between text-muted fw-600">
+                                <span>Tạm tính hàng</span>
+                                <span class="text-dark fw-800" id="subtotalDisplay">@Model.TongTienHang.ToString("N0")đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted fw-600" id="discountRow" style="display:none !important;">
+                                <span>Giảm giá</span>
+                                <span class="text-danger fw-800" id="discountDisplay">-0đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted fw-600">
+                                <span>Phí giao hàng</span>
+                                <span class="text-dark fw-800">0đ</span>
+                            </div>
+                        </div>
+
+                        <!-- Total -->
+                        <div class="border-top pt-4 mb-4">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <span class="fw-800 text-dark h5 mb-0">TỔNG CỘNG</span>
+                                <div class="text-end">
+                                    <div class="h3 fw-800 text-brand mb-0" id="finalTotalDisplay" style="letter-spacing: -1.5px;">@Model.TongTienHang.ToString("N0")đ</div>
+                                    <p class="text-muted small mb-0 fw-500">(Đã bao gồm VAT)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-brand w-100 py-3 rounded-4 fw-800 text-white shadow-brand btn-submit-order">
+                            XÁC NHẬN ĐẶT HÀNG <i class="bi bi-arrow-right-short fs-4"></i>
+                        </button>
+                        
+                        <div class="text-center mt-3">
+                            <span class="small fw-600 text-muted"><i class="bi bi-shield-lock me-1"></i> Cam kết an toàn & bảo mật</span>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-secondary rounded-4 border-0 p-3 small fw-600 text-muted mb-0">
+                        <i class="bi bi-info-circle me-1"></i> Bằng cách nhấn xác nhận, bạn đồng ý với các điều khoản mua hàng của chúng tôi.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Styles {
+    <style>
+        .fw-800 { font-weight: 800; }
+        .fw-600 { font-weight: 600; }
+        .text-brand { color: var(--brand) !important; }
+        .bg-brand-soft { background-color: var(--brand-soft) !important; }
+        .btn-brand { background: var(--brand); border-color: var(--brand); }
+        .btn-brand:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+        .shadow-brand { box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3); }
+        
+        .payment-option {
+            background: #fff;
+            border-color: #f1f5f9;
+        }
+        .payment-option:hover {
+            border-color: var(--brand-light);
+        }
+        .payment-option:has(input:checked) {
+            border-color: var(--brand);
+            background: var(--brand-soft);
+        }
+
+        .max-height-300 { max-height: 300px; }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .cursor-pointer { cursor: pointer; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+        .animate__pulse {
+          animation-name: pulse;
+          animation-duration: 0.5s;
+          animation-iteration-count: 1;
+        }
+        @@keyframes pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+        }
+    </style>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function() {
+            // Click trigger for payment radio groups
+            $('.payment-option').on('click', function() {
+                $(this).find('input[type="radio"]').prop('checked', true);
+            });
+
+            // AJAX Apply Voucher
+            $('#applyVoucherBtn').on('click', function() {
+                const code = $('#voucherInput').val().trim();
+                const $btn = $(this);
+                const $msg = $('#voucherMessage');
+
+                if (!code) {
+                    $msg.text('Vui lòng nhập mã.').removeClass('text-success').addClass('text-danger').fadeIn();
+                    return;
+                }
+
+                $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm"></span>');
+                $msg.hide();
+
+                $.post('/GioHang/ApplyVoucherAjax', { maVoucher: code }, function (res) {
+                    if (res.success) {
+                        $msg.text(res.message).removeClass('text-danger').addClass('text-success').fadeIn();
+                        
+                        // Update UI totals
+                        const disc = res.discountAmount;
+                        const final = res.finalTotal;
+
+                        $('#discountDisplay').text('-' + disc.toLocaleString('vi-VN') + 'đ');
+                        $('#discountRow').attr('style', 'display: flex !important;');
+                        $('#finalTotalDisplay').text(final.toLocaleString('vi-VN') + 'đ');
+                        
+                        // Sparkle effect on total
+                        $('#finalTotalDisplay').addClass('animate__pulse');
+                        setTimeout(() => $('#finalTotalDisplay').removeClass('animate__pulse'), 500);
+
+                    } else {
+                        $msg.text(res.message).removeClass('text-success').addClass('text-danger').fadeIn();
+                        
+                        // Reset discount
+                        $('#discountRow').attr('style', 'display: none !important;');
+                        $('#finalTotalDisplay').text(res.tongTienHang ? res.tongTienHang.toLocaleString('vi-VN') + 'đ' : $('#subtotalDisplay').text());
+                    }
+                }).fail(function() {
+                    $msg.text('Lỗi hệ thống. Vui lòng thử lại sau.').addClass('text-danger').fadeIn();
+                }).always(function() {
+                    $btn.prop('disabled', false).text('ÁP DỤNG');
+                });
+            });
+
+            // Prevent form submit if loading
+            $('#checkoutForm').on('submit', function(e) {
+                // If validation failed, don't show loading on button
+                if(!$(this).valid()) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                const $btn = $('.btn-submit-order');
+                setTimeout(() => {
+                    $btn.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span> ĐANG XỬ LÝ...');
+                }, 10);
+            });
+        });
+    </script>
+}

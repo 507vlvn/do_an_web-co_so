@@ -1,0 +1,81 @@
+@model do_an.Models.SanPham
+@{
+    var hinh = Model.HinhAnhDaiDien;
+}
+<div class="card product-card border-0">
+    <div class="img-wrapper position-relative overflow-hidden">
+        @if (Model.PhanTramGiam > 0)
+        {
+            <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                <span class="discount-badge">-@Model.PhanTramGiam%</span>
+            </div>
+        }
+        @if (Model.SoLuong <= 0)
+        {
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-white bg-opacity-75" style="z-index: 5; backdrop-filter: blur(2px);">
+                <span class="badge bg-secondary rounded-pill px-3 py-2 shadow-sm">Hết hàng</span>
+            </div>
+        }
+        <a asp-controller="Store" asp-action="Detail" asp-route-id="@Model.Id" class="d-block text-center position-relative">
+            <img src="@hinh" class="card-img-top p-2" alt="@Model.TenSanPham"
+                 loading="lazy"
+                 onerror="this.onerror=null;this.src='/images/no-image.svg';" />
+        </a>
+        
+        <!-- Quick Action Overlay -->
+        <div class="quick-action">
+            <a asp-controller="Store" asp-action="Detail" asp-route-id="@Model.Id" class="btn-quick" title="Xem chi tiết">
+                <i class="bi bi-eye-fill"></i>
+            </a>
+            @if (Model.SoLuong > 0)
+            {
+                <button type="button" class="btn-quick" title="Thêm vào giỏ" onclick="$(this).closest('.product-card').find('form').submit()">
+                    <i class="bi bi-cart-plus-fill"></i>
+                </button>
+            }
+        </div>
+    </div>
+    <div class="card-body p-4 pt-0 d-flex flex-column">
+        <p class="small text-muted mb-2 fw-bold text-uppercase d-flex align-items-center justify-content-between" style="font-size: 0.65rem; letter-spacing: 0.5px;">
+            <span>@Model.DanhMuc?.TenDanhMuc</span>
+            <span class="text-warning" style="font-size: 0.75rem;">
+                <i class="bi bi-star-fill"></i> 5.0
+            </span>
+        </p>
+        <a asp-controller="Store" asp-action="Detail" asp-route-id="@Model.Id"
+           class="h6 fw-bold text-dark text-decoration-none d-block mb-3"
+           style="line-height:1.4; height: 2.8rem; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; transition: color 0.2s;"
+           onmouseover="this.style.color='var(--brand)'" onmouseout="this.style.color=''">
+            @Model.TenSanPham
+        </a>
+        <div class="mt-auto">
+            <div class="mb-3 d-flex align-items-center flex-wrap">
+                <span class="price-new me-2" style="background: -webkit-linear-gradient(45deg, var(--brand-dark), var(--brand)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    @Model.GiaBan.ToString("N0")đ
+                </span>
+                @if (Model.GiaGoc.HasValue)
+                {
+                    <span class="price-old text-muted">@Model.GiaGoc.Value.ToString("N0")đ</span>
+                }
+            </div>
+            <form asp-controller="GioHang" asp-action="ThemVaoAjax" method="post" onsubmit="return addToCartAjax(event, this)">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="sanPhamId" value="@Model.Id" />
+                <input type="hidden" name="soLuong" value="1" />
+                @if (Model.SoLuong <= 0)
+                {
+                    <button type="button" class="btn btn-light w-100 py-2 rounded-4 text-muted fw-bold" disabled style="font-size: 0.85rem; border: 1px dashed #cbd5e1;">
+                        <i class="bi bi-cart-x"></i> Hết hàng
+                    </button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-brand-outline w-100 py-2 rounded-4 fw-bold shadow-sm d-flex justify-content-center align-items-center gap-2">
+                        <i class="bi bi-cart-plus-fill fs-5"></i>
+                        <span>Thêm giỏ hàng</span>
+                    </button>
+                }
+            </form>
+        </div>
+    </div>
+</div>

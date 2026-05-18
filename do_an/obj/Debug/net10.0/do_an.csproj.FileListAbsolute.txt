@@ -1,0 +1,892 @@
+W:\repos\do_an\do_an\bin\Debug\net10.0\appsettings.Development.json
+W:\repos\do_an\do_an\bin\Debug\net10.0\appsettings.json
+W:\repos\do_an\do_an\bin\Debug\net10.0\do_an.staticwebassets.runtime.json
+W:\repos\do_an\do_an\bin\Debug\net10.0\do_an.staticwebassets.endpoints.json
+W:\repos\do_an\do_an\bin\Debug\net10.0\do_an.exe
+W:\repos\do_an\do_an\bin\Debug\net10.0\do_an.deps.json
+W:\repos\do_an\do_an\bin\Debug\net10.0\do_an.runtimeconfig.json
+W:\repos\do_an\do_an\bin\Debug\net10.0\do_an.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\do_an.pdb
+W:\repos\do_an\do_an\bin\Debug\net10.0\Azure.Core.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Azure.Identity.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\BCrypt.Net-Next.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Humanizer.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.Build.Locator.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.Data.SqlClient.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Design.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.Identity.Client.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.Identity.Client.Extensions.Msal.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.SqlServer.Server.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Microsoft.Win32.SystemEvents.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\Mono.TextTemplating.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.ClientModel.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.CodeDom.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Composition.AttributedModel.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Composition.Convention.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Composition.Hosting.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Composition.Runtime.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Composition.TypedParts.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Configuration.ConfigurationManager.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Drawing.Common.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Memory.Data.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Runtime.Caching.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Security.Cryptography.ProtectedData.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Security.Permissions.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\System.Windows.Extensions.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+W:\repos\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.csproj.AssemblyReference.cache
+W:\repos\do_an\do_an\obj\Debug\net10.0\rpswa.dswa.cache.json
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.GeneratedMSBuildEditorConfig.editorconfig
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.AssemblyInfoInputs.cache
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.AssemblyInfo.cs
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.csproj.CoreCompileInputs.cache
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.MvcApplicationPartsAssemblyInfo.cache
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.RazorAssemblyInfo.cache
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.RazorAssemblyInfo.cs
+W:\repos\do_an\do_an\obj\Debug\net10.0\rjimswa.dswa.cache.json
+W:\repos\do_an\do_an\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+W:\repos\do_an\do_an\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+W:\repos\do_an\do_an\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+W:\repos\do_an\do_an\obj\Debug\net10.0\scopedcss\bundle\do_an.styles.css
+W:\repos\do_an\do_an\obj\Debug\net10.0\scopedcss\projectbundle\do_an.bundle.scp.css
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\7mu56wzx1q-{0}-b9sayid5wm-b9sayid5wm.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\b94chyryfq-{0}-61n19gt1b8-61n19gt1b8.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\960e97vlts-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\bdc0yop0yk-{0}-bqjiyaj88i-bqjiyaj88i.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\9nq7a04n7n-{0}-c2jlpeoesf-c2jlpeoesf.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\czo17c8peh-{0}-erw9l3u2r3-erw9l3u2r3.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\jklo79fzo9-{0}-aexeepp0ev-aexeepp0ev.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\rwxd3k0rsj-{0}-d7shbmvgxk-d7shbmvgxk.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\qv5faxvuey-{0}-ausgxo2sd3-ausgxo2sd3.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\9g2gievo1e-{0}-k8d9w2qqmf-k8d9w2qqmf.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\44tlmksl5p-{0}-cosvhxvwiu-cosvhxvwiu.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\vmw9dxcbd7-{0}-ub07r2b239-ub07r2b239.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\8rhmw1y8cg-{0}-fvhpjtyr6v-fvhpjtyr6v.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\3fj3r7td5v-{0}-b7pk76d08c-b7pk76d08c.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\wf2hkv27oo-{0}-fsbi9cje9m-fsbi9cje9m.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\g0zyhkkkw8-{0}-rzd6atqjts-rzd6atqjts.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\ec3jku0rzd-{0}-ee0r1s7dh0-ee0r1s7dh0.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\h4xrlrmuct-{0}-dxx9fxp4il-dxx9fxp4il.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\5avypo2h5b-{0}-jd9uben2k1-jd9uben2k1.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\lhurxoxiu5-{0}-khv3u5hwcm-khv3u5hwcm.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\mgoztaqqfe-{0}-r4e9w2rdcm-r4e9w2rdcm.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\vgzfhg8tvk-{0}-lcd1t2u6c8-lcd1t2u6c8.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\hn1iwxglxa-{0}-c2oey78nd0-c2oey78nd0.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\vnl1yv8zl0-{0}-tdbxkamptv-tdbxkamptv.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\18vwwlkbb8-{0}-j5mq2jizvt-j5mq2jizvt.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\97p0hnd19h-{0}-06098lyss8-06098lyss8.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\nn4t0hu9e4-{0}-nvvlpmu67g-nvvlpmu67g.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\2gk6jdfx02-{0}-s35ty4nyc5-s35ty4nyc5.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\730blw3dth-{0}-pj5nd1wqec-pj5nd1wqec.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\w9jh554oa3-{0}-46ein0sx1k-46ein0sx1k.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\1ngdotzaac-{0}-v0zj4ognzu-v0zj4ognzu.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\7yqo3aqtn5-{0}-37tfw0ft22-37tfw0ft22.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\jov4pdg7br-{0}-hrwsygsryq-hrwsygsryq.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\rvrn9fjt21-{0}-pk9g2wxc8p-pk9g2wxc8p.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\l5mvlillx9-{0}-ft3s53vfgj-ft3s53vfgj.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\70lj1ckpah-{0}-6cfz1n2cew-6cfz1n2cew.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\tsuqcdos54-{0}-6pdc2jztkx-6pdc2jztkx.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\9g5d0xks9g-{0}-493y06b0oq-493y06b0oq.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\nnr2ttheqr-{0}-iovd86k7lj-iovd86k7lj.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\0z9wjmzxlr-{0}-vr1egmr9el-vr1egmr9el.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\w65rzsob6k-{0}-kbrnm935zg-kbrnm935zg.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\d6bkorgigg-{0}-jj8uyg4cgr-jj8uyg4cgr.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\evyyo2xo4p-{0}-y7v9cxd14o-y7v9cxd14o.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\0ldrmfqeke-{0}-notf2xhcfb-notf2xhcfb.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\yv9k7ujknk-{0}-h1s4sie4z3-h1s4sie4z3.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\y0gaphtxrk-{0}-63fj8s7r0e-63fj8s7r0e.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\f4w9sdng78-{0}-0j3bgjxly4-0j3bgjxly4.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\ix2zwdunrt-{0}-47otxtyo56-47otxtyo56.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\tz1ojoiqsv-{0}-4v8eqarkd7-4v8eqarkd7.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\hitccrnfuw-{0}-356vix0kms-356vix0kms.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\uqnwo6mfwi-{0}-83jwlth58m-83jwlth58m.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\9mylpxw14a-{0}-mrlpezrjn3-mrlpezrjn3.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\83aedmrcex-{0}-lzl9nlhx6b-lzl9nlhx6b.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\n488brdqns-{0}-ag7o75518u-ag7o75518u.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\h9dui4k507-{0}-x0q3zqp4vz-x0q3zqp4vz.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\ye0y7pfbxw-{0}-0i3buxo5is-0i3buxo5is.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\nozym1dbau-{0}-o1o13a6vjx-o1o13a6vjx.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\vnbkp3buqz-{0}-ttgo8qnofa-ttgo8qnofa.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\1sg6v274ju-{0}-2z0ns9nrw6-2z0ns9nrw6.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\rwwp6nxzn0-{0}-muycvpuwrr-muycvpuwrr.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\jnpuiibx92-{0}-87fc7y1x7t-87fc7y1x7t.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\fnijlinppf-{0}-mlv21k5csn-mlv21k5csn.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\d8nqbx64iq-{0}-994wxm72ux-994wxm72ux.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\mwpgdbvt8l-{0}-994wxm72ux-994wxm72ux.gz
+W:\repos\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.json
+W:\repos\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.json.cache
+W:\repos\do_an\do_an\obj\Debug\net10.0\staticwebassets.development.json
+W:\repos\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+W:\repos\do_an\do_an\obj\Debug\net10.0\swae.build.ex.cache
+W:\repos\do_an\do_an\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.csproj.Up2Date
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.dll
+W:\repos\do_an\do_an\obj\Debug\net10.0\refint\do_an.dll
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.pdb
+W:\repos\do_an\do_an\obj\Debug\net10.0\do_an.genruntimeconfig.cache
+W:\repos\do_an\do_an\obj\Debug\net10.0\ref\do_an.dll
+W:\repos\do_an\do_an\obj\Debug\net10.0\compressed\ot6zx7zqu3-{0}-x8e0fhnebo-x8e0fhnebo.gz
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\appsettings.Development.json
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\appsettings.json
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.staticwebassets.endpoints.json
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.staticwebassets.runtime.json
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.exe
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.deps.json
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.runtimeconfig.json
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.pdb
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Azure.Core.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Azure.Identity.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\BCrypt.Net-Next.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Humanizer.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Build.Locator.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Data.SqlClient.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Design.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Identity.Client.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Identity.Client.Extensions.Msal.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.SqlServer.Server.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Win32.SystemEvents.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\Mono.TextTemplating.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.ClientModel.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.CodeDom.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.AttributedModel.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.Convention.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.Hosting.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.Runtime.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.TypedParts.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Configuration.ConfigurationManager.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Drawing.Common.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Memory.Data.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Runtime.Caching.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Security.Cryptography.ProtectedData.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Security.Permissions.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Windows.Extensions.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+F:\Đồ án\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.csproj.AssemblyReference.cache
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\rpswa.dswa.cache.json
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.GeneratedMSBuildEditorConfig.editorconfig
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.AssemblyInfoInputs.cache
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.AssemblyInfo.cs
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.csproj.CoreCompileInputs.cache
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.MvcApplicationPartsAssemblyInfo.cache
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.RazorAssemblyInfo.cache
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.RazorAssemblyInfo.cs
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\rjimswa.dswa.cache.json
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\scopedcss\bundle\do_an.styles.css
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\scopedcss\projectbundle\do_an.bundle.scp.css
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\7mu56wzx1q-{0}-b9sayid5wm-b9sayid5wm.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\b94chyryfq-{0}-61n19gt1b8-61n19gt1b8.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ot6zx7zqu3-{0}-x8e0fhnebo-x8e0fhnebo.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\960e97vlts-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\bdc0yop0yk-{0}-bqjiyaj88i-bqjiyaj88i.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9nq7a04n7n-{0}-c2jlpeoesf-c2jlpeoesf.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\czo17c8peh-{0}-erw9l3u2r3-erw9l3u2r3.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\jklo79fzo9-{0}-aexeepp0ev-aexeepp0ev.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\rwxd3k0rsj-{0}-d7shbmvgxk-d7shbmvgxk.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\qv5faxvuey-{0}-ausgxo2sd3-ausgxo2sd3.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9g2gievo1e-{0}-k8d9w2qqmf-k8d9w2qqmf.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\44tlmksl5p-{0}-cosvhxvwiu-cosvhxvwiu.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vmw9dxcbd7-{0}-ub07r2b239-ub07r2b239.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\8rhmw1y8cg-{0}-fvhpjtyr6v-fvhpjtyr6v.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\3fj3r7td5v-{0}-b7pk76d08c-b7pk76d08c.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\wf2hkv27oo-{0}-fsbi9cje9m-fsbi9cje9m.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\g0zyhkkkw8-{0}-rzd6atqjts-rzd6atqjts.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ec3jku0rzd-{0}-ee0r1s7dh0-ee0r1s7dh0.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\h4xrlrmuct-{0}-dxx9fxp4il-dxx9fxp4il.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\5avypo2h5b-{0}-jd9uben2k1-jd9uben2k1.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\lhurxoxiu5-{0}-khv3u5hwcm-khv3u5hwcm.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\mgoztaqqfe-{0}-r4e9w2rdcm-r4e9w2rdcm.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vgzfhg8tvk-{0}-lcd1t2u6c8-lcd1t2u6c8.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\hn1iwxglxa-{0}-c2oey78nd0-c2oey78nd0.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vnl1yv8zl0-{0}-tdbxkamptv-tdbxkamptv.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\18vwwlkbb8-{0}-j5mq2jizvt-j5mq2jizvt.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\97p0hnd19h-{0}-06098lyss8-06098lyss8.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\nn4t0hu9e4-{0}-nvvlpmu67g-nvvlpmu67g.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\2gk6jdfx02-{0}-s35ty4nyc5-s35ty4nyc5.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\730blw3dth-{0}-pj5nd1wqec-pj5nd1wqec.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\w9jh554oa3-{0}-46ein0sx1k-46ein0sx1k.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\1ngdotzaac-{0}-v0zj4ognzu-v0zj4ognzu.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\7yqo3aqtn5-{0}-37tfw0ft22-37tfw0ft22.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\jov4pdg7br-{0}-hrwsygsryq-hrwsygsryq.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\rvrn9fjt21-{0}-pk9g2wxc8p-pk9g2wxc8p.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\l5mvlillx9-{0}-ft3s53vfgj-ft3s53vfgj.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\70lj1ckpah-{0}-6cfz1n2cew-6cfz1n2cew.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\tsuqcdos54-{0}-6pdc2jztkx-6pdc2jztkx.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9g5d0xks9g-{0}-493y06b0oq-493y06b0oq.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\nnr2ttheqr-{0}-iovd86k7lj-iovd86k7lj.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\0z9wjmzxlr-{0}-vr1egmr9el-vr1egmr9el.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\w65rzsob6k-{0}-kbrnm935zg-kbrnm935zg.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\d6bkorgigg-{0}-jj8uyg4cgr-jj8uyg4cgr.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\evyyo2xo4p-{0}-y7v9cxd14o-y7v9cxd14o.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\0ldrmfqeke-{0}-notf2xhcfb-notf2xhcfb.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\yv9k7ujknk-{0}-h1s4sie4z3-h1s4sie4z3.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\y0gaphtxrk-{0}-63fj8s7r0e-63fj8s7r0e.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\f4w9sdng78-{0}-0j3bgjxly4-0j3bgjxly4.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ix2zwdunrt-{0}-47otxtyo56-47otxtyo56.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\tz1ojoiqsv-{0}-4v8eqarkd7-4v8eqarkd7.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\hitccrnfuw-{0}-356vix0kms-356vix0kms.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\uqnwo6mfwi-{0}-83jwlth58m-83jwlth58m.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9mylpxw14a-{0}-mrlpezrjn3-mrlpezrjn3.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\83aedmrcex-{0}-lzl9nlhx6b-lzl9nlhx6b.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\n488brdqns-{0}-ag7o75518u-ag7o75518u.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\h9dui4k507-{0}-x0q3zqp4vz-x0q3zqp4vz.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ye0y7pfbxw-{0}-0i3buxo5is-0i3buxo5is.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\nozym1dbau-{0}-o1o13a6vjx-o1o13a6vjx.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vnbkp3buqz-{0}-ttgo8qnofa-ttgo8qnofa.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\1sg6v274ju-{0}-2z0ns9nrw6-2z0ns9nrw6.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\rwwp6nxzn0-{0}-muycvpuwrr-muycvpuwrr.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\jnpuiibx92-{0}-87fc7y1x7t-87fc7y1x7t.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\fnijlinppf-{0}-mlv21k5csn-mlv21k5csn.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\d8nqbx64iq-{0}-994wxm72ux-994wxm72ux.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\mwpgdbvt8l-{0}-994wxm72ux-994wxm72ux.gz
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.json
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.json.cache
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.development.json
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\swae.build.ex.cache
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.csproj.Up2Date
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.dll
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\refint\do_an.dll
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.pdb
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.genruntimeconfig.cache
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\ref\do_an.dll
+F:\Đồ án\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\appsettings.Development.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\appsettings.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.staticwebassets.endpoints.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.staticwebassets.runtime.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.exe
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.deps.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.runtimeconfig.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.pdb
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Azure.Core.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Azure.Identity.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\BCrypt.Net-Next.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Humanizer.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Build.Locator.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Data.SqlClient.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Design.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Identity.Client.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Identity.Client.Extensions.Msal.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.SqlServer.Server.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Win32.SystemEvents.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Mono.TextTemplating.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.ClientModel.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.CodeDom.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.AttributedModel.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.Convention.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.Hosting.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.Runtime.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.TypedParts.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Configuration.ConfigurationManager.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Drawing.Common.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Memory.Data.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Runtime.Caching.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Security.Cryptography.ProtectedData.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Security.Permissions.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Windows.Extensions.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.csproj.AssemblyReference.cache
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\rpswa.dswa.cache.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.GeneratedMSBuildEditorConfig.editorconfig
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.AssemblyInfoInputs.cache
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.AssemblyInfo.cs
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.csproj.CoreCompileInputs.cache
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.MvcApplicationPartsAssemblyInfo.cache
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.RazorAssemblyInfo.cache
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.RazorAssemblyInfo.cs
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\rjimswa.dswa.cache.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\scopedcss\bundle\do_an.styles.css
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\scopedcss\projectbundle\do_an.bundle.scp.css
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\7mu56wzx1q-{0}-b9sayid5wm-b9sayid5wm.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\b94chyryfq-{0}-61n19gt1b8-61n19gt1b8.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ot6zx7zqu3-{0}-x8e0fhnebo-x8e0fhnebo.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\960e97vlts-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\bdc0yop0yk-{0}-bqjiyaj88i-bqjiyaj88i.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9nq7a04n7n-{0}-c2jlpeoesf-c2jlpeoesf.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\czo17c8peh-{0}-erw9l3u2r3-erw9l3u2r3.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\jklo79fzo9-{0}-aexeepp0ev-aexeepp0ev.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\rwxd3k0rsj-{0}-d7shbmvgxk-d7shbmvgxk.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\qv5faxvuey-{0}-ausgxo2sd3-ausgxo2sd3.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9g2gievo1e-{0}-k8d9w2qqmf-k8d9w2qqmf.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\44tlmksl5p-{0}-cosvhxvwiu-cosvhxvwiu.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vmw9dxcbd7-{0}-ub07r2b239-ub07r2b239.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\8rhmw1y8cg-{0}-fvhpjtyr6v-fvhpjtyr6v.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\3fj3r7td5v-{0}-b7pk76d08c-b7pk76d08c.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\wf2hkv27oo-{0}-fsbi9cje9m-fsbi9cje9m.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\g0zyhkkkw8-{0}-rzd6atqjts-rzd6atqjts.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ec3jku0rzd-{0}-ee0r1s7dh0-ee0r1s7dh0.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\h4xrlrmuct-{0}-dxx9fxp4il-dxx9fxp4il.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\5avypo2h5b-{0}-jd9uben2k1-jd9uben2k1.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\lhurxoxiu5-{0}-khv3u5hwcm-khv3u5hwcm.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\mgoztaqqfe-{0}-r4e9w2rdcm-r4e9w2rdcm.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vgzfhg8tvk-{0}-lcd1t2u6c8-lcd1t2u6c8.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\hn1iwxglxa-{0}-c2oey78nd0-c2oey78nd0.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vnl1yv8zl0-{0}-tdbxkamptv-tdbxkamptv.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\18vwwlkbb8-{0}-j5mq2jizvt-j5mq2jizvt.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\97p0hnd19h-{0}-06098lyss8-06098lyss8.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\nn4t0hu9e4-{0}-nvvlpmu67g-nvvlpmu67g.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\2gk6jdfx02-{0}-s35ty4nyc5-s35ty4nyc5.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\730blw3dth-{0}-pj5nd1wqec-pj5nd1wqec.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\w9jh554oa3-{0}-46ein0sx1k-46ein0sx1k.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\1ngdotzaac-{0}-v0zj4ognzu-v0zj4ognzu.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\7yqo3aqtn5-{0}-37tfw0ft22-37tfw0ft22.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\jov4pdg7br-{0}-hrwsygsryq-hrwsygsryq.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\rvrn9fjt21-{0}-pk9g2wxc8p-pk9g2wxc8p.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\l5mvlillx9-{0}-ft3s53vfgj-ft3s53vfgj.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\70lj1ckpah-{0}-6cfz1n2cew-6cfz1n2cew.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\tsuqcdos54-{0}-6pdc2jztkx-6pdc2jztkx.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9g5d0xks9g-{0}-493y06b0oq-493y06b0oq.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\nnr2ttheqr-{0}-iovd86k7lj-iovd86k7lj.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\0z9wjmzxlr-{0}-vr1egmr9el-vr1egmr9el.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\w65rzsob6k-{0}-kbrnm935zg-kbrnm935zg.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\d6bkorgigg-{0}-jj8uyg4cgr-jj8uyg4cgr.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\evyyo2xo4p-{0}-y7v9cxd14o-y7v9cxd14o.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\0ldrmfqeke-{0}-notf2xhcfb-notf2xhcfb.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\yv9k7ujknk-{0}-h1s4sie4z3-h1s4sie4z3.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\y0gaphtxrk-{0}-63fj8s7r0e-63fj8s7r0e.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\f4w9sdng78-{0}-0j3bgjxly4-0j3bgjxly4.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ix2zwdunrt-{0}-47otxtyo56-47otxtyo56.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\tz1ojoiqsv-{0}-4v8eqarkd7-4v8eqarkd7.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\hitccrnfuw-{0}-356vix0kms-356vix0kms.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\uqnwo6mfwi-{0}-83jwlth58m-83jwlth58m.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9mylpxw14a-{0}-mrlpezrjn3-mrlpezrjn3.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\83aedmrcex-{0}-lzl9nlhx6b-lzl9nlhx6b.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\n488brdqns-{0}-ag7o75518u-ag7o75518u.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\h9dui4k507-{0}-x0q3zqp4vz-x0q3zqp4vz.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ye0y7pfbxw-{0}-0i3buxo5is-0i3buxo5is.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\nozym1dbau-{0}-o1o13a6vjx-o1o13a6vjx.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vnbkp3buqz-{0}-ttgo8qnofa-ttgo8qnofa.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\1sg6v274ju-{0}-2z0ns9nrw6-2z0ns9nrw6.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\rwwp6nxzn0-{0}-muycvpuwrr-muycvpuwrr.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\jnpuiibx92-{0}-87fc7y1x7t-87fc7y1x7t.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\fnijlinppf-{0}-mlv21k5csn-mlv21k5csn.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\d8nqbx64iq-{0}-994wxm72ux-994wxm72ux.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\mwpgdbvt8l-{0}-994wxm72ux-994wxm72ux.gz
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.json.cache
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.development.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\swae.build.ex.cache
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.csproj.Up2Date
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\refint\do_an.dll
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.pdb
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.genruntimeconfig.cache
+F:\Đồ án\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\ref\do_an.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\appsettings.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.staticwebassets.endpoints.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\appsettings.Development.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.staticwebassets.runtime.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.exe
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.deps.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.runtimeconfig.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\do_an.pdb
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Azure.Core.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Azure.Identity.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\BCrypt.Net-Next.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Humanizer.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Build.Locator.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Data.SqlClient.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Design.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Identity.Client.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Identity.Client.Extensions.Msal.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Abstractions.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.JsonWebTokens.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Logging.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.IdentityModel.Tokens.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.SqlServer.Server.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Microsoft.Win32.SystemEvents.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\Mono.TextTemplating.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.ClientModel.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.CodeDom.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.AttributedModel.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.Convention.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.Hosting.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.Runtime.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Composition.TypedParts.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Configuration.ConfigurationManager.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Drawing.Common.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.IdentityModel.Tokens.Jwt.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Memory.Data.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Runtime.Caching.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Security.Cryptography.ProtectedData.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Security.Permissions.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\System.Windows.Extensions.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\bin\Debug\net10.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.csproj.AssemblyReference.cache
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\rpswa.dswa.cache.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.GeneratedMSBuildEditorConfig.editorconfig
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.AssemblyInfoInputs.cache
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.AssemblyInfo.cs
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.csproj.CoreCompileInputs.cache
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.MvcApplicationPartsAssemblyInfo.cache
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.RazorAssemblyInfo.cache
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.RazorAssemblyInfo.cs
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\rjimswa.dswa.cache.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\scopedcss\bundle\do_an.styles.css
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\scopedcss\projectbundle\do_an.bundle.scp.css
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\7mu56wzx1q-{0}-b9sayid5wm-b9sayid5wm.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\b94chyryfq-{0}-61n19gt1b8-61n19gt1b8.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ot6zx7zqu3-{0}-x8e0fhnebo-x8e0fhnebo.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\960e97vlts-{0}-xtxxf3hu2r-xtxxf3hu2r.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\bdc0yop0yk-{0}-bqjiyaj88i-bqjiyaj88i.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9nq7a04n7n-{0}-c2jlpeoesf-c2jlpeoesf.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\czo17c8peh-{0}-erw9l3u2r3-erw9l3u2r3.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\jklo79fzo9-{0}-aexeepp0ev-aexeepp0ev.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\rwxd3k0rsj-{0}-d7shbmvgxk-d7shbmvgxk.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\qv5faxvuey-{0}-ausgxo2sd3-ausgxo2sd3.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9g2gievo1e-{0}-k8d9w2qqmf-k8d9w2qqmf.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\44tlmksl5p-{0}-cosvhxvwiu-cosvhxvwiu.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vmw9dxcbd7-{0}-ub07r2b239-ub07r2b239.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\8rhmw1y8cg-{0}-fvhpjtyr6v-fvhpjtyr6v.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\3fj3r7td5v-{0}-b7pk76d08c-b7pk76d08c.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\wf2hkv27oo-{0}-fsbi9cje9m-fsbi9cje9m.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\g0zyhkkkw8-{0}-rzd6atqjts-rzd6atqjts.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ec3jku0rzd-{0}-ee0r1s7dh0-ee0r1s7dh0.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\h4xrlrmuct-{0}-dxx9fxp4il-dxx9fxp4il.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\5avypo2h5b-{0}-jd9uben2k1-jd9uben2k1.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\lhurxoxiu5-{0}-khv3u5hwcm-khv3u5hwcm.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\mgoztaqqfe-{0}-r4e9w2rdcm-r4e9w2rdcm.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vgzfhg8tvk-{0}-lcd1t2u6c8-lcd1t2u6c8.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\hn1iwxglxa-{0}-c2oey78nd0-c2oey78nd0.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vnl1yv8zl0-{0}-tdbxkamptv-tdbxkamptv.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\18vwwlkbb8-{0}-j5mq2jizvt-j5mq2jizvt.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\97p0hnd19h-{0}-06098lyss8-06098lyss8.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\nn4t0hu9e4-{0}-nvvlpmu67g-nvvlpmu67g.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\2gk6jdfx02-{0}-s35ty4nyc5-s35ty4nyc5.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\730blw3dth-{0}-pj5nd1wqec-pj5nd1wqec.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\w9jh554oa3-{0}-46ein0sx1k-46ein0sx1k.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\1ngdotzaac-{0}-v0zj4ognzu-v0zj4ognzu.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\7yqo3aqtn5-{0}-37tfw0ft22-37tfw0ft22.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\jov4pdg7br-{0}-hrwsygsryq-hrwsygsryq.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\rvrn9fjt21-{0}-pk9g2wxc8p-pk9g2wxc8p.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\l5mvlillx9-{0}-ft3s53vfgj-ft3s53vfgj.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\70lj1ckpah-{0}-6cfz1n2cew-6cfz1n2cew.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\tsuqcdos54-{0}-6pdc2jztkx-6pdc2jztkx.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9g5d0xks9g-{0}-493y06b0oq-493y06b0oq.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\nnr2ttheqr-{0}-iovd86k7lj-iovd86k7lj.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\0z9wjmzxlr-{0}-vr1egmr9el-vr1egmr9el.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\w65rzsob6k-{0}-kbrnm935zg-kbrnm935zg.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\d6bkorgigg-{0}-jj8uyg4cgr-jj8uyg4cgr.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\evyyo2xo4p-{0}-y7v9cxd14o-y7v9cxd14o.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\0ldrmfqeke-{0}-notf2xhcfb-notf2xhcfb.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\yv9k7ujknk-{0}-h1s4sie4z3-h1s4sie4z3.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\y0gaphtxrk-{0}-63fj8s7r0e-63fj8s7r0e.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\f4w9sdng78-{0}-0j3bgjxly4-0j3bgjxly4.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ix2zwdunrt-{0}-47otxtyo56-47otxtyo56.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\tz1ojoiqsv-{0}-4v8eqarkd7-4v8eqarkd7.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\hitccrnfuw-{0}-356vix0kms-356vix0kms.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\uqnwo6mfwi-{0}-83jwlth58m-83jwlth58m.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\9mylpxw14a-{0}-mrlpezrjn3-mrlpezrjn3.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\83aedmrcex-{0}-lzl9nlhx6b-lzl9nlhx6b.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\n488brdqns-{0}-ag7o75518u-ag7o75518u.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\h9dui4k507-{0}-x0q3zqp4vz-x0q3zqp4vz.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\ye0y7pfbxw-{0}-0i3buxo5is-0i3buxo5is.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\nozym1dbau-{0}-o1o13a6vjx-o1o13a6vjx.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\vnbkp3buqz-{0}-ttgo8qnofa-ttgo8qnofa.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\1sg6v274ju-{0}-2z0ns9nrw6-2z0ns9nrw6.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\rwwp6nxzn0-{0}-muycvpuwrr-muycvpuwrr.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\jnpuiibx92-{0}-87fc7y1x7t-87fc7y1x7t.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\fnijlinppf-{0}-mlv21k5csn-mlv21k5csn.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\d8nqbx64iq-{0}-994wxm72ux-994wxm72ux.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\compressed\mwpgdbvt8l-{0}-994wxm72ux-994wxm72ux.gz
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.json.cache
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.development.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.build.endpoints.json
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\swae.build.ex.cache
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.csproj.Up2Date
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\refint\do_an.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.pdb
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\do_an.genruntimeconfig.cache
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\ref\do_an.dll
+W:\do_an (2)\do_an (2)\do_an (2)\do_an\do_an\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

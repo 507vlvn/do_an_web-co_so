@@ -1,0 +1,203 @@
+@model List<do_an.Helpers.CartItem>
+@{
+    ViewData["Title"] = "Giỏ hàng của bạn";
+    Layout = "_StoreLayout";
+    
+    var donThuocGroups = Model.Where(i => i.DonThuocId != null).GroupBy(i => new { i.DonThuocId, i.TenDonThuoc }).ToList();
+    var individualItems = Model.Where(i => i.DonThuocId == null).ToList();
+    
+    int uiItemCount = donThuocGroups.Count + individualItems.Count;
+    var total = Model.Sum(i => i.ThanhTien);
+}
+
+<div class="py-4">
+    <div class="d-flex align-items-center justify-content-between mb-5">
+        <div>
+            <h1 class="display-6 fw-800 text-dark mb-1" style="letter-spacing: -2px;">Giỏ hàng</h1>
+            <p class="text-muted fw-600 mb-0">Bạn đang có <span class="text-brand">@uiItemCount</span> mục trong giỏ</p>
+        </div>
+        @if (Model.Count > 0)
+        {
+            <a asp-controller="Store" asp-action="Index" class="btn btn-link text-brand fw-bold text-decoration-none px-0">
+                <i class="bi bi-chevron-left me-1"></i> Tiếp tục mua sắm
+            </a>
+        }
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="text-center py-5 bg-white rounded-5 shadow-sm border border-dashed p-5" style="border-width: 2px;">
+            <div class="mb-4 d-inline-block p-4 rounded-circle bg-brand-soft text-brand">
+                <i class="bi bi-cart-x fs-1"></i>
+            </div>
+            <h3 class="fw-800 text-dark mb-3">Giỏ hàng trống!</h3>
+            <p class="text-muted mb-5 mx-auto fw-500" style="max-width: 400px;">
+                Có vẻ như bạn chưa chọn được sản phẩm nào. Hãy khám phá hàng ngàn sản phẩm chất lượng của chúng tôi nhé.
+            </p>
+            <a asp-controller="Store" asp-action="Index" class="btn btn-brand rounded-pill px-5 py-3 fw-800 text-white shadow-brand">
+                <i class="bi bi-shop me-2"></i> KHÁM PHÁ CỬA HÀNG
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            <!-- Product List -->
+            <div class="col-lg-8">
+                <div class="bg-white rounded-5 shadow-sm border p-0 overflow-hidden" style="border-color: #f1f5f9 !important;">
+                    <div class="table-responsive">
+                        <table class="table table-borderless align-middle mb-0">
+                            <thead class="bg-light border-bottom">
+                                <tr class="text-muted fw-800" style="font-size: 0.75rem; letter-spacing: 1px; text-uppercase: uppercase;">
+                                    <th class="ps-4 py-3">SẢN PHẨM / ĐƠN THUỐC</th>
+                                    <th class="py-3 text-center" style="width: 150px;">SỐ LƯỢNG</th>
+                                    <th class="py-3 text-end pe-4" style="width: 150px;">THÀNH TIỀN</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <!-- Nhóm Đơn Thuốc -->
+                                @foreach (var group in donThuocGroups)
+                                {
+                                    <tr class="border-bottom-hover bg-brand-soft bg-opacity-10">
+                                        <td class="ps-4 py-4">
+                                            <div class="d-flex align-items-center gap-4">
+                                                <div class="flex-shrink-0 bg-white rounded-4 p-2 border border-brand" style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                                                    <i class="bi bi-clipboard2-pulse fs-1 text-brand"></i>
+                                                </div>
+                                                <div>
+                                                    <h6 class="fw-800 text-brand mb-1">@group.Key.TenDonThuoc</h6>
+                                                    <span class="text-muted small fw-600">Bao gồm: @group.Count() loại thuốc</span>
+                                                    <div class="mt-2">
+                                                        <form asp-action="XoaDonThuoc" method="post" onsubmit="return confirm('Bạn có chắc muốn xóa toàn bộ đơn thuốc này khỏi giỏ hàng?')">
+                                                            @Html.AntiForgeryToken()
+                                                            <input type="hidden" name="donThuocId" value="@group.Key.DonThuocId" />
+                                                            <button type="submit" class="btn btn-sm btn-link text-danger p-0 fw-bold text-decoration-none" style="font-size: 0.75rem;">
+                                                                <i class="bi bi-trash3 me-1"></i> XÓA ĐƠN THUỐC
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 text-center">
+                                            <span class="badge bg-white text-brand border border-brand px-3 py-2 fw-800">1 LIỆU TRÌNH</span>
+                                        </td>
+                                        <td class="pe-4 py-4 text-end">
+                                            @{
+                                                var groupTotal = group.Sum(i => i.ThanhTien);
+                                            }
+                                            <span class="fw-800 text-brand fs-5">@groupTotal.ToString("N0")đ</span>
+                                        </td>
+                                    </tr>
+                                }
+
+                                <!-- Sản phẩm lẻ -->
+                                @foreach (var item in individualItems)
+                                {
+                                    <tr class="border-bottom-hover">
+                                        <td class="ps-4 py-4">
+                                            <div class="d-flex align-items-center gap-4">
+                                                <div class="flex-shrink-0 bg-light rounded-4 p-2 border" style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center;">
+                                                    <img src="@(item.HinhAnh ?? "/images/no-image.svg")" class="img-fluid" style="max-height: 80px; object-fit: contain;"
+                                                         onerror="this.onerror=null;this.src='/images/no-image.svg'" />
+                                                </div>
+                                                <div>
+                                                    <a asp-controller="Store" asp-action="Detail" asp-route-id="@item.SanPhamId" class="text-decoration-none">
+                                                        <h6 class="fw-800 text-dark mb-1 hover-text-brand transition-all">@item.TenSanPham</h6>
+                                                    </a>
+                                                    <span class="text-muted small fw-600">Đơn giá: <span class="text-brand fw-800">@item.GiaBan.ToString("N0")đ</span></span>
+                                                    <div class="mt-2">
+                                                        <form asp-action="Xoa" method="post" onsubmit="return confirm('Xóa sản phẩm này?')">
+                                                            @Html.AntiForgeryToken()
+                                                            <input type="hidden" name="sanPhamId" value="@item.SanPhamId" />
+                                                            <button type="submit" class="btn btn-sm btn-link text-danger p-0 fw-bold text-decoration-none" style="font-size: 0.75rem;">
+                                                                <i class="bi bi-trash3 me-1"></i> XÓA
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4">
+                                            <form asp-action="CapNhat" method="post" class="d-flex justify-content-center">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="sanPhamId" value="@item.SanPhamId" />
+                                                <div class="d-flex align-items-center bg-light rounded-4 px-2 border" style="height: 48px;">
+                                                    <button type="submit" name="soLuong" value="@(item.SoLuong - 1)" 
+                                                            class="btn btn-link text-brand p-1"><i class="bi bi-dash-lg fw-bold"></i></button>
+                                                    <input type="text" class="form-control text-center bg-transparent border-0 fw-800 p-0" 
+                                                           value="@item.SoLuong" readonly style="width: 40px; font-size: 1rem;">
+                                                    <button type="submit" name="soLuong" value="@(item.SoLuong + 1)" 
+                                                            class="btn btn-link text-brand p-1"><i class="bi bi-plus-lg fw-bold"></i></button>
+                                                </div>
+                                            </form>
+                                        </td>
+                                        <td class="pe-4 py-4 text-end">
+                                            <span class="fw-800 text-dark fs-5">@item.ThanhTien.ToString("N0")đ</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Sidebar -->
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 24px;">
+                    <div class="bg-white rounded-5 shadow-sm border p-4 mb-4" style="border-color: #f1f5f9 !important;">
+                        <h5 class="fw-800 text-dark mb-4">Tổng quan đơn hàng</h5>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div class="d-flex justify-content-between text-muted fw-600">
+                                <span>Tạm tính (@uiItemCount mục)</span>
+                                <span class="text-dark fw-800">@total.ToString("N0")đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between text-muted fw-600">
+                                <span>Phí vận chuyển</span>
+                                <span class="badge bg-brand-soft text-brand rounded-pill">MIỄN PHÍ</span>
+                            </div>
+                        </div>
+
+                        <div class="border-top pt-4 mb-5">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <span class="fw-800 text-dark h5 mb-0">TỔNG CỘNG</span>
+                                <div class="text-end">
+                                    <div class="h3 fw-800 text-brand mb-0" style="letter-spacing: -1.5px;">@total.ToString("N0")đ</div>
+                                    <p class="text-muted small mb-0 fw-500">(Đã bao gồm VAT)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a asp-action="Checkout" class="btn btn-brand w-100 py-3 rounded-4 fw-800 text-white shadow-brand mb-3"
+                           style="background: linear-gradient(135deg, var(--brand-light), var(--brand)); border: none;">
+                            THANH TOÁN NGAY <i class="bi bi-arrow-right-circle ms-2 fs-5"></i>
+                        </a>
+                        
+                        <div class="bg-light rounded-4 p-3 d-flex align-items-center gap-3">
+                            <div class="rounded-circle bg-white p-2 shadow-sm"><i class="bi bi-shield-check text-success"></i></div>
+                            <span class="small fw-600 text-muted">Cam kết bảo mật & chính hãng 100%</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center p-3 rounded-4 border border-dashed text-muted small fw-600">
+                        <i class="bi bi-info-circle me-1"></i> Giao hàng siêu tốc trong vòng 2H
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .divide-y tr:not(:last-child) {
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .border-bottom-hover:hover {
+        background-color: #f8fafc;
+    }
+    .space-y-3 > *:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+</style>

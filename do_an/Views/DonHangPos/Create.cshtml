@@ -1,0 +1,411 @@
+@model do_an.ViewModels.CreateHoaDonViewModel
+@using do_an.Models
+@{
+    ViewData["Title"] = "Lập Hóa Đơn Bán Hàng";
+    var nhanViens = ViewBag.NhanViens as IEnumerable<TaiKhoan> ?? new List<TaiKhoan>();
+    var sanPhams = ViewBag.SanPhams as IEnumerable<SanPham> ?? new List<SanPham>();
+}
+
+<style>
+    .pos-container {
+        display: flex;
+        gap: 24px;
+        min-height: calc(100vh - 180px);
+    }
+    .pos-sidebar {
+        flex: 0 0 400px;
+    }
+    .pos-main {
+        flex: 1;
+    }
+    .bill-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+    }
+    .bill-header {
+        background: #f8fafc;
+        border-bottom: 1px dashed #e2e8f0;
+        padding: 24px;
+        border-radius: 20px 20px 0 0;
+    }
+    .bill-body {
+        flex: 1;
+        padding: 12px 24px;
+    }
+    .bill-footer {
+        background: #f8fafc;
+        border-top: 1px dashed #e2e8f0;
+        padding: 24px;
+        border-radius: 0 0 20px 20px;
+    }
+    .medicine-item:hover {
+        background: #f1f5f9;
+        cursor: pointer;
+    }
+    .total-amount {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #059669;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold text-dark mb-1"><i class="bi bi-printer-fill text-brand me-2"></i>Lập Hóa Đơn</h3>
+        <p class="text-muted small mb-0">Hệ thống bán lẻ trực tiếp tại quầy</p>
+    </div>
+    <a asp-action="Index" class="btn btn-light rounded-pill px-4">
+        <i class="bi bi-arrow-left me-2"></i> Quay lại danh sách
+    </a>
+</div>
+
+<form asp-action="Create" method="post" id="formHoaDon">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="ItemsJson" id="itemsJson" value="[]" />
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div asp-validation-summary="All" class="alert alert-danger rounded-4 border-0 mb-4" role="alert"></div>
+    }
+
+    <div class="pos-container">
+        <!-- LEFT: SELECTION SIDEBAR -->
+        <div class="pos-sidebar">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="card-header bg-brand text-white py-3 border-0">
+                    <h6 class="fw-bold mb-0"><i class="bi bi-capsule-pill me-2"></i> Thêm sản phẩm</h6>
+                </div>
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Nhân viên lập đơn</label>
+                        <select name="TaiKhoanId" class="form-select bg-light border-0 py-2">
+                            <option value="">-- Chọn nhân viên --</option>
+                            @foreach (var nv in nhanViens)
+                            {
+                                <option value="@nv.TenDangNhap">@nv.HoTen (@nv.TenDangNhap)</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Tìm & Chọn sản phẩm</label>
+                        <select id="selThuoc" class="form-select bg-light border-0 py-2">
+                            <option value="">-- Gõ tên món hoặc mã --</option>
+                            @foreach (var t in sanPhams)
+                            {
+                                <option value="@t.Id"
+                                        data-ten="@t.TenSanPham"
+                                        data-gia="@t.GiaBan"
+                                        data-soluong="@t.SoLuong"
+                                        data-donvi="@t.DonViTinh">
+                                    @t.TenSanPham (@t.DonViTinh) — Còn @t.SoLuong
+                                </option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase">Sử dụng/Ngày</label>
+                            <div class="input-group">
+                                <input id="txtSoVien" type="number" class="form-control bg-light border-0" min="1" value="1" placeholder="S.lượng/viên" />
+                                <span class="input-group-text bg-light border-0 text-muted">/ngày</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase">Số ngày dùng</label>
+                            <div class="input-group">
+                                <input id="txtSoNgay" type="number" class="form-control bg-light border-0" min="1" value="1" />
+                                <span class="input-group-text bg-light border-0 text-muted">ngày</span>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-1">
+                            <small class="text-muted"><i class="bi bi-info-circle"></i> Sản phẩm bán lẻ không dùng theo ngày có thể điền Số ngày = 1.</small>
+                        </div>
+                    </div>
+
+                    <!-- Thời điểm uống & Cách dùng -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase">Thời điểm uống</label>
+                            <select id="selThoiDiem" class="form-select bg-light border-0 py-2">
+                                <option value="">-- Trống --</option>
+                                <option value="Sáng"> Sáng</option>
+                                <option value="Trưa"> Trưa</option>
+                                <option value="Chiều"> Chiều</option>
+                                <option value="Tối"> Tối</option>
+                                <option value="Sáng - Tối"> Sáng - Tối</option>
+                                <option value="Sáng - Trưa - Tối"> Sáng - Trưa - Tối</option>
+                                <option value="Sáng - Trưa - Chiều - Tối">Cả ngày (4 lần)</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-muted text-uppercase">Cách dùng</label>
+                            <select id="selCachDung" class="form-select bg-light border-0 py-2">
+                                <option value="">-- Trống --</option>
+                                <option value="Trước ăn"> Trước ăn</option>
+                                <option value="Sau ăn"> Sau ăn</option>
+                                <option value="Trong khi ăn">Trong khi ăn</option>
+                                <option value="Lúc đói">Lúc đói</option>
+                                <option value="Trước khi ngủ"> Trước khi ngủ</option>
+                                <option value="Khi cần">Khẩn Cấp</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Ghi chú -->
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Ghi chú / Lời dặn</label>
+                        <textarea id="txtGhiChu" rows="2" class="form-control bg-light border-0" placeholder="Uống sau ăn, tránh rượu bia... (nếu cần)"></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted text-uppercase">Đơn giá áp dụng</label>
+                        <div class="input-group">
+                            <input id="txtGiaBan" type="text" class="form-control bg-light border-0 fw-bold text-brand" readonly placeholder="0" />
+                            <span class="input-group-text bg-light border-0 text-muted">đ/v</span>
+                        </div>
+                    </div>
+
+                    <button type="button" id="btnAddItem" class="btn btn-brand w-100 py-3 rounded-pill fw-bold">
+                        <i class="bi bi-plus-circle-fill me-2"></i> THÊM VÀO HÓA ĐƠN
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card border-0 bg-info bg-opacity-10 rounded-4">
+                <div class="card-body p-3">
+                    <p class="small text-info-emphasis mb-0">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        Hệ thống tự động trừ kho đối với các sản phẩm được thanh toán dựa trên FEFO. Số lượng tổng trừ đi tính bằng <b>(Sử dụng/Ngày) × (Số ngày dùng)</b>.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: BILL AREA -->
+        <div class="pos-main">
+            <div class="bill-card h-100">
+                <div class="bill-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="fw-bold text-dark mb-0">CHI TIẾT MUA HÀNG</h5>
+                        <small class="text-muted">Mã tạm tính: #TMP-@DateTime.Now.Ticks.ToString().Substring(10)</small>
+                    </div>
+                    <div class="text-end">
+                        <div class="text-muted small fw-bold">NGÀY LẬP</div>
+                        <div class="fw-bold">@DateTime.Now.ToString("dd/MM/yyyy HH:mm")</div>
+                    </div>
+                </div>
+
+                <div class="bill-body">
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="text-muted small text-uppercase">
+                                <tr>
+                                    <th style="width: 40%">Tên SP</th>
+                                    <th class="text-center">Số lượng</th>
+                                    <th class="text-end">Đơn giá</th>
+                                    <th class="text-end">Thành tiền</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyItems">
+                                <tr id="emptyRow">
+                                    <td colspan="5" class="text-center py-5">
+                                        <i class="bi bi-cart-x fs-1 text-muted opacity-25 d-block mb-3"></i>
+                                        <p class="text-muted fw-medium">Hóa đơn trống. Vui lòng thêm sản phẩm từ danh mục.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bill-footer">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <p class="text-muted small mb-1">Tổng tiền thanh toán (VNĐ)</p>
+                            <div class="total-amount" id="tdTotal">0</div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button type="submit" class="btn btn-brand px-5 py-3 rounded-pill fw-bold shadow-sm" id="btnSubmit" disabled>
+                                <i class="bi bi-printer-fill me-2"></i> XUẤT HÓA ĐƠN & THANH TOÁN
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<style>
+    .select2-container--bootstrap-5 .select2-selection {
+        background-color: #f8f9fa !important;
+        border: none !important;
+        padding: 6px 4px !important;
+        min-height: 42px !important;
+        border-radius: 0.375rem !important;
+    }
+    .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+        color: #212529;
+        line-height: 28px;
+    }
+    .select2-container--bootstrap-5 .select2-dropdown {
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+    }
+    .select2-container--bootstrap-5 .select2-results__option--highlighted[aria-selected] {
+        background-color: #059669 !important;
+    }
+    .select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field {
+        border: 1px solid #e2e8f0;
+        border-radius: 0.375rem;
+        padding: 8px 12px;
+    }
+</style>
+<script>
+    let items = [];
+
+    const selThuoc = document.getElementById('selThuoc');
+    const txtSoVien = document.getElementById('txtSoVien');
+    const txtSoNgay = document.getElementById('txtSoNgay');
+    const selThoiDiem = document.getElementById('selThoiDiem');
+    const selCachDung = document.getElementById('selCachDung');
+    const txtGhiChu = document.getElementById('txtGhiChu');
+    const txtGiaBan = document.getElementById('txtGiaBan');
+    const btnAddItem = document.getElementById('btnAddItem');
+    const tbody = document.getElementById('tbodyItems');
+    const tdTotal = document.getElementById('tdTotal');
+    const itemsJson = document.getElementById('itemsJson');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const emptyRow = document.getElementById('emptyRow');
+
+    // Initialize Select2 for searchable product dropdown
+    $(document).ready(function() {
+        $('#selThuoc').select2({
+            theme: 'bootstrap-5',
+            placeholder: '-- Gõ tên sản phẩm hoặc mã để tìm kiếm --',
+            allowClear: true,
+            language: {
+                noResults: function() { return 'Không tìm thấy sản phẩm nào'; },
+                searching: function() { return 'Đang tìm...'; }
+            }
+        });
+    });
+
+    // Select2 fires 'change' on the original select
+    $('#selThuoc').on('change', function () {
+        const opt = selThuoc.options[selThuoc.selectedIndex];
+        if (opt && opt.value) {
+            txtGiaBan.value = formatMoney(parseFloat(opt.dataset.gia || 0));
+        } else {
+            txtGiaBan.value = '';
+        }
+    });
+
+    btnAddItem.addEventListener('click', function () {
+        const opt = selThuoc.options[selThuoc.selectedIndex];
+        const soVien = parseInt(txtSoVien.value) || 0;
+        const soNgay = parseInt(txtSoNgay.value) || 1;
+        const giaBan = parseFloat(opt.dataset.gia || 0);
+        const soLuongKho = parseInt(opt.dataset.soluong || 0);
+
+        if (!selThuoc.value) { alert('Vui lòng chọn sản phẩm.'); return; }
+        if (soVien <= 0) { alert('Số lượng sử dụng mỗi ngày phải > 0.'); return; }
+        if (soNgay <= 0) { alert('Số ngày dùng phải > 0.'); return; }
+
+        const tongSoLuong = soVien * soNgay;
+
+        if (tongSoLuong > soLuongKho) {
+            alert(`Không đủ tồn kho! Bạn chọn mua ${tongSoLuong} nhưng kho chỉ còn ${soLuongKho} sản phẩm.`);
+            return;
+        }
+
+        const existing = items.find(i => i.maThuoc === parseInt(selThuoc.value));
+        if (existing) { alert('Sản phẩm này đã có trong đơn. Bạn có thể xóa dòng cũ và thêm lại.'); return; }
+
+        const thanhTien = tongSoLuong * giaBan;
+        items.push({
+            maThuoc: parseInt(selThuoc.value),
+            tenThuoc: opt.dataset.ten,
+            soVienMoiNgay: soVien,
+            soNgayUong: soNgay,
+            tongSoVien: tongSoLuong,
+            giaBan: giaBan,
+            thanhTien: thanhTien,
+            thoiDiemUong: selThoiDiem.value || null,
+            cachDung: selCachDung.value || null,
+            ghiChuLieuDung: txtGhiChu.value.trim() || null
+        });
+
+        renderTable();
+        // Reset fields - use Select2 API to reset the dropdown
+        $('#selThuoc').val('').trigger('change');
+        txtSoVien.value = 1;
+        txtSoNgay.value = 1;
+        selThoiDiem.value = '';
+        selCachDung.value = '';
+        txtGhiChu.value = '';
+        txtGiaBan.value = '';
+    });
+
+    function renderTable() {
+        emptyRow.style.display = items.length === 0 ? '' : 'none';
+        [...tbody.querySelectorAll('tr:not(#emptyRow)')].forEach(r => r.remove());
+
+        items.forEach((item, idx) => {
+            const tr = document.createElement('tr');
+            
+            let extraInfo = '';
+            if (item.thoiDiemUong) extraInfo += `<span class="badge bg-light text-primary border me-1"><i class="bi bi-clock"></i> ${item.thoiDiemUong}</span>`;
+            if (item.cachDung) extraInfo += `<span class="badge bg-light text-success border me-1"><i class="bi bi-play-circle"></i> ${item.cachDung}</span>`;
+            if (item.ghiChuLieuDung) extraInfo += `<div class="x-small text-muted fst-italic mt-1"><i class="bi bi-chat-left-text"></i> ${item.ghiChuLieuDung}</div>`;
+
+            const instruction = (item.soNgayUong > 1) ? `<div class="x-small text-muted mt-1">${item.soVienMoiNgay}/viên (ngày) × ${item.soNgayUong} ngày</div>` : '';
+
+            tr.innerHTML = `
+                <td>
+                    <div class="fw-bold text-dark">${item.tenThuoc}</div>
+                    <div class="x-small text-muted mb-1">ID: ${item.maThuoc}</div>
+                    ${extraInfo}
+                </td>
+                <td class="text-center font-monospace">
+                    <span class="fs-6 fw-bold">${item.tongSoVien}</span>
+                    ${instruction}
+                </td>
+                <td class="text-end fw-bold text-brand">${formatMoney(item.giaBan)}</td>
+                <td class="text-end fw-bold text-brand">${formatMoney(item.thanhTien)}</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-sm btn-light rounded-circle" onclick="removeItem(${idx})">
+                        <i class="bi bi-trash-fill text-danger"></i>
+                    </button>
+                </td>`;
+            tbody.appendChild(tr);
+        });
+
+        const total = items.reduce((s, i) => s + i.thanhTien, 0);
+        tdTotal.textContent = formatMoney(total);
+        itemsJson.value = JSON.stringify(items);
+        btnSubmit.disabled = items.length === 0;
+    }
+
+    function removeItem(idx) {
+        items.splice(idx, 1);
+        renderTable();
+    }
+
+    function formatMoney(v) {
+        return new Intl.NumberFormat('vi-VN').format(v);
+    }
+</script>
+}
+

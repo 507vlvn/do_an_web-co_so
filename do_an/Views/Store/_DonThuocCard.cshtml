@@ -1,0 +1,121 @@
+@model do_an.Models.DonThuoc
+@{
+    decimal tongGiaTri = Model.ChiTietDonThuocs.Sum(c => (c.SoVienMoiNgay * c.SoNgayUong) * (c.SanPham?.GiaBan ?? 0));
+    int soThuoc = Model.ChiTietDonThuocs.Count;
+    var spImages = ViewData["Images"] as List<string> ?? new List<string>();
+    // Ưu tiên: HinhAnh của DonThuoc > hình từ SanPham liên kết
+    var coverImage = Model.HinhAnh;
+    var hascover = !string.IsNullOrEmpty(coverImage);
+    var hasSpImages = !hascover && spImages.Count > 0;
+}
+<div class="card product-card border-0 h-100">
+    <div class="img-wrapper position-relative overflow-hidden"
+         style="@(hascover || hasSpImages ? "" : "background: linear-gradient(135deg, #ecfdf5, #d1fae5);") min-height: 180px;">
+        <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+            <span class="badge rounded-pill px-3 py-2 shadow-sm" style="background: linear-gradient(135deg, var(--brand-dark), var(--brand)); color: white;">
+                <i class="bi bi-clipboard2-pulse me-1"></i> Đơn thuốc
+            </span>
+        </div>
+        @if (hascover)
+        {
+            <!-- Hình ảnh upload trực tiếp -->
+            <a asp-controller="Store" asp-action="DonThuocDetail" asp-route-id="@Model.Id" class="d-block text-center p-3">
+                <img src="@coverImage" alt="@Model.TenDonThuoc" class="card-img-top"
+                     style="height:160px; object-fit:contain;" onerror="this.onerror=null;this.src='/images/no-image.svg'" />
+            </a>
+        }
+        else if (hasSpImages)
+        {
+            @if (spImages.Count == 1)
+            {
+                <a asp-controller="Store" asp-action="DonThuocDetail" asp-route-id="@Model.Id" class="d-block text-center p-3">
+                    <img src="@spImages[0]" alt="@Model.TenDonThuoc" class="card-img-top"
+                         style="height:160px; object-fit:contain;" onerror="this.onerror=null;this.src='/images/no-image.svg'" />
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Store" asp-action="DonThuocDetail" asp-route-id="@Model.Id"
+                   class="d-flex flex-wrap p-2 gap-1 text-decoration-none" style="height:180px;">
+                    @foreach (var img in spImages.Take(4))
+                    {
+                        <div style="width:calc(50% - 4px); height:calc(50% - 4px); overflow:hidden; border-radius:12px; background:#f8fafc;">
+                            <img src="@img" alt="" style="width:100%; height:100%; object-fit:contain; padding:6px;"
+                                 onerror="this.onerror=null;this.src='/images/no-image.svg'" />
+                        </div>
+                    }
+                </a>
+            }
+        }
+        else
+        {
+            <a asp-controller="Store" asp-action="DonThuocDetail" asp-route-id="@Model.Id"
+               class="d-flex align-items-center justify-content-center text-decoration-none" style="min-height:180px;">
+                <div class="text-center px-3">
+                    <div style="font-size: 3rem; opacity: 0.8; animation: pulse 2s infinite;">
+                        🏥
+                    </div>
+                    <div class="fw-800 text-brand mt-2" style="font-size: 0.8rem; letter-spacing: 0.5px;">@Model.MaDonThuoc</div>
+                </div>
+            </a>
+        }
+        
+        <!-- Quick Action Overlay -->
+        <div class="quick-action">
+            <a asp-controller="Store" asp-action="DonThuocDetail" asp-route-id="@Model.Id" class="btn-quick" title="Xem chi tiết">
+                <i class="bi bi-eye-fill"></i>
+            </a>
+            <button type="button" class="btn-quick" title="Thêm vào giỏ" onclick="$(this).closest('.product-card').find('form').submit()">
+                <i class="bi bi-cart-plus-fill"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-4 pt-0 d-flex flex-column">
+        <p class="small text-muted mb-2 fw-bold text-uppercase d-flex align-items-center justify-content-between" style="font-size: 0.65rem; letter-spacing: 0.5px;">
+            <span>Đơn thuốc kê đơn</span>
+            <span class="text-warning" style="font-size: 0.75rem;">
+                <i class="bi bi-star-fill"></i> 5.0
+            </span>
+        </p>
+        <a asp-controller="Store" asp-action="DonThuocDetail" asp-route-id="@Model.Id"
+           class="h6 fw-bold text-dark text-decoration-none d-block mb-2"
+           style="line-height:1.4; height: 2.8rem; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; transition: color 0.2s;"
+           onmouseover="this.style.color='var(--brand)'" onmouseout="this.style.color=''">
+            @Model.TenDonThuoc
+        </a>
+        <div class="mb-3">
+            <span class="badge bg-light text-brand rounded-pill px-2 py-1 fw-bold border border-success-subtle" style="font-size: 0.7rem;">
+                <i class="bi bi-capsule me-1"></i> @soThuoc loại thuốc
+            </span>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.GhiChu))
+        {
+            <p class="text-muted mb-2" style="font-size: 0.75rem; line-height: 1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+                <i class="bi bi-info-circle-fill text-brand me-1 opacity-75"></i> @Model.GhiChu
+            </p>
+        }
+        <div class="mt-auto">
+            <div class="mb-3 d-flex align-items-center flex-wrap">
+                <span class="price-new me-2" style="background: -webkit-linear-gradient(45deg, var(--brand-dark), var(--brand)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    @tongGiaTri.ToString("N0")đ
+                </span>
+                <span class="text-muted small fw-bold">/ liệu trình</span>
+            </div>
+            <form asp-controller="GioHang" asp-action="MuaTheoDon" method="post" class="mb-2">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="donThuocId" value="@Model.Id" />
+                <button type="submit" class="btn btn-brand-outline w-100 py-2 rounded-4 fw-bold shadow-sm d-flex justify-content-center align-items-center gap-2" style="font-size: 0.85rem;">
+                    <i class="bi bi-cart-plus-fill fs-5"></i>
+                    <span>Mua theo đơn</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+@@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+</style>

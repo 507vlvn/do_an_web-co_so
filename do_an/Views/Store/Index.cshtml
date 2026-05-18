@@ -1,0 +1,149 @@
+@model List<do_an.Models.SanPham>
+@{
+    ViewData["Title"] = "Cửa hàng thuốc online";
+    Layout = "_StoreLayout";
+
+    var noiBat    = ViewBag.SanPhamNoiBat as List<do_an.Models.SanPham> ?? new List<do_an.Models.SanPham>();
+    var danhMucs  = ViewBag.DanhMucs     as List<do_an.Models.DanhMucSanPham> ?? new List<do_an.Models.DanhMucSanPham>();
+    var donThuocs = ViewBag.DonThuocs    as List<do_an.Models.DonThuoc> ?? new List<do_an.Models.DonThuoc>();
+    var donThuocImages = ViewBag.DonThuocImages as Dictionary<int, List<string>> ?? new Dictionary<int, List<string>>();
+    var searchStr = ViewBag.Search as string;
+    var filterDm  = (int?)ViewBag.DanhMucId;
+}
+
+@* Premium Banner Section *@
+<div class="rounded-5 mb-5 p-5 text-white text-center position-relative overflow-hidden shadow-lg"
+     style="background: linear-gradient(135deg, var(--brand-dark), var(--brand)); min-height: 400px; display: flex; align-items: center; justify-content: center;">
+    
+    <!-- Animated background elements -->
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 30px 30px;"></div>
+    <div class="position-absolute" style="width: 300px; height: 300px; background: rgba(52, 211, 153, 0.4); filter: blur(80px); top: -100px; left: -100px; border-radius: 50%;"></div>
+    <div class="position-absolute" style="width: 250px; height: 250px; background: rgba(245, 158, 11, 0.3); filter: blur(70px); bottom: -50px; right: -50px; border-radius: 50%;"></div>
+    
+    <div class="position-relative z-index-1 w-100" style="max-width: 800px; z-index: 2;">
+        <span class="badge rounded-pill text-white mb-4 shadow-sm" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); padding: 10px 24px; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.3);">
+           <i class="bi bi-shield-check me-2 text-warning"></i>Sản phẩm đạt chuẩn GPP Toàn Quốc
+        </span>
+        <h1 class="display-4 fw-800 mb-3 text-white" style="letter-spacing: -1.5px; text-shadow: 0 4px 20px rgba(0,0,0,0.1);">Chăm sóc sức khỏe gia đình bạn</h1>
+        <p class="mb-5 fs-5 text-white-50 fw-medium">Dược phẩm chính hãng — Chuyên gia tư vấn — Giao hàng hỏa tốc trong 2h</p>
+        
+        <form asp-controller="Store" asp-action="Index" method="get" class="d-flex justify-content-center">
+            <div class="search-box w-100 shadow" style="max-width: 650px; background: rgba(255,255,255,0.2); backdrop-filter: blur(15px); padding: 6px; border: 1px solid rgba(255,255,255,0.4);">
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0 text-white ps-4">
+                        <i class="bi bi-search fs-5"></i>
+                    </span>
+                    <input type="text" name="search" class="form-control border-0 bg-transparent text-white shadow-none fs-5"
+                           placeholder="Bạn đang tìm kiếm thuốc hay sản phẩm gì?" value="@searchStr" style="padding-left: 10px;" />
+                    <button class="btn bg-white text-brand rounded-pill px-5 fw-bold fs-6 shadow-sm" style="transition: all 0.3s; margin-left: 10px;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        TÌM KIẾM
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* Featured Products Section *@
+@if (noiBat.Count > 0 && string.IsNullOrEmpty(searchStr) && filterDm == null)
+{
+    <section class="mb-5 py-2">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <h4 class="fw-800 text-dark mb-1">Dành cho bạn</h4>
+                <p class="text-muted small mb-0">Những sản phẩm được quan tâm nhiều nhất</p>
+            </div>
+            <a asp-controller="Store" asp-action="Index" class="btn btn-link text-brand fw-bold text-decoration-none p-0">
+                Khám phá thêm <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+        <div class="row g-4">
+            @foreach (var sp in noiBat)
+            {
+                <div class="col-6 col-md-3">
+                    @await Html.PartialAsync("_SanPhamCard", sp)
+                </div>
+            }
+        </div>
+    </section>
+}
+
+@* Main Product Listing Section *@
+
+<section class="pb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            @{
+                int totalCount = Model.Count + donThuocs.Count;
+            }
+            @if (!string.IsNullOrEmpty(searchStr))
+            {
+                <h5 class="fw-800 text-dark mb-0">Tìm thấy <span class="text-brand">@totalCount</span> kết quả cho "@searchStr"</h5>
+            }
+            else if (filterDm != null)
+            {
+                var dm = danhMucs.FirstOrDefault(d => d.Id == filterDm);
+                <h5 class="fw-800 text-dark mb-0">Danh mục: <span class="text-brand">@(dm?.TenDanhMuc ?? "Sản phẩm")</span> <span class="text-muted fs-6">(@Model.Count)</span></h5>
+            }
+            else
+            {
+                <h5 class="fw-800 text-dark mb-0">Tất cả sản phẩm</h5>
+            }
+        </div>
+        <div class="d-flex gap-2">
+            <select class="form-select form-select-sm border-0 bg-light rounded-3 px-3 fw-bold text-muted" style="width: 140px;">
+                <option selected>Phổ biến nhất</option>
+                <option>Giá thấp đến cao</option>
+                <option>Giá cao đến thấp</option>
+            </select>
+        </div>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="text-center py-5">
+            <div class="mb-3">
+                <i class="bi bi-search text-light" style="font-size: 5rem;"></i>
+            </div>
+            <h5 class="fw-bold text-dark">Rất tiếc, không tìm thấy sản phẩm!</h5>
+            <p class="text-muted small">Hãy thử tìm kiếm với từ khóa khác.</p>
+            <a asp-action="Index" class="btn btn-brand px-4 py-2 mt-2 rounded-pill shadow-sm">Xem tất cả sản phẩm</a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var sp in Model)
+            {
+                <div class="col-6 col-md-4 col-lg-3">
+                    @await Html.PartialAsync("_SanPhamCard", sp)
+                </div>
+            }
+        </div>
+    }
+</section>
+
+@* Đơn thuốc không kê đơn Section *@
+@if (donThuocs.Count > 0)
+{
+    <section class="mb-5 py-4 border-top">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <div>
+                <span class="badge rounded-pill bg-brand bg-opacity-10 text-brand fw-bold px-3 py-2 mb-2">
+                    <i class="bi bi-clipboard2-pulse me-1"></i> Thuốc không kê đơn
+                </span>
+                <h4 class="fw-800 text-dark mb-1">Tủ thuốc chuẩn chăm sức khỏe cả nhà</h4>
+                <p class="text-muted small mb-0">Toa thuốc được dược sĩ kê sẵn — mua đúng liều, đúng cách</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            @foreach (var dt in donThuocs)
+            {
+                var dtImages = donThuocImages.GetValueOrDefault(dt.Id, new List<string>());
+                <div class="col-6 col-md-4 col-lg-3">
+                    @await Html.PartialAsync("_DonThuocCard", dt, new ViewDataDictionary(ViewData) { { "Images", dtImages } })
+                </div>
+            }
+        </div>
+    </section>
+}

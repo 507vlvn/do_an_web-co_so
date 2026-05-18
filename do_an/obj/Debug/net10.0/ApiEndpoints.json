@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "do_an.Controllers.AiChatController",
+    "Method": "SendMessage",
+    "RelativePath": "api/AiChat/send",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "do_an.Controllers.AiChatController\u002BChatRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

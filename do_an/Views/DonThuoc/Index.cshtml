@@ -1,0 +1,215 @@
+﻿@model IEnumerable<do_an.Models.DonThuoc>
+@using do_an.Models
+@{
+    ViewData["Title"] = "Quản lý Đơn thuốc kê đơn";
+    var currentTrangThai = ViewBag.TrangThai as TrangThaiDonThuoc?;
+}
+
+<div class="animate-fade-in">
+    <!-- Breadcrumb & Title -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-3">
+        <div>
+            <nav aria-label="breadcrumb" class="mb-2">
+                <ol class="breadcrumb bg-transparent p-0 small fw-600 mb-0">
+                    <li class="breadcrumb-item"><a href="/" class="text-muted text-decoration-none">Hệ thống</a></li>
+                    <li class="breadcrumb-item active text-brand fw-800" aria-current="page">Đơn thuốc kê đơn</li>
+                </ol>
+            </nav>
+            <h1 class="display-6 fw-800 text-dark mb-1" style="letter-spacing: -2px;">Đơn thuốc kê đơn</h1>
+            <p class="text-muted fw-600 mb-0">Tạo, quản lý và đăng đơn thuốc lên Store online.</p>
+        </div>
+        <a asp-action="Create" class="btn btn-brand rounded-pill px-4 py-2 fw-800 text-white shadow-brand transition-all">
+            <i class="bi bi-plus-circle me-2 fs-5"></i> TẠO ĐƠN THUỐC MỚI
+        </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="row g-4 mb-5">
+        <div class="col-xl-3 col-md-6">
+            <div class="bg-white rounded-5 shadow-sm border p-4 h-100 d-flex align-items-center gap-4 transition-all hover-translate-y" style="border-color: #f1f5f9 !important;">
+                <div class="bg-brand-soft text-brand rounded-4 p-3 fs-3"><i class="bi bi-clipboard2-pulse"></i></div>
+                <div>
+                    <h6 class="text-muted fw-800 text-uppercase x-small mb-1" style="letter-spacing:1px;">Tổng đơn</h6>
+                    <h3 class="fw-800 mb-0">@Model.Count()</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="bg-white rounded-5 shadow-sm border p-4 h-100 d-flex align-items-center gap-4 transition-all hover-translate-y" style="border-color: #f1f5f9 !important;">
+                <div class="bg-success bg-opacity-10 text-success rounded-4 p-3 fs-3"><i class="bi bi-check-circle"></i></div>
+                <div>
+                    <h6 class="text-muted fw-800 text-uppercase x-small mb-1" style="letter-spacing:1px;">Đã duyệt</h6>
+                    <h3 class="fw-800 mb-0">@Model.Count(d => d.TrangThai == TrangThaiDonThuoc.DaDuyet)</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="bg-white rounded-5 shadow-sm border p-4 h-100 d-flex align-items-center gap-4 transition-all hover-translate-y" style="border-color: #f1f5f9 !important;">
+                <div class="bg-info bg-opacity-10 text-info rounded-4 p-3 fs-3"><i class="bi bi-shop"></i></div>
+                <div>
+                    <h6 class="text-muted fw-800 text-uppercase x-small mb-1" style="letter-spacing:1px;">Trên Store</h6>
+                    <h3 class="fw-800 mb-0">@Model.Count(d => d.DaDangStore)</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="bg-white rounded-5 shadow-sm border p-4 h-100 d-flex align-items-center gap-4 transition-all hover-translate-y" style="border-color: #f1f5f9 !important;">
+                <div class="bg-warning bg-opacity-10 text-warning rounded-4 p-3 fs-3"><i class="bi bi-hourglass-split"></i></div>
+                <div>
+                    <h6 class="text-muted fw-800 text-uppercase x-small mb-1" style="letter-spacing:1px;">Chờ duyệt</h6>
+                    <h3 class="fw-800 mb-0">@Model.Count(d => d.TrangThai == TrangThaiDonThuoc.MoiTao)</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success border-0 shadow-sm rounded-4 p-4 mb-5 d-flex align-items-center animate-fade-in">
+            <i class="bi bi-check-circle-fill fs-4 me-3"></i>
+            <div class="fw-800">@TempData["Success"]</div>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Search & Filter -->
+    <div class="bg-white rounded-5 shadow-sm border p-4 mb-5" style="border-color: #f1f5f9 !important;">
+        <form method="get" asp-action="Index" class="row g-3 align-items-end">
+            <div class="col-lg-6">
+                <div class="input-group input-group-lg border rounded-pill shadow-sm overflow-hidden bg-white">
+                    <span class="input-group-text bg-transparent border-0 text-muted ps-4"><i class="bi bi-search"></i></span>
+                    <input type="text" name="search" value="@ViewBag.Search"
+                           class="form-control border-0 shadow-none fw-600 bg-transparent"
+                           placeholder="Tìm theo mã hoặc tên đơn thuốc..." />
+                    <button type="submit" class="btn btn-brand fw-800 px-5 text-white">TÌM</button>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <select name="trangThai" class="form-select rounded-pill border shadow-sm py-2 fw-600" onchange="this.form.submit()">
+                    <option value="">-- Tất cả trạng thái --</option>
+                    <option value="@((int)TrangThaiDonThuoc.MoiTao)" selected="@(currentTrangThai == TrangThaiDonThuoc.MoiTao)">🟡 Mới tạo</option>
+                    <option value="@((int)TrangThaiDonThuoc.DaDuyet)" selected="@(currentTrangThai == TrangThaiDonThuoc.DaDuyet)">🟢 Đã duyệt</option>
+                    <option value="@((int)TrangThaiDonThuoc.DaMua)" selected="@(currentTrangThai == TrangThaiDonThuoc.DaMua)">🔵 Đã mua</option>
+                    <option value="@((int)TrangThaiDonThuoc.DaHuy)" selected="@(currentTrangThai == TrangThaiDonThuoc.DaHuy)">🔴 Đã hủy</option>
+                </select>
+            </div>
+            <div class="col-lg-3 text-end">
+                <a asp-action="Index" class="btn btn-light rounded-pill px-4 fw-800 text-muted border">
+                    <i class="bi bi-arrow-counterclockwise me-1"></i> Xóa bộ lọc
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-5 shadow-sm border overflow-hidden mb-5" style="border-color: #f1f5f9 !important;">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead>
+                    <tr class="bg-light border-bottom">
+                        <th class="ps-5 py-4 fw-800 text-muted text-uppercase small" style="letter-spacing:1px;">Mã đơn</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small" style="letter-spacing:1px;">Tên đơn thuốc</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small text-center" style="letter-spacing:1px;">Danh mục</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small text-center" style="letter-spacing:1px;">Số thuốc</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small text-center" style="letter-spacing:1px;">Trạng thái</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small text-center" style="letter-spacing:1px;">Store</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small text-center pe-5" style="letter-spacing:1px;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody class="border-0">
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center py-5">
+                                <i class="bi bi-clipboard2-x fs-1 text-muted opacity-25 d-block mb-3"></i>
+                                <p class="text-muted fw-600">Chưa có đơn thuốc nào.</p>
+                                <a asp-action="Create" class="btn btn-brand rounded-pill px-4 fw-800 text-white">
+                                    <i class="bi bi-plus-circle me-2"></i> Tạo đơn đầu tiên
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var dt in Model)
+                    {
+                        var badgeCss = dt.TrangThai switch
+                        {
+                            TrangThaiDonThuoc.MoiTao => "bg-warning bg-opacity-10 text-warning",
+                            TrangThaiDonThuoc.DaDuyet => "bg-success bg-opacity-10 text-success",
+                            TrangThaiDonThuoc.DaMua => "bg-info bg-opacity-10 text-info",
+                            TrangThaiDonThuoc.DaHuy => "bg-danger bg-opacity-10 text-danger",
+                            _ => "bg-secondary bg-opacity-10 text-secondary"
+                        };
+                        var trangThaiText = dt.TrangThai switch
+                        {
+                            TrangThaiDonThuoc.MoiTao => "Mới tạo",
+                            TrangThaiDonThuoc.DaDuyet => "Đã duyệt",
+                            TrangThaiDonThuoc.DaMua => "Đã mua",
+                            TrangThaiDonThuoc.HetHan => "Hết hạn",
+                            TrangThaiDonThuoc.DaHuy => "Đã hủy",
+                            _ => dt.TrangThai.ToString()
+                        };
+
+                        <tr class="transition-all hover-bg-light">
+                            <td class="ps-5 py-4">
+                                <span class="badge bg-brand-soft text-brand rounded-pill px-3 py-2 fw-800">@dt.MaDonThuoc</span>
+                            </td>
+                            <td class="py-4">
+                                <div class="fw-800 text-dark">@dt.TenDonThuoc</div>
+                                @if (!string.IsNullOrEmpty(dt.GhiChu))
+                                {
+                                    <div class="text-muted x-small fw-600">@Truncate(dt.GhiChu, 60)</div>
+                                }
+                            </td>
+                            <td class="py-4 text-center">
+                                <span class="text-muted fst-italic small">Đơn thuốc</span>
+                            </td>
+                            <td class="py-4 text-center">
+                                <span class="badge bg-light text-dark rounded-pill px-3 py-2 fw-800">
+                                    @dt.ChiTietDonThuocs.Count thuốc
+                                </span>
+                            </td>
+                            <td class="py-4 text-center">
+                                <span class="badge @badgeCss rounded-pill px-3 py-2 fw-800">@trangThaiText</span>
+                            </td>
+                            <td class="py-4 text-center">
+                                @if (dt.DaDangStore)
+                                {
+                                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 fw-800">
+                                        <i class="bi bi-shop me-1"></i> Online
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">—</span>
+                                }
+                            </td>
+                            <td class="py-4 text-center pe-5">
+                                <div class="btn-group shadow-sm rounded-pill overflow-hidden border">
+                                    <a asp-action="Details" asp-route-id="@dt.Id"
+                                           class="btn btn-white px-3 py-2 border-0 hover-brand transition-all" title="Xem chi tiết">
+                                        <i class="bi bi-eye-fill fs-5"></i>
+                                    </a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@dt.Id"
+                                               class="btn btn-white px-3 py-2 border-0 hover-text-danger transition-all" title="Xóa"
+                                               onclick="return confirm('Xóa đơn thuốc này?')">
+                                            <i class="bi bi-trash-fill fs-5"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@functions {
+    // Helper truncate chuỗi dài
+}
+@{
+    string Truncate(string? s, int max) => s != null && s.Length > max ? s[..max] + "…" : s ?? "";
+}

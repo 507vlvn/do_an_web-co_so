@@ -1,0 +1,189 @@
+@model List<do_an.Models.LoThuoc>
+@{
+    ViewData["Title"] = "Quản lý lô thuốc";
+    var sanPhamId = ViewBag.SanPhamId as int?;
+    var sanPhams = ViewBag.SanPhams as List<do_an.Models.SanPham> ?? new();
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-1 text-dark">
+            <i class="bi bi-box-seam-fill text-success me-2"></i>Quản lý lô thuốc
+        </h4>
+        <p class="text-muted small mb-0">Nhập và theo dõi lô thuốc theo ngày sản xuất &amp; hạn sử dụng</p>
+    </div>
+    <div class="d-flex gap-2">
+        @if (User.IsInRole("Admin"))
+        {
+            <form asp-action="DongBoHanSuDung" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-outline-primary rounded-pill"
+                        onclick="return confirm('Đồng bộ HSD tất cả sản phẩm theo lô FEFO hiện tại?')">
+                    <i class="bi bi-arrow-repeat me-1"></i>Đồng bộ HSD
+                </button>
+            </form>
+        }
+        <a asp-action="NhapLo" asp-route-sanPhamId="@sanPhamId" class="btn btn-success">
+            <i class="bi bi-plus-lg me-1"></i>Nhập lô mới
+        </a>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="bi bi-check-circle-fill me-2"></i>@TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="bi bi-exclamation-circle-fill me-2"></i>@TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@* Bộ lọc *@
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-2 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label small fw-semibold">Lọc theo thuốc</label>
+                <select name="sanPhamId" class="form-select form-select-sm" onchange="this.form.submit()">
+                    <option value="">-- Tất cả sản phẩm --</option>
+                    @foreach (var sp in sanPhams)
+                    {
+                        <option value="@sp.Id" selected="@(sanPhamId == sp.Id ? "selected" : null)">@sp.TenSanPham</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label small fw-semibold">Tìm mã lô / tên thuốc</label>
+                <input type="text" name="search" value="@ViewBag.Search" class="form-control form-control-sm" placeholder="Nhập mã lô hoặc tên thuốc..." />
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary btn-sm w-100">
+                    <i class="bi bi-search me-1"></i>Tìm
+                </button>
+            </div>
+            @if (!string.IsNullOrEmpty(ViewBag.Search as string) || sanPhamId.HasValue)
+            {
+                <div class="col-md-2">
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-sm w-100">
+                        <i class="bi bi-x-circle me-1"></i>Xóa lọc
+                    </a>
+                </div>
+            }
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Mã lô</th>
+                        <th>Thuốc</th>
+                        <th class="text-center">SL ban đầu</th>
+                        <th class="text-center">SL khả dụng</th>
+                        <th class="text-center">Ngày SX</th>
+                        <th class="text-center">Hạn SD</th>
+                        <th class="text-center">Còn hạn</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="9" class="text-center text-muted py-4">
+                                <i class="bi bi-inbox fs-4 d-block mb-2"></i>Chưa có lô thuốc nào.
+                            </td>
+                        </tr>
+                    }
+                    @foreach (var lo in Model)
+                    {
+                        var conHan = lo.HanSuDung > DateTime.Today;
+                        var sapHetHan = lo.HanSuDung <= DateTime.Today.AddMonths(3) && conHan;
+                        var soNgayConLai = (lo.HanSuDung - DateTime.Today).Days;
+                        <tr class="@(!lo.TrangThai ? "table-secondary" : sapHetHan ? "table-warning" : "")">
+                            <td><span class="badge bg-secondary">@lo.MaLo</span></td>
+                            <td>
+                                <a asp-action="Index" asp-route-sanPhamId="@lo.SanPhamId" class="text-decoration-none fw-semibold">
+                                    @lo.SanPham?.TenSanPham
+                                </a>
+                            </td>
+                            <td class="text-center">@lo.SoLuongBanDau</td>
+                            <td class="text-center">
+                                @if (lo.SoLuongKhaDung == 0)
+                                {
+                                    <span class="badge bg-danger">Hết</span>
+                                }
+                                else
+                                {
+                                    <span class="fw-semibold text-success">@lo.SoLuongKhaDung</span>
+                                }
+                            </td>
+                            <td class="text-center">@lo.NgaySX.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">@lo.HanSuDung.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">
+                                @if (!conHan)
+                                {
+                                    <span class="badge bg-danger"><i class="bi bi-exclamation-triangle-fill me-1"></i>Đã hết hạn</span>
+                                }
+                                else if (sapHetHan)
+                                {
+                                    <span class="badge bg-warning text-dark"><i class="bi bi-clock-history me-1"></i>Còn @soNgayConLai ngày</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Còn @soNgayConLai ngày</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (lo.TrangThai)
+                                {
+                                    <span class="badge bg-success">Đang dùng</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Vô hiệu</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@lo.Id" class="btn btn-outline-primary btn-sm me-1">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <form asp-action="ToggleTrangThai" asp-route-id="@lo.Id" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm @(lo.TrangThai ? "btn-outline-warning" : "btn-outline-success") me-1"
+                                                onclick="return confirm('@(lo.TrangThai ? "Vô hiệu hóa lô này?" : "Kích hoạt lại lô này?")')">
+                                            <i class="bi @(lo.TrangThai ? "bi-pause-circle" : "bi-play-circle")"></i>
+                                        </button>
+                                    </form>
+                                    @if (lo.SoLuongKhaDung > 0 || !conHan)
+                                    {
+                                        <form asp-action="TieuHuy" asp-route-id="@lo.Id" method="post" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                    onclick="return confirm('Tiêu hủy lô @lo.MaLo (@lo.SoLuongKhaDung SP)? Hành động này không thể hoàn tác!')"
+                                                    title="Tiêu hủy lô">
+                                                <i class="bi bi-fire"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

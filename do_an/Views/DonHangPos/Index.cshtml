@@ -1,0 +1,190 @@
+@model IEnumerable<do_an.Models.DonHang>
+@{
+    ViewData["Title"] = "Lịch sử hóa đơn bán lẻ";
+}
+
+<div class="animate-fade-in">
+    <!-- Breadcrumb & Title -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-3">
+        <div>
+            <nav aria-label="breadcrumb" class="mb-2">
+                <ol class="breadcrumb bg-transparent p-0 small fw-600 mb-0">
+                    <li class="breadcrumb-item"><a href="/" class="text-muted text-decoration-none">Hệ thống</a></li>
+                    <li class="breadcrumb-item"><a href="/HoaDon" class="text-muted text-decoration-none border-bottom">Bán hàng tại quầy</a></li>
+                    <li class="breadcrumb-item active text-brand fw-800" aria-current="page">Lịch sử giao dịch</li>
+                </ol>
+            </nav>
+            <h1 class="display-6 fw-800 text-dark mb-1" style="letter-spacing: -2px;">Lịch sử Hóa đơn</h1>
+            <p class="text-muted fw-600 mb-0">Tra cứu và quản lý các giao dịch trực tiếp tại quầy dược.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Create" class="btn btn-brand rounded-pill px-4 py-2 fw-800 text-white shadow-brand transition-all">
+                <i class="bi bi-plus-circle me-2 fs-5"></i> TẠO HÓA ĐƠN MỚI
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="row g-4 mb-5">
+        <div class="col-xl-3 col-md-6 text-dark font-size-6xl">
+            <div class="bg-white rounded-5 shadow-sm border p-4 h-100 d-flex align-items-center gap-4 transition-all hover-translate-y" style="border-color: #f1f5f9 !important;">
+                <div class="bg-brand-soft text-brand rounded-4 p-3 fs-3">
+                    <i class="bi bi-receipt"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted fw-800 text-uppercase x-small mb-1" style="letter-spacing: 1px;">Tổng Giao Dịch</h6>
+                    <h3 class="fw-800 mb-0">@Model.Count()</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 text-dark font-size-6xl">
+            <div class="bg-white rounded-5 shadow-sm border p-4 h-100 d-flex align-items-center gap-4 transition-all hover-translate-y" style="border-color: #f1f5f9 !important;">
+                <div class="bg-success-soft text-success rounded-4 p-3 fs-3">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted fw-800 text-uppercase x-small mb-1" style="letter-spacing: 1px;">Tổng Doanh Thu</h6>
+                    <h3 class="fw-800 mb-0">@Model.Sum(x => x.TongThanhToan).ToString("N0")đ</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success border-0 shadow-sm rounded-4 p-4 mb-5 d-flex align-items-center animate-fade-in">
+            <i class="bi bi-check-circle-fill fs-4 me-3"></i>
+            <div class="fw-800">@TempData["Success"]</div>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Search & Filters -->
+    <div class="bg-white rounded-5 shadow-sm border p-4 mb-5" style="border-color: #f1f5f9 !important; background: linear-gradient(to right, #ffffff, #f8fafc);">
+        <form method="get" asp-action="Index" class="row g-3">
+            <div class="col-lg-6">
+                <div class="input-group input-group-lg border rounded-pill shadow-sm overflow-hidden bg-white">
+                    <span class="input-group-text bg-transparent border-0 text-muted ps-4">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" name="search" value="@ViewBag.Search"
+                           class="form-control border-0 shadow-none fw-600 bg-transparent ms-n2" 
+                           placeholder="Mã hóa đơn hoặc tên nhân viên..." />
+                    @if (!string.IsNullOrEmpty(ViewBag.Search as string))
+                    {
+                        <a asp-action="Index" class="btn btn-white border-0 text-muted px-4 d-flex align-items-center hover-text-danger transition-all">
+                            <i class="bi bi-x-circle fw-bold"></i>
+                        </a>
+                    }
+                    <button type="submit" class="btn btn-brand fw-800 px-5 text-white">TÌM KIẾM</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Data Table Container -->
+    <div class="bg-white rounded-5 shadow-sm border overflow-hidden mb-5" style="border-color: #f1f5f9 !important;">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead>
+                    <tr class="bg-light border-bottom">
+                        <th class="ps-5 py-4 fw-800 text-muted text-uppercase small" style="width: 120px; letter-spacing: 1px;">Mã HĐ</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small" style="letter-spacing: 1px;">Thời Gian Lập</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small" style="letter-spacing: 1px;">Nhân Viên Xử Lý</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small text-end" style="letter-spacing: 1px;">Tổng Tiền</th>
+                        <th class="py-4 fw-800 text-muted text-uppercase small text-center pe-5" style="letter-spacing: 1px;">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody class="border-0">
+                    @foreach (var hd in Model)
+                    {
+                        <tr class="transition-all hover-bg-light">
+                            <td class="ps-5 py-4">
+                                <span class="badge bg-brand-soft text-brand rounded-pill px-3 py-2 fw-800">
+                                    #@hd.Id
+                                </span>
+                            </td>
+                            <td class="py-4">
+                                <div class="fw-800 text-dark mb-0">@hd.NgayDat.ToString("dd/MM/yyyy")</div>
+                                <div class="text-muted x-small fw-600">@hd.NgayDat.ToString("HH:mm")</div>
+                            </td>
+                            <td class="py-4 text-dark font-size-6xl">
+                                @if (hd.NhanVienBan != null)
+                                {
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="avatar-sm bg-brand-soft text-brand rounded-circle d-flex align-items-center justify-content-center p-2" style="width: 38px; height: 38px;">
+                                            <span class="fw-800 small">@hd.NhanVienBan.HoTen.Substring(0, 1).ToUpper()</span>
+                                        </div>
+                                        <div>
+                                            <div class="fw-800 text-dark">@hd.NhanVienBan.HoTen</div>
+                                            <div class="text-muted x-small fw-600">NV#@hd.NhanVienBan.TenDangNhap</div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="avatar-sm bg-secondary-soft text-secondary rounded-circle d-flex align-items-center justify-content-center p-2" style="width: 38px; height: 38px;">
+                                            <i class="bi bi-cpu"></i>
+                                        </div>
+                                        <span class="text-muted fw-600 fst-italic h5 mb-0">Hệ thống</span>
+                                    </div>
+                                }
+                            </td>
+                            <td class="py-4 text-end">
+                                <span class="fw-800 text-brand h5 mb-0">@hd.TongThanhToan.ToString("N0")đ</span>
+                            </td>
+                            <td class="py-4 text-center pe-5">
+                                <div class="btn-group shadow-sm rounded-pill overflow-hidden border">
+                                    <a asp-action="Details" asp-route-id="@hd.Id" 
+                                       class="btn btn-white px-3 py-2 border-0 hover-brand transition-all" title="Xem chi tiết">
+                                        <i class="bi bi-eye-fill fs-5"></i>
+                                    </a>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@hd.Id" 
+                                           class="btn btn-white px-3 py-2 border-0 border-start hover-text-danger transition-all" 
+                                           title="Xóa" onclick="return confirm('Xóa hóa đơn này?')">
+                                            <i class="bi bi-trash3-fill fs-5"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-5">
+                                <div class="text-muted py-5">
+                                    <i class="bi bi-inbox fs-1 opacity-25 d-block mb-3 text-brand"></i>
+                                    <p class="fw-800 mb-1">Không tìm thấy hóa đơn nào</p>
+                                    <p class="small fw-600">Hãy thử đổi từ khóa tìm kiếm hoặc tạo đơn hàng mới.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-bg-light:hover { background-color: #f8fafc; }
+    .animate-fade-in { animation: fadeIn 0.4s ease-out; }
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .hover-translate-y:hover { transform: translateY(-3px); }
+    .x-small { font-size: 0.75rem; }
+    .fs-7 { font-size: 0.875rem; }
+    .btn-white { background: #fff; color: #64748b; }
+    .btn-white:hover { background: #f1f5f9; }
+    .hover-brand:hover { color: var(--brand) !important; }
+    .hover-text-danger:hover { color: #ef4444 !important; }
+    .bg-brand-soft { background: #ecfdf5; color: #10b981; }
+    .bg-success-soft { background: #f0fdf4; color: #16a34a; }
+    .bg-secondary-soft { background: #f8fafc; color: #64748b; }
+</style>

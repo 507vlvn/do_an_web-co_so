@@ -1,0 +1,243 @@
+@model do_an.Models.DonHang
+@{
+    ViewData["Title"] = $"Đơn hàng {Model.MaDonHang}";
+}
+
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="d-flex align-items-center justify-content-between mb-4 gap-3">
+        <div>
+            <h4 class="fw-800 text-dark mb-1" style="letter-spacing: -1px;">Chi tiết đơn hàng trực tuyến</h4>
+            <p class="text-muted small fw-600 mb-0">Mã đơn: <span class="text-brand fw-800">#@Model.MaDonHang</span></p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger rounded-pill px-4 fw-800 transition-all">
+                <i class="bi bi-trash me-2"></i> Xóa đơn hàng
+            </a>
+            <a asp-action="Index" class="btn btn-light rounded-pill px-4 fw-800 text-muted border transition-all">
+                <i class="bi bi-arrow-left me-2"></i> Quay lại danh sách
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Left: Customer & Products -->
+        <div class="col-lg-8">
+            <div class="bg-white rounded-5 shadow-sm border p-4 mb-4" style="border-color: #f1f5f9 !important;">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="bg-brand-soft text-brand rounded-4 p-2 me-3">
+                        <i class="bi bi-person-badge fs-4"></i>
+                    </div>
+                    <h5 class="fw-800 mb-0 text-dark">Thông tin khách hàng</h5>
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="bg-light rounded-4 p-3 border">
+                            <span class="text-muted small fw-800 text-uppercase d-block mb-1" style="letter-spacing: 0.5px;">Người nhận</span>
+                            <strong class="text-dark fw-800 fs-6">@Model.HoTenNguoiNhan</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="bg-light rounded-4 p-3 border">
+                            <span class="text-muted small fw-800 text-uppercase d-block mb-1" style="letter-spacing: 0.5px;">Điện thoại</span>
+                            <strong class="text-dark fw-800 fs-6">@Model.SoDienThoai</strong>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="bg-light rounded-4 p-3 border">
+                            <span class="text-muted small fw-800 text-uppercase d-block mb-1" style="letter-spacing: 0.5px;">Địa chỉ giao hàng</span>
+                            <div class="text-dark fw-600">@Model.DiaChi</div>
+                        </div>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.Email)) {
+                        <div class="col-md-6">
+                            <div class="bg-light rounded-4 p-3 border">
+                                <span class="text-muted small fw-800 text-uppercase d-block mb-1" style="letter-spacing: 0.5px;">Email</span>
+                                <div class="text-dark fw-600">@Model.Email</div>
+                            </div>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.GhiChu)) {
+                        <div class="col-12">
+                            <div class="bg-warning-soft text-warning rounded-4 p-3 border border-warning border-opacity-10">
+                                <span class="text-warning-dark small fw-800 text-uppercase d-block mb-1" style="opacity: 0.8; letter-spacing: 0.5px;">Ghi chú từ khách hàng</span>
+                                <div class="fw-600 fst-italic">"@Model.GhiChu"</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="bg-white rounded-5 shadow-sm border overflow-hidden" style="border-color: #f1f5f9 !important;">
+                <div class="p-4 border-bottom d-flex align-items-center">
+                    <div class="bg-brand-soft text-brand rounded-4 p-2 me-3">
+                        <i class="bi bi-cart-check fs-4"></i>
+                    </div>
+                    <h5 class="fw-800 mb-0 text-dark">Danh sách sản phẩm</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4 py-3 fw-800 text-muted small text-uppercase">Tên sản phẩm</th>
+                                <th class="py-3 fw-800 text-muted small text-uppercase text-center">Số lượng</th>
+                                <th class="py-3 fw-800 text-muted small text-uppercase text-end">Đơn giá</th>
+                                <th class="pe-4 py-3 fw-800 text-muted small text-uppercase text-end">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody class="border-0">
+                            @foreach (var ct in Model.ChiTietDonHangs)
+                            {
+                                <tr>
+                                    <td class="ps-4 py-3 fw-800 text-dark">@(ct.SanPham?.TenSanPham ?? ct.TenSanPhamSnapshot ?? "Sản phẩm đã xóa")</td>
+                                    <td class="py-3 text-center fw-800">@ct.SoLuong</td>
+                                    <td class="py-3 text-end fw-600">@ct.GiaBan.ToString("N0")đ</td>
+                                    <td class="pe-4 py-3 text-end fw-800 text-brand">@ct.ThanhTien.ToString("N0")đ</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot class="bg-light bg-opacity-50 border-top">
+                            <tr>
+                                <td colspan="3" class="ps-4 py-2 text-end fw-600 text-muted small">Tạm tính</td>
+                                <td class="pe-4 py-2 text-end fw-800 text-dark small">@Model.TongTienHang.ToString("N0")đ</td>
+                            </tr>
+                            @if (Model.TienGiam > 0)
+                            {
+                                <tr>
+                                    <td colspan="3" class="ps-4 py-2 text-end fw-600 text-success small">Giảm giá (@Model.MaVoucher)</td>
+                                    <td class="pe-4 py-2 text-end fw-800 text-success small">-@Model.TienGiam.ToString("N0")đ</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="3" class="ps-4 py-4 text-end fw-800 text-dark h5 mb-0">TỔNG THANH TOÁN</td>
+                                <td class="pe-4 py-4 text-end fw-800 text-brand h4 mb-0" style="letter-spacing: -1.5px;">@Model.TongThanhToan.ToString("N0")đ</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Management Actions -->
+        <div class="col-lg-4">
+            <div class="position-sticky" style="top: 24px;">
+                <div class="bg-white rounded-5 shadow-sm border p-4 mb-4" style="border-color: #f1f5f9 !important;">
+                    <h5 class="fw-800 text-dark mb-4 pb-2 border-bottom">Trạng thái đơn hàng</h5>
+                    
+                    @{
+                        var (badgeClass, badgeText, statusIcon) = Model.TrangThai switch
+                        {
+                            do_an.Models.TrangThaiDonHang.ChoThanhToan => ("bg-warning-soft text-warning", "Chờ thanh toán", "bi-clock"),
+                            do_an.Models.TrangThaiDonHang.DaThanhToan  => ("bg-brand-soft text-brand", "Đã thanh toán", "bi-check-circle"),
+                            do_an.Models.TrangThaiDonHang.DangChuanBi  => ("bg-info-soft text-info", "Đang chuẩn bị", "bi-box"),
+                            do_an.Models.TrangThaiDonHang.DangGiao     => ("bg-info-soft text-info", "Đang giao", "bi-truck"),
+                            do_an.Models.TrangThaiDonHang.DaGiao       => ("bg-success-soft text-success", "Đã giao", "bi-check2-all"),
+                            do_an.Models.TrangThaiDonHang.DaHuy        => ("bg-danger-soft text-danger", "Đã hủy", "bi-x-circle"),
+                            _                                          => ("bg-light text-secondary", "Không xác định", "bi-question-circle")
+                        };
+                    }
+
+                    <div class="d-flex align-items-center gap-3 mb-5 p-3 rounded-4 @badgeClass">
+                        <i class="bi @statusIcon fs-3"></i>
+                        <div>
+                            <div class="small fw-800 text-uppercase opacity-75" style="letter-spacing: 0.5px;">Hiện tại</div>
+                            <div class="fw-800 fs-5">@badgeText</div>
+                        </div>
+                    </div>
+
+                    @if (Model.TrangThai != do_an.Models.TrangThaiDonHang.DaGiao && Model.TrangThai != do_an.Models.TrangThaiDonHang.DaHuy)
+                    {
+                        <div class="space-y-2">
+                             @foreach (var (trangThai, label, icon) in new (do_an.Models.TrangThaiDonHang, string, string)[]
+                             {
+                                (do_an.Models.TrangThaiDonHang.DaThanhToan, "Xác nhận đã thanh toán", "bi-cash-coin"),
+                                (do_an.Models.TrangThaiDonHang.DangChuanBi, "Bắt đầu chuẩn bị hàng",     "bi-box-seam"),
+                                (do_an.Models.TrangThaiDonHang.DangGiao,    "Giao cho vận chuyển",         "bi-truck"),
+                                (do_an.Models.TrangThaiDonHang.DaGiao,      "Hoàn tất giao hàng",         "bi-check-all"),
+                                (do_an.Models.TrangThaiDonHang.DaHuy,       "Hủy bỏ đơn hàng",             "bi-trash3")
+                             })
+                             {
+                                 if ((int)trangThai > (int)Model.TrangThai || trangThai == do_an.Models.TrangThaiDonHang.DaHuy)
+                                 {
+                                     <form asp-action="CapNhatTrangThai" method="post">
+                                         @Html.AntiForgeryToken()
+                                         <input type="hidden" name="id" value="@Model.Id" />
+                                         <input type="hidden" name="trangThai" value="@((int)trangThai)" />
+                                         <button type="submit" 
+                                                 class="btn w-100 py-3 rounded-pill fw-800 d-flex align-items-center justify-content-center gap-2 transition-all 
+                                                        @(trangThai == do_an.Models.TrangThaiDonHang.DaHuy ? "btn-outline-danger" : "btn-brand text-white shadow-brand-soft mb-2")"
+                                                 onclick="return @(trangThai == do_an.Models.TrangThaiDonHang.DaHuy ? "confirm('Xác nhận hủy đơn hàng này?')" : "true")">
+                                             <i class="bi @icon"></i> @label
+                                         </button>
+                                     </form>
+                                 }
+                             }
+                        </div>
+                    }
+
+                    <div class="mt-5 pt-4 border-top">
+                        <h6 class="fw-800 text-muted small text-uppercase mb-3" style="letter-spacing: 1px;">Lịch sử thời gian</h6>
+                        <div class="space-y-3">
+                            <div class="d-flex justify-content-between text-muted small fw-600">
+                                <span><i class="bi bi-cart-plus me-1"></i> Ngày đặt hàng</span>
+                                <span class="text-dark fw-800">@Model.NgayDat.ToString("dd/MM/yyyy HH:mm")</span>
+                            </div>
+                            @if (Model.NgayThanhToan.HasValue) {
+                                <div class="d-flex justify-content-between text-muted small fw-600">
+                                    <span><i class="bi bi-cash-coin me-1"></i> Đã thanh toán</span>
+                                    <span class="text-brand fw-800">@Model.NgayThanhToan.Value.ToString("dd/MM/yyyy HH:mm")</span>
+                                </div>
+                            }
+                            @if (Model.NgayChuanBi.HasValue) {
+                                <div class="d-flex justify-content-between text-muted small fw-600">
+                                    <span><i class="bi bi-box-seam me-1"></i> Bắt đầu chuẩn bị</span>
+                                    <span class="text-info fw-800">@Model.NgayChuanBi.Value.ToString("dd/MM/yyyy HH:mm")</span>
+                                </div>
+                            }
+                            @if (Model.NgayBatDauGiao.HasValue) {
+                                <div class="d-flex justify-content-between text-muted small fw-600">
+                                    <span><i class="bi bi-truck me-1"></i> Bắt đầu giao</span>
+                                    <span class="text-info fw-800">@Model.NgayBatDauGiao.Value.ToString("dd/MM/yyyy HH:mm")</span>
+                                </div>
+                            }
+                            @if (Model.NgayGiao.HasValue) {
+                                <div class="d-flex justify-content-between text-muted small fw-600">
+                                    <span><i class="bi bi-check2-all me-1"></i> Hoàn tất giao</span>
+                                    <span class="text-success fw-800">@Model.NgayGiao.Value.ToString("dd/MM/yyyy HH:mm")</span>
+                                </div>
+                            }
+                            @if (Model.NgayHuy.HasValue) {
+                                <div class="d-flex justify-content-between text-muted small fw-600">
+                                    <span><i class="bi bi-x-circle me-1"></i> Đã hủy</span>
+                                    <span class="text-danger fw-800">@Model.NgayHuy.Value.ToString("dd/MM/yyyy HH:mm")</span>
+                                </div>
+                            }
+                            <div class="d-flex justify-content-between text-muted small fw-600">
+                                <span><i class="bi bi-credit-card me-1"></i> Thanh toán via</span>
+                                <span class="text-dark fw-800">@(Model.PhuongThucThanhToan == do_an.Models.PhuongThucThanhToan.ThanhToanOnline ? "Online" : "COD")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-light rounded-4 p-3 border border-dashed text-center fw-600 small text-muted">
+                    <i class="bi bi-shield-check me-1 text-brand"></i> Mọi thay đổi trạng thái đều được lưu vết.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-brand-soft { background: #ecfdf5; color: #059669; }
+    .bg-warning-soft { background: #fffbeb; color: #d97706; }
+    .bg-info-soft { background: #f0f9ff; color: #0284c7; }
+    .bg-success-soft { background: #f0fdf4; color: #16a34a; }
+    .bg-danger-soft { background: #fef2f2; color: #dc2626; }
+    .text-warning-dark { color: #92400e; }
+    .shadow-brand-soft { box-shadow: 0 4px 15px rgba(5, 150, 105, 0.1); }
+    .space-y-4 > *:not(:last-child) { margin-bottom: 1.5rem; }
+    .space-y-2 > *:not(:last-child) { margin-bottom: 0.5rem; }
+    .space-y-3 > *:not(:last-child) { margin-bottom: 0.75rem; }
+</style>

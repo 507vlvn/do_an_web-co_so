@@ -1,0 +1,188 @@
+@model List<do_an.Models.DonHang>
+@{
+    ViewData["Title"] = "Quản lý đơn hàng online";
+    var stats = ViewBag.Stats ?? new { ChoThanhToan = 0, DaThanhToan = 0, DangGiao = 0, DaGiao = 0, DaHuy = 0 };
+}
+
+<style>
+    .stat-card-modern {
+        border-radius: 16px;
+        transition: all 0.3s ease;
+        border: 1px solid #e2e8f0;
+    }
+    .stat-card-modern:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    .badge-pill-custom {
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.75rem;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-bold mb-1 text-dark"><i class="bi bi-bag-check-fill text-brand me-2"></i>Đơn hàng online</h4>
+        <p class="text-muted small mb-0">Quản lý và xử lý các đơn hàng từ Website</p>
+    </div>
+</div>
+
+@* Thống kê nhanh *@
+<div class="row g-3 mb-4">
+    @{
+        (string label, string color, string icon, object count, do_an.Models.TrangThaiDonHang? filter)[] cards =
+        [
+            ("Chờ thanh toán", "warning", "clock",          stats.ChoThanhToan, do_an.Models.TrangThaiDonHang.ChoThanhToan),
+            ("Đã thanh toán",  "primary", "credit-card",    stats.DaThanhToan,  do_an.Models.TrangThaiDonHang.DaThanhToan),
+            ("Đang giao",      "info",    "truck",           stats.DangGiao,     do_an.Models.TrangThaiDonHang.DangGiao),
+            ("Đã giao",        "success", "check-circle",    stats.DaGiao,       do_an.Models.TrangThaiDonHang.DaGiao),
+            ("Đã hủy",         "danger",  "x-circle",        stats.DaHuy,        do_an.Models.TrangThaiDonHang.DaHuy)
+        ];
+    }
+    @foreach (var (label, color, icon, count, filter) in cards)
+    {
+        <div class="col-6 col-md">
+            <a asp-action="Index" asp-route-trangThai="@((int?)filter)"
+               class="card stat-card-modern shadow-sm text-decoration-none h-100">
+                <div class="card-body text-center py-3">
+                    <div class="stat-icon bg-@color bg-opacity-10 text-@color rounded-circle d-inline-flex align-items-center justify-content-center mb-2" style="width: 40px; height: 40px;">
+                        <i class="bi bi-@icon fs-5"></i>
+                    </div>
+                    <div class="fw-bold fs-4 text-dark">@count</div>
+                    <div class="text-muted small fw-medium">@label</div>
+                </div>
+            </a>
+        </div>
+    }
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-header bg-white py-4 px-4 border-0">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-5">
+                <label class="form-label small fw-bold text-muted">Tìm kiếm</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                    <input type="text" name="search" class="form-control bg-light border-0"
+                           placeholder="Mã đơn, tên, SĐT..." value="@ViewBag.Search" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted">Trạng thái</label>
+                <select name="trangThai" class="form-select bg-light border-0 text-muted">
+                    <option value="">-- Tất cả trạng thái --</option>
+                    @foreach (var val in Enum.GetValues(typeof(do_an.Models.TrangThaiDonHang)))
+                    {
+                        var t = (do_an.Models.TrangThaiDonHang)val;
+                        <option value="@((int)t)" selected="@(ViewBag.TrangThai?.ToString() == ((int)t).ToString())">
+                            @t.ToString()
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-brand px-4 rounded-pill flex-fill">
+                    <i class="bi bi-filter"></i> Lọc dữ liệu
+                </button>
+                <a asp-action="Index" class="btn btn-light px-4 rounded-pill">Xóa lọc</a>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="bg-light">
+                <tr>
+                     <th class="ps-4">Mã đơn</th>
+                    <th>Khách hàng</th>
+                    <th>SĐT</th>
+                    <th class="text-end">Tổng tiền</th>
+                    <th class="text-center">Thanh toán</th>
+                    <th class="text-center">Trạng thái</th>
+                    <th>Ngày đặt</th>
+                    <th>Cập nhật</th>
+                    <th class="pe-4">Tác vụ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dh in Model)
+                {
+                    <tr>
+                        <td class="ps-4">
+                            <span class="fw-bold text-brand">@dh.MaDonHang</span>
+                        </td>
+                        <td>
+                            <div class="fw-semibold text-dark">@dh.HoTenNguoiNhan</div>
+                            @if(!string.IsNullOrEmpty(dh.TenDangNhap)) {
+                                <div class="text-muted x-small">ID: @dh.TenDangNhap</div>
+                            }
+                        </td>
+                        <td class="text-muted small">@dh.SoDienThoai</td>
+                        <td class="text-end fw-bold text-danger">@dh.TongThanhToan.ToString("N0")đ</td>
+                        <td class="text-center">
+                            @if (dh.PhuongThucThanhToan == do_an.Models.PhuongThucThanhToan.ThanhToanOnline)
+                            {
+                                <span class="badge-pill-custom bg-primary bg-opacity-10 text-primary">Online</span>
+                            }
+                            else
+                            {
+                                <span class="badge-pill-custom bg-secondary bg-opacity-10 text-secondary">COD</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @{
+                                var badgeClass = dh.TrangThai switch
+                                {
+                                    do_an.Models.TrangThaiDonHang.ChoThanhToan => "warning",
+                                    do_an.Models.TrangThaiDonHang.DaThanhToan  => "primary",
+                                    do_an.Models.TrangThaiDonHang.DangChuanBi  => "info",
+                                    do_an.Models.TrangThaiDonHang.DangGiao     => "info",
+                                    do_an.Models.TrangThaiDonHang.DaGiao       => "success",
+                                    do_an.Models.TrangThaiDonHang.DaHuy        => "danger",
+                                    _                                           => "secondary"
+                                };
+                            }
+                            <span class="badge-pill-custom bg-@badgeClass bg-opacity-10 text-@badgeClass">
+                                @dh.TrangThai.ToString()
+                            </span>
+                        </td>
+                        <td class="text-muted small">@dh.NgayDat.ToString("dd/MM HH:mm")</td>
+                        <td class="text-muted small">
+                            @{
+                                var ngayCapNhat = dh.NgayHuy ?? dh.NgayGiao ?? dh.NgayBatDauGiao ?? dh.NgayChuanBi ?? dh.NgayThanhToan;
+                            }
+                            @if (ngayCapNhat.HasValue)
+                            {
+                                @ngayCapNhat.Value.ToString("dd/MM HH:mm")
+                            }
+                            else
+                            {
+                                <span class="text-muted opacity-50">—</span>
+                            }
+                        </td>
+                        <td class="pe-4">
+                            <a asp-action="Details" asp-route-id="@dh.Id"
+                               class="btn btn-sm btn-icon btn-light rounded-circle" title="Xem chi tiết">
+                                <i class="bi bi-eye text-brand"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@dh.Id"
+                               class="btn btn-sm btn-icon btn-light rounded-circle text-danger" title="Xóa đơn hàng">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td colspan="9" class="text-center py-5">
+                            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="60" class="opacity-25 mb-3" />
+                            <p class="text-muted">Không tìm thấy đơn hàng nào phù hợp.</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

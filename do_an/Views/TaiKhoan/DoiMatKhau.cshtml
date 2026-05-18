@@ -1,0 +1,78 @@
+@model do_an.ViewModels.DoiMatKhauViewModel
+@{
+    ViewData["Title"] = "Đổi mật khẩu";
+}
+
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <div class="bg-brand-soft text-brand rounded-circle d-inline-flex p-4 mb-3 shadow-brand-soft">
+                    <i class="bi bi-shield-lock fs-1"></i>
+                </div>
+                <h3 class="fw-800 text-dark mb-1" style="letter-spacing: -1.5px;">Thiết lập mật khẩu</h3>
+                <p class="text-muted fw-600">Đang thay đổi thông tin bảo mật cho: <span class="text-brand fw-800">@(Model.HoTen ?? Model.TenDangNhap)</span></p>
+            </div>
+
+            <div class="bg-white rounded-5 shadow-sm border p-0 overflow-hidden" style="border-color: #f1f5f9 !important;">
+                <form asp-action="DoiMatKhau" method="post" class="p-0">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="TenDangNhap" />
+                    
+                    <div class="p-4 p-lg-5">
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-4 border-0 shadow-sm px-4 py-3 mb-4 small fw-600" style="background: #fef2f2; color: #991b1b;"></div>
+                        }
+
+                        <div class="space-y-4">
+                            <div>
+                                <label asp-for="MatKhauMoi" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-0 rounded-start-4 px-3 text-muted"><i class="bi bi-key-fill"></i></span>
+                                    <input asp-for="MatKhauMoi" type="password" class="form-control rounded-end-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="Nhập mật khẩu mới" />
+                                </div>
+                                <span asp-validation-for="MatKhauMoi" class="text-danger small mt-1 fw-bold d-block"></span>
+                            </div>
+
+                            <div>
+                                <label asp-for="XacNhan" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-0 rounded-start-4 px-3 text-muted"><i class="bi bi-shield-check"></i></span>
+                                    <input asp-for="XacNhan" type="password" class="form-control rounded-end-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="Xác nhận lại mật khẩu" />
+                                </div>
+                                <span asp-validation-for="XacNhan" class="text-danger small mt-1 fw-bold d-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-light rounded-4 border border-dashed text-center small text-muted fw-600">
+                            <i class="bi bi-info-circle me-1 text-brand"></i> Đảm bảo mật khẩu đủ mạnh để bảo vệ tài khoản.
+                        </div>
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="p-4 bg-light bg-opacity-50 border-top d-flex justify-content-center gap-3">
+                        <button type="submit" class="btn btn-brand rounded-pill px-5 py-3 fw-800 text-white shadow-brand transition-all w-100"
+                                style="background: linear-gradient(135deg, var(--brand-light), var(--brand)); border: none;">
+                            CẬP NHẬT MẬT KHẨU
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a asp-action="Index" class="text-muted fw-800 small text-uppercase text-decoration-none hover-brand transition-all">
+                    <i class="bi bi-arrow-left me-1"></i> Quay lại quản lý tài khoản
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .shadow-brand-soft {
+        box-shadow: 0 10px 40px rgba(5, 150, 105, 0.15);
+    }
+    .space-y-4 > *:not(:last-child) { margin-bottom: 1.5rem; }
+</style>

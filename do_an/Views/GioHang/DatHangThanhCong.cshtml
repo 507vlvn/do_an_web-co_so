@@ -1,0 +1,96 @@
+@model do_an.Models.DonHang
+@{
+    ViewData["Title"] = "Đặt hàng thành công";
+    Layout = "_StoreLayout";
+}
+
+<div class="py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+            <div class="bg-white rounded-5 shadow-sm border p-5 text-center overflow-hidden position-relative" style="border-color: #f1f5f9 !important;">
+                <!-- Success Decoration -->
+                <div class="position-absolute top-0 start-50 translate-middle-x mt-n5" style="z-index: 0;">
+                    <div class="rounded-circle bg-brand-soft" style="width: 200px; height: 200px; opacity: 0.5; filter: blur(40px);"></div>
+                </div>
+
+                <div class="position-relative" style="z-index: 1;">
+                    <div class="mb-4 d-inline-block p-4 rounded-circle bg-brand-soft text-brand animate-bounce-slow shadow-brand-soft">
+                        <i class="bi bi-check-circle-fill fs-1" style="font-size: 4rem !important;"></i>
+                    </div>
+                    
+                    <h1 class="display-6 fw-800 text-dark mb-2" style="letter-spacing: -2px;">Đặt hàng thành công!</h1>
+                    <p class="text-muted fw-600 mb-5">Cảm ơn bạn đã tin tưởng lựa chọn Nhà Thuốc của chúng tôi.</p>
+                    
+                    <div class="bg-light rounded-5 p-4 text-start mb-5 border" style="border-style: dotted !important; border-width: 2px !important; border-color: var(--brand-light) !important;">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom border-secondary border-opacity-10">
+                            <span class="text-muted small fw-800 text-uppercase" style="letter-spacing: 1px;">Mã đơn hàng</span>
+                            <span class="text-brand fw-800 fs-5">#@Model.MaDonHang</span>
+                        </div>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <span class="text-muted small fw-800 text-uppercase d-block mb-1" style="letter-spacing: 0.5px;">Người nhận</span>
+                                <strong class="text-dark fw-800">@Model.HoTenNguoiNhan</strong>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-muted small fw-800 text-uppercase d-block mb-1" style="letter-spacing: 0.5px;">Số điện thoại</span>
+                                <strong class="text-dark fw-800">@Model.SoDienThoai</strong>
+                            </div>
+                            <div class="col-12">
+                                <span class="text-muted small fw-800 text-uppercase d-block mb-1" style="letter-spacing: 0.5px;">Địa chỉ giao hàng</span>
+                                <strong class="text-dark fw-800">@Model.DiaChi</strong>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="text-muted small fw-800 text-uppercase d-block mb-1" style="letter-spacing: 0.5px;">Trạng thái</span>
+                                <span class="badge @(Model.TrangThai == do_an.Models.TrangThaiDonHang.DaThanhToan ? "bg-brand text-white" : "bg-warning-soft text-warning") rounded-pill px-3 py-2 fw-800">
+                                    <i class="bi @(Model.TrangThai == do_an.Models.TrangThaiDonHang.DaThanhToan ? "bi-check-circle-fill" : "bi-clock-fill") me-1"></i>
+                                    @(Model.TrangThai == do_an.Models.TrangThaiDonHang.DaThanhToan ? "Đã thanh toán" : "Chờ thanh toán")
+                                </span>
+                            </div>
+                            <div class="col-md-6 text-md-end">
+                                <span class="text-muted small fw-800 text-uppercase d-block mb-1" style="letter-spacing: 0.5px;">Tổng giá trị</span>
+                                <strong class="text-brand h4 fw-800 mb-0">@Model.TongThanhToan.ToString("N0")đ</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-md-6">
+                            <a asp-controller="Store" asp-action="Index" class="btn btn-brand w-100 py-3 rounded-pill fw-800 text-white shadow-brand"
+                               style="background: linear-gradient(135deg, var(--brand-light), var(--brand)); border: none;">
+                                <i class="bi bi-shop me-2"></i> TIẾP TỤC MUA SẮM
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-action="DonHangCuaToi" class="btn btn-light w-100 py-3 rounded-pill fw-800 text-muted border transition-all">
+                                <i class="bi bi-box-seam me-2"></i> THEO DÕI ĐƠN HÀNG
+                            </a>
+                        </div>
+                    </div>
+
+                    <p class="text-muted small mt-5 mb-0 fw-500">
+                        <i class="bi bi-envelope me-1"></i> Một email xác nhận đơn hàng đã được gửi đến bạn.<br>
+                        Nếu cần hỗ trợ, vui lòng liên hệ <span class="text-brand fw-800">1900 xxxx</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .animate-bounce-slow {
+        animation: bounce-slow 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+    }
+    @@keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    .bg-warning-soft {
+        background: #fffbeb;
+        color: #b45309;
+    }
+    .shadow-brand-soft {
+        box-shadow: 0 10px 40px rgba(5, 150, 105, 0.2);
+    }
+</style>

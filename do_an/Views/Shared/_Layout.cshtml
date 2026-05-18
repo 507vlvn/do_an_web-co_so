@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Quản Trị Nhà Thuốc</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+        :root {
+            --brand: #059669;
+            --brand-dark: #047857;
+            --brand-light: #10b981;
+            --sidebar-bg: #1e293b;
+            --sidebar-hover: #334155;
+            --main-bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--main-bg);
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        /* Modern Sidebar */
+        #wrapper {
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        #sidebar {
+            min-width: 260px;
+            max-width: 260px;
+            background: var(--sidebar-bg);
+            color: #fff;
+            transition: all 0.3s;
+            min-height: 100vh;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        #sidebar .sidebar-header {
+            padding: 24px;
+            background: rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        #sidebar .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #sidebar .logo span { color: var(--brand-light); }
+
+        #sidebar ul.components {
+            padding: 20px 0;
+        }
+
+        #sidebar ul li a {
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.2s;
+            gap: 12px;
+            border-left: 4px solid transparent;
+        }
+
+        #sidebar ul li a:hover {
+            color: #fff;
+            background: var(--sidebar-hover);
+        }
+
+        #sidebar ul li a.active {
+            color: #fff;
+            background: rgba(5, 150, 105, 0.1);
+            border-left-color: var(--brand);
+        }
+
+        #sidebar ul li a i { font-size: 1.1rem; }
+
+        .sidebar-label {
+            padding: 10px 24px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        /* Main Content */
+        #content {
+            width: 100%;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+        /* Navbar */
+        .admin-nav {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 30px;
+            margin: -30px -30px 30px -30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-badge {
+            background: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Global UI elements */
+        .card {
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .btn-brand {
+            background: var(--brand);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+        }
+
+        .btn-brand:hover {
+            background: var(--brand-dark);
+            color: #fff;
+        }
+
+        .badge-admin { background: #ef4444; }
+        .badge-staff { background: #3b82f6; }
+
+        @@media (max-width: 768px) {
+            #sidebar { margin-left: -260px; }
+            #sidebar.active { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo">🏥 Nhà Thuốc<span>Plus</span></a>
+                <small class="text-muted d-block mt-1">Hệ Thống Quản Trị</small>
+            </div>
+
+            <ul class="list-unstyled components">
+                @if (User.IsInRole("Admin"))
+                {
+                    <li>
+                        <a asp-controller="Home" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")">
+                            <i class="bi bi-speedometer2"></i> Dashboard
+                        </a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Admin") || User.IsInRole("NhanVien"))
+                {
+                    <div class="sidebar-label">Bán Hàng</div>
+                    <li>
+                        <a asp-controller="DonHangPos" asp-action="Create" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHangPos" && ViewContext.RouteData.Values["Action"]?.ToString() == "Create" ? "active" : "") text-success fw-bold">
+                            <i class="bi bi-plus-circle-fill"></i> Bán Tại Quầy
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="DonHangPos" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHangPos" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                            <i class="bi bi-clock-history"></i> Lịch sử Hóa đơn
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="DonHangOnline" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHangOnline" ? "active" : "")">
+                            <i class="bi bi-cart-check"></i> Đơn Online
+                        </a>
+                    </li>
+
+                    <div class="sidebar-label">Danh Mục</div>
+                    <li>
+                        <a asp-controller="SanPham" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "SanPham" ? "active" : "")">
+                            <i class="bi bi-box-seam"></i> Sản Phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="LoThuoc" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "LoThuoc" ? "active" : "")">
+                            <i class="bi bi-box-seam-fill"></i> Lô Thuốc
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="TaiKhoan" asp-action="Index" asp-route-vaiTro="KhachHang" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "TaiKhoan" && ViewContext.HttpContext.Request.Query["vaiTro"].ToString() == "KhachHang" ? "active" : "")">
+                            <i class="bi bi-person-circle"></i> Khách Hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="DonThuoc" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonThuoc" ? "active" : "")">
+                            <i class="bi bi-clipboard2-pulse"></i> Đơn Thuốc
+                        </a>
+                    </li>
+                }
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="sidebar-label">Hệ Thống</div>
+                    <li>
+                        <a asp-controller="TaiKhoan" asp-action="Index" asp-route-vaiTro="NhanVien" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "TaiKhoan" && ViewContext.HttpContext.Request.Query["vaiTro"].ToString() == "NhanVien" ? "active" : "")">
+                            <i class="bi bi-people"></i> Nhân Viên
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="DanhMuc" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DanhMuc" ? "active" : "")">
+                            <i class="bi bi-grid"></i> Danh Mục
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Voucher" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Voucher" ? "active" : "")">
+                            <i class="bi bi-ticket-perforated"></i> Voucher
+                        </a>
+                    </li>
+                }
+
+                <div class="sidebar-label">Công Cụ</div>
+                <li>
+                    <a asp-controller="Store" asp-action="Index">
+                        <i class="bi bi-shop"></i> Xem Cửa Hàng
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <nav class="admin-nav shadow-sm">
+                <button type="button" id="sidebarCollapse" class="btn btn-light d-md-none">
+                    <i class="bi bi-list"></i>
+                </button>
+                
+                <h5 class="mb-0 fw-bold text-muted">@ViewData["Title"]</h5>
+
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-badge">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <span class="badge badge-admin">AD</span>
+                        }
+                        else if (User.IsInRole("NhanVien"))
+                        {
+                            <span class="badge badge-staff">NV</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">KH</span>
+                        }
+                        <span>@User.Identity?.Name</span>
+                    </div>
+                    <form asp-controller="Account" asp-action="Logout" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-outline-danger border-0">
+                            <i class="bi bi-box-arrow-right fs-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </nav>
+
+            @if (TempData["Success"] is string sMsg)
+            {
+                <div class="alert alert-success alert-dismissible fade show rounded-3 shadow-sm border-0" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i> @sMsg
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+            @if (TempData["Error"] is string eMsg)
+            {
+                <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm border-0" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> @eMsg
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

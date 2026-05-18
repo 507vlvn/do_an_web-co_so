@@ -1,0 +1,229 @@
+@model do_an.ViewModels.LoginViewModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Đăng Nhập Hệ Thống";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — Nhà Thuốc Plus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <style>
+        :root {
+            --brand: #059669;
+            --brand-dark: #064e3b;
+            --brand-light: #34d399;
+            --brand-soft: #ecfdf5;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(5, 150, 105, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 440px;
+            padding: 48px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand-logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--brand);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-logo i {
+            background: linear-gradient(135deg, var(--brand-light), var(--brand));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-label {
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .input-group-custom {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .input-group-custom i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+
+        .form-control-custom {
+            width: 100%;
+            padding: 14px 18px 14px 48px;
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            border-radius: 16px;
+            font-weight: 500;
+            color: #1e293b;
+            transition: all 0.3s;
+        }
+
+        .form-control-custom:focus {
+            background: #fff;
+            border-color: var(--brand);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.1);
+        }
+
+        .form-control-custom:focus + i {
+            color: var(--brand);
+        }
+
+        .btn-login {
+            background: var(--brand);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            padding: 16px;
+            font-weight: 700;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-login:hover {
+            background: var(--brand-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(5, 150, 105, 0.4);
+            color: #fff;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--brand);
+            border-color: var(--brand);
+        }
+
+        .demo-badge {
+            background: #f1f5f9;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 32px;
+        }
+
+        .demo-badge code {
+            color: var(--brand);
+            font-weight: 700;
+            background: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="text-center">
+            <a href="/" class="brand-logo">
+                <i class="bi bi-plus-square-fill"></i> Nhà Thuốc<span>Plus</span>
+            </a>
+            <h4 class="fw-bold text-dark mb-1">Đăng nhập tài khoản</h4>
+            <p class="text-muted small mb-4">Hệ thống quản lý dược phẩm thông minh</p>
+        </div>
+
+        <form asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
+            @Html.AntiForgeryToken()
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger border-0 rounded-4 x-small py-2 px-3 mb-4"></div>
+            }
+
+            <div class="input-group-custom">
+                <label asp-for="TenDangNhap" class="form-label"></label>
+                <input asp-for="TenDangNhap" class="form-control-custom" placeholder="Tên đăng nhập" autocomplete="off" />
+                <i class="bi bi-person-fill"></i>
+                <span asp-validation-for="TenDangNhap" class="text-danger x-small d-block mt-1"></span>
+            </div>
+
+            <div class="input-group-custom">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <label asp-for="MatKhau" class="form-label mb-0"></label>
+                    <a href="#" class="x-small text-brand text-decoration-none fw-bold">Quên?</a>
+                </div>
+                <input asp-for="MatKhau" class="form-control-custom" type="password" placeholder="••••••••" />
+                <i class="bi bi-lock-fill"></i>
+                <span asp-validation-for="MatKhau" class="text-danger x-small d-block mt-1"></span>
+            </div>
+
+            <div class="form-check mb-4">
+                <input asp-for="GhiNho" class="form-check-input" type="checkbox" />
+                <label asp-for="GhiNho" class="form-check-label text-muted small fw-medium">Duy trì trạng thái đăng nhập</label>
+            </div>
+
+            <button type="submit" class="btn-login">
+                Truy cập ngay <i class="bi bi-arrow-right"></i>
+            </button>
+        </form>
+
+        <div class="text-center mt-4 pt-2">
+            <p class="text-muted small mb-0">Bạn chưa có tài khoản?</p>
+            <a asp-action="Register" class="text-brand fw-bold text-decoration-none">Tạo tài khoản mới miễn phí</a>
+        </div>
+
+        <div class="demo-badge text-center x-small text-muted">
+            <div class="fw-bold text-uppercase mb-2" style="font-size: 0.65rem; letter-spacing: 1px;">Thông tin trải nghiệm</div>
+            <div class="d-flex justify-content-center gap-3">
+                <span>Quản trị: <code>admin</code></span>
+                <span>Nhân viên: <code>nhanvien</code></span>
+            </div>
+            <div class="mt-1">Mật khẩu chung: <code>admin123</code> / <code>nv123</code></div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

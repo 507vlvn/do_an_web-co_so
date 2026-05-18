@@ -1,0 +1,233 @@
+@model do_an.ViewModels.CheckoutViewModel
+@{
+    ViewData["Title"] = "Xác nh?n ??t hàng";
+    Layout = "_StoreLayout";
+}
+
+<div class="py-4">
+    <div class="mb-5">
+        <h1 class="display-6 fw-800 text-dark mb-1" style="letter-spacing: -2px;">Thanh toán</h1>
+        <p class="text-muted fw-600 mb-0">Hoàn t?t thông tin ?? nh?n hàng siêu t?c</p>
+    </div>
+
+    <form asp-action="DatHang" method="post" id="checkoutForm">
+        @Html.AntiForgeryToken()
+        <div class="row g-4">
+            <!-- Left: Shipping & Payment -->
+            <div class="col-lg-7">
+                <div class="bg-white rounded-5 shadow-sm border p-4 mb-4" style="border-color: #f1f5f9 !important;">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="bg-brand-soft text-brand rounded-4 p-2 me-3">
+                            <i class="bi bi-geo-alt fs-4"></i>
+                        </div>
+                        <h5 class="fw-800 mb-0 text-dark">Thông tin giao hàng</h5>
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger px-4 py-3 rounded-4 small mb-4 border-0 shadow-sm" style="background: #fef2f2; color: #991b1b;"></div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="HoTenNguoiNhan" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                            <input asp-for="HoTenNguoiNhan" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="H? và tên ng??i nh?n" />
+                            <span asp-validation-for="HoTenNguoiNhan" class="text-danger small mt-1 fw-bold"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="SoDienThoai" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                            <input asp-for="SoDienThoai" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="S? ?i?n tho?i liên h?" />
+                            <span asp-validation-for="SoDienThoai" class="text-danger small mt-1 fw-bold"></span>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label asp-for="DiaChi" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                            <input asp-for="DiaChi" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="??a ch? giao hàng chi ti?t" />
+                            <span asp-validation-for="DiaChi" class="text-danger small mt-1 fw-bold"></span>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label asp-for="Email" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                            <input asp-for="Email" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="Email nh?n thông báo" />
+                            <span asp-validation-for="Email" class="text-danger small mt-1 fw-bold"></span>
+                        </div>
+                        <div class="col-12 mb-0">
+                            <label asp-for="GhiChu" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                            <textarea asp-for="GhiChu" class="form-control rounded-4 bg-light border-0 shadow-none fw-600" rows="3" placeholder="Ghi chú thêm v? th?i gian giao hàng (không b?t bu?c)..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-5 shadow-sm border p-4" style="border-color: #f1f5f9 !important;">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="bg-brand-soft text-brand rounded-4 p-2 me-3">
+                            <i class="bi bi-credit-card fs-4"></i>
+                        </div>
+                        <h5 class="fw-800 mb-0 text-dark">Ph??ng th?c thanh toán</h5>
+                    </div>
+
+                    <div class="space-y-3">
+                        @if (User.IsInRole("Admin") || User.IsInRole("NhanVien"))
+                        {
+                            <div class="payment-card p-3 rounded-4 border-2 transition-all cursor-pointer @(Model.PhuongThucThanhToan == 0 ? "border-brand bg-brand-soft" : "border-light")" 
+                                 onclick="selectPayment('cod')">
+                                <div class="form-check d-flex align-items-center m-0">
+                                    <input class="form-check-input me-3" type="radio" asp-for="PhuongThucThanhToan"
+                                           value="0" id="cod" />
+                                    <label class="form-check-label fw-800 text-dark flex-grow-1 cursor-pointer" for="cod">
+                                        <div class="d-flex align-items-center gap-2 mb-1">
+                                            <i class="bi bi-cash-stack text-success fs-5"></i>
+                                            <span>Thanh toán t?i qu?y (COD)</span>
+                                        </div>
+                                        <div class="small fw-600 text-muted">Phù h?p cho khách hàng mua tr?c ti?p t?i nhà thu?c.</div>
+                                    </label>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="payment-card p-3 rounded-4 border-2 transition-all cursor-pointer @(Model.PhuongThucThanhToan == do_an.Models.PhuongThucThanhToan.ThanhToanOnline || !(User.IsInRole("Admin") || User.IsInRole("NhanVien")) ? "border-brand bg-brand-soft shadow-sm" : "border-light")"
+                             onclick="selectPayment('online')">
+                            <div class="form-check d-flex align-items-center m-0">
+                                <input class="form-check-input me-3" type="radio" asp-for="PhuongThucThanhToan"
+                                       value="1" id="online" />
+                                <label class="form-check-label fw-800 text-dark flex-grow-1 cursor-pointer" for="online">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="bi bi-shield-check text-brand fs-5"></i>
+                                            <span>Thanh toán tr?c tuy?n</span>
+                                        </div>
+                                        <div class="d-flex gap-2">
+                                            <img src="https://vnpay.vn/wp-content/uploads/2020/07/vnpay-logo.png" style="height: 12px; filter: grayscale(1);">
+                                            <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" style="height: 12px; filter: grayscale(1);">
+                                        </div>
+                                    </div>
+                                    <div class="small fw-600 text-muted">Thanh toán an toàn qua c?ng VNPay/Momo/Th? ATM.</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Order Summary -->
+            <div class="col-lg-5">
+                <div class="position-sticky" style="top: 24px;">
+                    <div class="bg-white rounded-5 shadow-sm border p-4 mb-4" style="border-color: #f1f5f9 !important;">
+                        <div class="d-flex align-items-center justify-content-between mb-4 pb-3 border-bottom">
+                            <h5 class="fw-800 mb-0 text-dark">Tóm t?t ??n hàng</h5>
+                            <span class="badge bg-brand-soft text-brand rounded-pill fw-800 px-3">@Model.Items.Count MÓN</span>
+                        </div>
+
+                        <div class="order-items mb-4 overflow-auto custom-scrollbar" style="max-height: 250px;">
+                            @foreach (var item in Model.Items)
+                            {
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="flex-shrink-0 bg-light rounded-3 p-1" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+                                            <img src="@(item.HinhAnh ?? "/images/no-image.svg")" class="img-fluid" style="max-height: 40px; object-fit: contain;">
+                                        </div>
+                                        <div>
+                                            <div class="fw-800 text-dark small text-truncate" style="max-width: 180px;">@item.TenSanPham</div>
+                                            <div class="text-muted small fw-600">x@item.SoLuong &times; @item.GiaBan.ToString("N0")?</div>
+                                        </div>
+                                    </div>
+                                    <span class="fw-800 text-dark small">@item.ThanhTien.ToString("N0")?</span>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="mb-4 pt-3 border-top">
+                            <label class="form-label fw-800 text-muted small text-uppercase mb-2">Mã gi?m giá (Voucher)</label>
+                            <div class="input-group">
+                                <input asp-for="MaVoucher" class="form-control rounded-start-4 bg-light border-0 shadow-none fw-800 px-3" placeholder="Nh?p mã ?u ?ãi..." />
+                                <button type="submit" name="applyVoucher" class="btn btn-dark rounded-end-4 px-3 fw-800 transition-all" 
+                                        style="font-size: 0.85rem;">ÁP D?NG</button>
+                            </div>
+                            @if (!string.IsNullOrEmpty(Model.MaVoucher)) {
+                                <div class="mt-2 small fw-600 text-success"><i class="bi bi-patch-check-fill me-1"></i> ?ã áp d?ng mã @Model.MaVoucher</div>
+                            }
+                        </div>
+
+                        <div class="space-y-3 mb-4">
+                            <div class="d-flex justify-content-between text-muted fw-600">
+                                <span>T?m tính hàng</span>
+                                <span class="text-dark fw-800">@Model.TongTienHang.ToString("N0")?</span>
+                            </div>
+                            @if (Model.TienGiam > 0)
+                            {
+                                <div class="d-flex justify-content-between text-success fw-600">
+                                    <span>Gi?m giá Voucher</span>
+                                    <span class="fw-800">-@Model.TienGiam.ToString("N0")?</span>
+                                </div>
+                            }
+                            <div class="d-flex justify-content-between text-muted fw-600">
+                                <span>Phí giao hàng</span>
+                                <span class="text-dark fw-800">0?</span>
+                            </div>
+                        </div>
+
+                        <div class="border-top pt-4 mb-4">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <span class="fw-800 text-dark h5 mb-0">T?NG C?NG</span>
+                                <div class="text-end">
+                                    <div class="h3 fw-800 text-brand mb-0" style="letter-spacing: -1.5px;">@Model.TongThanhToan.ToString("N0")?</div>
+                                    <p class="text-muted small mb-0 fw-500">(?ã bao g?m VAT)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-brand w-100 py-3 rounded-4 fw-800 text-white shadow-brand transition-all mb-3 text-uppercase"
+                                style="background: linear-gradient(135deg, var(--brand-light), var(--brand)); border: none; letter-spacing: 1px;">
+                            Xác nh?n ??t hàng <i class="bi bi-chevron-right ms-2 fs-5"></i>
+                        </button>
+                        
+                        <div class="text-center">
+                            <i class="bi bi-shield-lock text-brand-soft me-1" style="color: var(--brand-light) !important;"></i>
+                            <span class="text-muted small fw-600">Cam k?t an toàn & b?o m?t</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-light rounded-4 p-3 border border-dashed text-center fw-600 small text-muted">
+                        <i class="bi bi-info-circle me-1 text-brand"></i> B?ng cách nh?n xác nh?n, b?n ??ng ý v?i ?i?u kho?n mua hàng.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+    .payment-card:hover {
+        background-color: #f8fafc;
+        transform: translateY(-2px);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: var(--brand-light);
+        border-radius: 10px;
+    }
+    .space-y-3 > *:not(:last-child) {
+        margin-bottom: 0.75rem;
+    }
+    .divide-y > *:not(:last-child) {
+        border-bottom: 1px solid #f1f5f9;
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function selectPayment(id) {
+            document.getElementById(id).click();
+            // Update UI
+            document.querySelectorAll('.payment-card').forEach(card => {
+                card.classList.remove('border-brand', 'bg-brand-soft', 'shadow-sm');
+                card.classList.add('border-light');
+            });
+            const selectedCard = event.currentTarget;
+            selectedCard.classList.remove('border-light');
+            selectedCard.classList.add('border-brand', 'bg-brand-soft', 'shadow-sm');
+        }
+    </script>
+}
