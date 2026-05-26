@@ -37,22 +37,6 @@
                 </a>
             </div>
 
-            @if (TempData["Success"] != null)
-            {
-                <div class="alert alert-success border-0 shadow-sm rounded-4 p-4 mb-4 d-flex align-items-center">
-                    <i class="bi bi-check-circle-fill fs-4 me-3"></i>
-                    <div class="fw-800">@TempData["Success"]</div>
-                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
-                </div>
-            }
-            @if (TempData["Error"] != null)
-            {
-                <div class="alert alert-danger border-0 shadow-sm rounded-4 p-4 mb-4 d-flex align-items-center">
-                    <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
-                    <div class="fw-800">@TempData["Error"]</div>
-                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
-                </div>
-            }
 
             <!-- Info Card -->
             <div class="bg-white rounded-5 shadow-sm border overflow-hidden mb-4" style="border-color: #f1f5f9 !important;">

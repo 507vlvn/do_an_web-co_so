@@ -1,6 +1,7 @@
 using do_an.Data;
 using do_an.Helpers;
 using do_an.Models;
+using do_an.Services;
 using do_an.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,7 +16,10 @@ public class AccountController : Controller
 {
     private readonly AppDbContext _context;
 
-    public AccountController(AppDbContext context) => _context = context;
+    public AccountController(AppDbContext context)
+    {
+        _context = context;
+    }
 
     // GET: /Account/Login
     [AllowAnonymous]

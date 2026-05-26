@@ -46,73 +46,6 @@ public class LoThuocController : Controller
         return View(list);
     }
 
-    // GET: /LoThuoc/NhapLo
-    public async Task<IActionResult> NhapLo(int? sanPhamId)
-    {
-        await LoadSanPhamList(sanPhamId);
-
-        var vm = new NhapLoThuocViewModel();
-        if (sanPhamId.HasValue)
-            vm.SanPhamId = sanPhamId.Value;
-
-        // Gợi ý mã lô tự động
-        vm.MaLo = $"LO-{DateTime.Now:yyyyMMdd}-{Random.Shared.Next(100, 999)}";
-
-        return View(vm);
-    }
-
-    // POST: /LoThuoc/NhapLo
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> NhapLo(NhapLoThuocViewModel vm)
-    {
-        if (vm.HanSuDung <= vm.NgaySX)
-            ModelState.AddModelError(nameof(vm.HanSuDung), "Hạn sử dụng phải sau ngày sản xuất.");
-
-        if (vm.HanSuDung <= DateTime.Today)
-            ModelState.AddModelError(nameof(vm.HanSuDung), "Hạn sử dụng phải trong tương lai.");
-
-        // Kiểm tra mã lô đã tồn tại cho thuốc này chưa
-        bool trungMaLo = await _context.LoThuocs
-            .AnyAsync(l => l.SanPhamId == vm.SanPhamId && l.MaLo == vm.MaLo);
-        if (trungMaLo)
-            ModelState.AddModelError(nameof(vm.MaLo), "Mã lô này đã tồn tại cho thuốc đã chọn.");
-
-        if (!ModelState.IsValid)
-        {
-            await LoadSanPhamList(vm.SanPhamId);
-            return View(vm);
-        }
-
-        var sp = await _context.SanPhams.FindAsync(vm.SanPhamId);
-        if (sp is null) return NotFound();
-
-        // Tạo lô mới
-        var loMoi = new LoThuoc
-        {
-            MaLo           = vm.MaLo,
-            SanPhamId      = vm.SanPhamId,
-            SoLuongBanDau  = vm.SoLuongNhap,
-            SoLuongKhaDung = vm.SoLuongNhap,
-            NgaySX         = vm.NgaySX,
-            HanSuDung      = vm.HanSuDung,
-            TrangThai      = true
-        };
-
-        // Cộng thêm vào tổng tồn kho của sản phẩm
-        sp.SoLuong += vm.SoLuongNhap;
-
-        _context.LoThuocs.Add(loMoi);
-        await _context.SaveChangesAsync();
-
-        // Đồng bộ HSD/NgaySX theo lô FEFO hiện tại (sau khi lô mới đã được lưu vào DB)
-        await KhoHelper.CapNhatHanSuDungTheoLoAsync(_context, sp);
-        await _context.SaveChangesAsync();
-
-        TempData["Success"] = $"Đã nhập lô \"{vm.MaLo}\" ({vm.SoLuongNhap} {sp.DonViTinh}) cho thuốc \"{sp.TenSanPham}\".";
-        return RedirectToAction(nameof(Index), new { sanPhamId = vm.SanPhamId });
-    }
-
     // GET: /LoThuoc/Edit/5
     [Authorize(Roles = "Admin,NhanVien")]
     public async Task<IActionResult> Edit(int id)
@@ -166,6 +99,8 @@ public class LoThuocController : Controller
         lo.SoLuongKhaDung = model.SoLuongKhaDung;
         lo.NgaySX         = model.NgaySX;
         lo.HanSuDung      = model.HanSuDung;
+        lo.GiaNhap        = model.GiaNhap;
+        lo.GiaBan         = model.GiaBan;
         lo.TrangThai      = model.TrangThai;
 
         await _context.SaveChangesAsync();
@@ -276,29 +211,6 @@ public class LoThuocController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+
     // ── Helpers ──────────────────────────────────────────────────
-    private async Task LoadSanPhamList(int? selected = null)
-    {
-        var list = await _context.SanPhams
-            .Include(s => s.DanhMuc)
-            .OrderBy(s => s.DanhMuc.TenDanhMuc)
-            .ThenBy(s => s.TenSanPham)
-            .ToListAsync();
-
-        // Group theo danh mục cho đẹp
-        var grouped = list
-            .GroupBy(s => s.DanhMuc?.TenDanhMuc ?? "Khác")
-            .Select(g => new SelectListGroup { Name = g.Key })
-            .ToList();
-
-        var items = list.Select(s => new SelectListItem
-        {
-            Value = s.Id.ToString(),
-            Text  = $"{s.TenSanPham} (Tồn: {s.SoLuong} {s.DonViTinh})",
-            Group = new SelectListGroup { Name = s.DanhMuc?.TenDanhMuc ?? "Khác" },
-            Selected = s.Id.ToString() == selected?.ToString()
-        }).ToList();
-
-        ViewBag.SanPhamList = items;
-    }
 }

@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Quản lý sản phẩm Website";
     bool isAdmin = ViewBag.IsAdmin == true;
+    var allSanPhams = ViewBag.AllSanPhams as List<do_an.Models.SanPham> ?? new();
+    var selectedSanPhamId = ViewBag.SanPhamId as int?;
 }
 
 <style>
@@ -31,21 +33,6 @@
     }
 </style>
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4 py-3" role="alert">
-        <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 mb-4 py-3" role="alert">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["Error"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
@@ -62,18 +49,20 @@
 
 <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
     <div class="card-header bg-white py-4 px-4 border-0">
-        <form method="get" class="row g-3 align-items-end">
-            <div class="col-md-5">
-                <label class="form-label small fw-bold text-muted text-uppercase">Tên sản phẩm</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
-                    <input type="text" name="search" class="form-control bg-light border-0" placeholder="Nhập tên sản phẩm để tìm..."
-                           value="@ViewBag.Search" />
-                </div>
-            </div>
+        <form method="get" class="row g-3 align-items-end" autocomplete="off">
             <div class="col-md-4">
+                <label class="form-label small fw-bold text-muted text-uppercase">Lọc theo sản phẩm</label>
+                <select name="sanPhamId" id="selSanPham" class="form-select">
+                    <option value="">-- Tất cả sản phẩm --</option>
+                    @foreach (var sp in allSanPhams)
+                    {
+                        <option value="@sp.Id" selected="@(selectedSanPhamId == sp.Id ? "selected" : null)">@sp.TenSanPham</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
                 <label class="form-label small fw-bold text-muted text-uppercase">Danh mục</label>
-                <select name="danhMucId" class="form-select bg-light border-0">
+                <select name="danhMucId" id="selDanhMuc" class="form-select">
                     <option value="">-- Tất cả danh mục --</option>
                     @if (ViewBag.DanhMucs is List<do_an.Models.DanhMucSanPham> dms)
                     {
@@ -86,9 +75,16 @@
                     }
                 </select>
             </div>
-            <div class="col-md-3 d-flex gap-2">
-                <button type="submit" class="btn btn-brand rounded-pill flex-fill">Lọc</button>
-                <a asp-action="Index" class="btn btn-light rounded-pill">Xóa</a>
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Tìm kiếm</label>
+                <input type="text" name="search" class="form-control form-control-custom-sm" placeholder="Nhập tên sản phẩm..." value="@ViewBag.Search" autocomplete="off" />
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-brand btn-custom-sm flex-fill">Lọc</button>
+                @if (!string.IsNullOrEmpty(ViewBag.Search as string) || selectedSanPhamId.HasValue || ViewBag.DanhMucId != null)
+                {
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-custom-sm"><i class="bi bi-x-circle me-1"></i>Xóa</a>
+                }
             </div>
         </form>
     </div>
@@ -290,9 +286,9 @@
                                         </a>
                                         @if (sp.IsThuoc)
                                         {
-                                            <a asp-controller="LoThuoc" asp-action="NhapLo" asp-route-sanPhamId="@sp.Id"
-                                               class="btn btn-sm btn-light rounded-circle me-1" title="Nhập lô thuốc">
-                                                <i class="bi bi-plus-square-fill text-success"></i>
+                                            <a asp-controller="LoThuoc" asp-action="Index" asp-route-sanPhamId="@sp.Id"
+                                               class="btn btn-sm btn-light rounded-circle me-1" title="Xem lô thuốc">
+                                                <i class="bi bi-box-seam-fill text-info"></i>
                                             </a>
                                         }
                                         <form asp-action="Delete" asp-route-id="@sp.Id" method="post" class="d-inline">
@@ -329,4 +325,89 @@
         </div>
     </div>
 </div>
-              
+
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <style>
+        .select2-container--bootstrap-5 .select2-selection {
+            background-color: #fff !important;
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 0.375rem !important;
+            height: 38px !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+        .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+            color: #1e293b;
+            line-height: 38px !important;
+            font-size: 0.875rem !important;
+            padding-left: 8px !important;
+        }
+        .select2-container--bootstrap-5 .select2-dropdown {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        .select2-container--bootstrap-5 .select2-results__option--highlighted[aria-selected] {
+            background-color: #059669 !important;
+        }
+        .select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 6px 12px;
+        }
+        .form-control-custom-sm {
+            height: 38px !important;
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 0.375rem !important;
+            font-size: 0.875rem !important;
+            padding: 6px 12px !important;
+            background-color: #fff !important;
+            color: #1e293b !important;
+        }
+        .form-control-custom-sm:focus {
+            border-color: #059669 !important;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12) !important;
+            outline: 0 !important;
+        }
+        .btn-custom-sm {
+            height: 38px !important;
+            border-radius: 0.375rem !important;
+            font-size: 0.875rem !important;
+            font-weight: 500 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $('#selSanPham').select2({
+                theme: 'bootstrap-5',
+                placeholder: '-- Tất cả sản phẩm --',
+                allowClear: true,
+                language: {
+                    noResults: function() { return 'Không tìm thấy sản phẩm nào'; },
+                    searching: function() { return 'Đang tìm...'; }
+                }
+            });
+
+            $('#selDanhMuc').select2({
+                theme: 'bootstrap-5',
+                placeholder: '-- Tất cả danh mục --',
+                allowClear: true,
+                language: {
+                    noResults: function() { return 'Không tìm thấy danh mục nào'; },
+                    searching: function() { return 'Đang tìm...'; }
+                }
+            });
+
+            // Tự động submit khi thay đổi lựa chọn sản phẩm
+            $('#selSanPham').on('change', function() {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+}

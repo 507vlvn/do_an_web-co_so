@@ -30,12 +30,14 @@ public class StoreController : Controller
                     var sp = await _context.SanPhams.FindAsync(ct.SanPhamId);
                     if (sp != null && sp.TrenKe && sp.SoLuong > 0)
                     {
+                        int actualQty = Math.Min(ct.SoLuong, sp.SoLuong);
+                        decimal currentPrice = await Helpers.KhoHelper.LayGiaBanTheoSoLuongAsync(_context, sp.Id, actualQty);
                         loadedItems.Add(new do_an.Helpers.CartItem
                         {
                             SanPhamId = ct.SanPhamId,
                             TenSanPham = sp.TenSanPham,
-                            GiaBan = sp.GiaBan,
-                            SoLuong = Math.Min(ct.SoLuong, sp.SoLuong),
+                            GiaBan = currentPrice,
+                            SoLuong = actualQty,
                             HinhAnh = sp.HinhAnhDaiDien
                         });
                     }
@@ -193,5 +195,17 @@ public class StoreController : Controller
         if (dt is null) return NotFound();
 
         return View(dt);
+    }
+
+    // GET: /Store/GetPriceForQuantity?productId=5&quantity=4  (AJAX)
+    [HttpGet]
+    public async Task<IActionResult> GetPriceForQuantity(int productId, int quantity)
+    {
+        if (quantity <= 0) quantity = 1;
+        var sp = await _context.SanPhams.FindAsync(productId);
+        if (sp == null) return Json(new { success = false, message = "Sản phẩm không tồn tại." });
+
+        decimal finalPrice = await Helpers.KhoHelper.LayGiaBanTheoSoLuongAsync(_context, productId, quantity);
+        return Json(new { success = true, price = finalPrice });
     }
 }

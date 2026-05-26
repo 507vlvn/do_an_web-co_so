@@ -1,0 +1,80 @@
+@model List<do_an.Models.PhieuNhapHang>
+@{
+    ViewData["Title"] = "Phieu nhap hang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-box-seam"></i> Phieu nhap hang</h2>
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Tao phieu nhap</a>
+</div>
+
+<!-- Tim kiem va loc -->
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <input type="text" name="search" value="@ViewBag.Search" class="form-control" placeholder="Tim ma phieu, nha cung cap...">
+    </div>
+    <div class="col-md-3">
+        <select name="trangThai" class="form-select">
+            <option value="">-- Tat ca trang thai --</option>
+            <option value="0" selected="@(ViewBag.TrangThai?.ToString() == "0")">Moi tao</option>
+            <option value="1" selected="@(ViewBag.TrangThai?.ToString() == "1")">Da nhap</option>
+            <option value="2" selected="@(ViewBag.TrangThai?.ToString() == "2")">Da huy</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i> Tim</button>
+    </div>
+</form>
+
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Ma phieu</th>
+                    <th>Nha cung cap</th>
+                    <th>Nhan vien nhap</th>
+                    <th>Ngay nhap</th>
+                    <th class="text-end">Tong tien</th>
+                    <th>Trang thai</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td><strong>@p.MaPhieu</strong></td>
+                        <td>@p.NhaCungCap?.TenNCC</td>
+                        <td>@p.NhanVienNhap?.HoTen</td>
+                        <td>@p.NgayNhap.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td class="text-end">@p.TongTien.ToString("N0") đ</td>
+                        <td>
+                            @switch (p.TrangThai)
+                            {
+                                case do_an.Models.TrangThaiPhieuNhap.MoiTao:
+                                    <span class="badge bg-info">Moi tao</span>
+                                    break;
+                                case do_an.Models.TrangThaiPhieuNhap.DaNhap:
+                                    <span class="badge bg-success">Da nhap</span>
+                                    break;
+                                case do_an.Models.TrangThaiPhieuNhap.DaHuy:
+                                    <span class="badge bg-danger">Da huy</span>
+                                    break;
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-sm btn-outline-info"><i class="bi bi-eye"></i></a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="7" class="text-center text-muted py-4">Chua co phieu nhap nao</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

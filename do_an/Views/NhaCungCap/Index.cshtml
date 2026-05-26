@@ -1,0 +1,75 @@
+@model List<do_an.Models.NhaCungCap>
+@{
+    ViewData["Title"] = "Nha cung cap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-truck"></i> Nha cung cap</h2>
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Them nha cung cap</a>
+</div>
+
+<!-- Tim kiem -->
+<form method="get" class="mb-3">
+    <div class="input-group" style="max-width: 400px;">
+        <input type="text" name="search" value="@ViewBag.Search" class="form-control" placeholder="Tim nha cung cap...">
+        <button class="btn btn-outline-secondary" type="submit"><i class="bi bi-search"></i></button>
+    </div>
+</form>
+
+
+<div class="card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Ten NCC</th>
+                    <th>SDT</th>
+                    <th>Email</th>
+                    <th>Nguoi lien he</th>
+                    <th>Trang thai</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ncc in Model)
+                {
+                    <tr>
+                        <td><strong>@ncc.TenNCC</strong><br /><small class="text-muted">@ncc.DiaChi</small></td>
+                        <td>@ncc.SoDienThoai</td>
+                        <td>@ncc.Email</td>
+                        <td>@ncc.NguoiLienHe</td>
+                        <td>
+                            @if (ncc.KichHoat)
+                            {
+                                <span class="badge bg-success">Hoat dong</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Vo hieu</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@ncc.Id" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                            <form asp-action="ToggleKichHoat" asp-route-id="@ncc.Id" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-outline-@(ncc.KichHoat ? "warning" : "success")">
+                                    <i class="bi bi-@(ncc.KichHoat ? "pause" : "play")"></i>
+                                </button>
+                            </form>
+                            <form asp-action="Delete" asp-route-id="@ncc.Id" method="post" class="d-inline"
+                                  onsubmit="return confirm('Ban co chac chan xoa?')">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="6" class="text-center text-muted py-4">Chua co nha cung cap nao</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

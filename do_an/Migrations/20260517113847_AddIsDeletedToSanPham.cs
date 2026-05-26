@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -11,9 +11,6 @@ namespace do_an.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "BienBanTieuHuy");
-
             migrationBuilder.AddColumn<bool>(
                 name: "IsDeleted",
                 table: "SanPham",

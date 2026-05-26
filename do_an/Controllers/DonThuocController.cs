@@ -19,7 +19,7 @@ public class DonThuocController : Controller
     }
 
     // GET: /DonThuoc
-    public async Task<IActionResult> Index(string? search, TrangThaiDonThuoc? trangThai)
+    public async Task<IActionResult> Index(string? search, TrangThaiDonThuoc? trangThai, int? sanPhamId)
     {
         var query = _context.DonThuocs
             .Include(d => d.ChiTietDonThuocs)
@@ -27,6 +27,9 @@ public class DonThuocController : Controller
 
         if (trangThai.HasValue)
             query = query.Where(d => d.TrangThai == trangThai);
+
+        if (sanPhamId.HasValue)
+            query = query.Where(d => d.ChiTietDonThuocs.Any(c => c.SanPhamId == sanPhamId));
 
         if (!string.IsNullOrWhiteSpace(search))
         {
@@ -38,6 +41,11 @@ public class DonThuocController : Controller
 
         ViewBag.Search = search;
         ViewBag.TrangThai = trangThai;
+        ViewBag.SanPhamId = sanPhamId;
+        ViewBag.SanPhams = await _context.SanPhams
+            .Where(s => s.IsThuoc)
+            .OrderBy(s => s.TenSanPham)
+            .ToListAsync();
 
         return View(await query.OrderByDescending(d => d.Id).ToListAsync());
     }

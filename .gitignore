@@ -1,3 +1,43 @@
+## Visual Studio / .NET Core Standard gitignore
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+bbin/
+bin/
+obj/
+_ReSharper*/
+[Tt]est[Rr]esult*/
+[Bb]uildLog.*
+
+# Tooling
 .vs/
+.idea/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
+
+# Publish output
+publish/
+dist/
+
+# User uploads / database local files
+wwwroot/uploads/*
+!wwwroot/uploads/.gitkeep
+logs/
+*.log
+
+# Environment variables & secrets
+.env
+.env.local
+.env.*.local
+
+# SQL Server local DB files
+*.mdf
+*.ldf

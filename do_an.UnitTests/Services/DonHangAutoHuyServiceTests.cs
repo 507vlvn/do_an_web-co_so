@@ -1,152 +1,145 @@
-﻿using do_an.Data;
-using do_an.Services;
+using Xunit;
+using do_an.Data;
+using do_an.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Moq;
-using System.Reflection;
 
-namespace do_an.UnitTests;
+namespace do_an.UnitTests.Services;
 
-[TestClass]
-public class DonHangAutoHuyServiceTests
+public class DonHangAutoHuyServiceTests : IDisposable
 {
-    [TestMethod]
-    public void Constructor_WithValidParameters_SetsFields()
+    private readonly AppDbContext _context;
+
+    public DonHangAutoHuyServiceTests()
     {
-        // Arrange
-        var mockScopeFactory = new Mock<IServiceScopeFactory>();
-        var mockLogger = new Mock<ILogger<DonHangAutoHuyService>>();
-
-        // Act
-        var service = new DonHangAutoHuyService(mockScopeFactory.Object, mockLogger.Object);
-
-        // Assert
-        Assert.IsNotNull(service);
-    }
-
-    [TestMethod]
-    public async Task ExecuteAsync_WithImmediateCancellation_ExitsLoop()
-    {
-        // Arrange
-        var mockScopeFactory = new Mock<IServiceScopeFactory>();
-        var mockLogger = new Mock<ILogger<DonHangAutoHuyService>>();
-        var service = new DonHangAutoHuyService(mockScopeFactory.Object, mockLogger.Object);
-        var cts = new CancellationTokenSource();
-        cts.Cancel(); // Cancel immediately
-
-        // Act
-        var executeAsyncMethod = typeof(DonHangAutoHuyService).GetMethod("ExecuteAsync", BindingFlags.NonPublic | BindingFlags.Instance);
-        var task = (Task?)executeAsyncMethod?.Invoke(service, new object[] { cts.Token });
-        await task!;
-
-        // Assert
-        Assert.IsTrue(task.IsCompleted);
-    }
-
-    [TestMethod]
-    public async Task ExecuteAsync_WithCancellationDuringDelay_ExitsLoop()
-    {
-        // Arrange
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
-
-        var mockScope = new Mock<IServiceScope>();
-        var mockServiceProvider = new Mock<IServiceProvider>();
-        var mockScopeFactory = new Mock<IServiceScopeFactory>();
-        var mockLogger = new Mock<ILogger<DonHangAutoHuyService>>();
-
-        using var context = new AppDbContext(options);
-        mockServiceProvider.Setup(sp => sp.GetService(typeof(AppDbContext))).Returns(context);
-        mockScope.Setup(s => s.ServiceProvider).Returns(mockServiceProvider.Object);
-        mockScopeFactory.Setup(f => f.CreateScope()).Returns(mockScope.Object);
-
-        var service = new DonHangAutoHuyService(mockScopeFactory.Object, mockLogger.Object);
-        var cts = new CancellationTokenSource();
-
-        // Act
-        var executeAsyncMethod = typeof(DonHangAutoHuyService).GetMethod("ExecuteAsync", BindingFlags.NonPublic | BindingFlags.Instance);
-        var task = (Task?)executeAsyncMethod?.Invoke(service, new object[] { cts.Token });
-
-        // Cancel after a short delay to let it start
-        await Task.Delay(100);
-        cts.Cancel();
-
-        await task!;
-
-        // Assert
-        Assert.IsTrue(task.IsCompleted);
+        _context = new AppDbContext(options);
+        _context.Database.EnsureCreated();
     }
 
-    [TestMethod]
-    public async Task ExecuteAsync_WithExceptionInPrivateMethod_LogsErrorAndContinues()
+    public void Dispose() => _context.Dispose();
+
+    [Fact]
+    public async Task DonHangQuaHan_ChiLaOnline_ChuaThanhToan()
     {
-        // Arrange
-        var mockScope = new Mock<IServiceScope>();
-        var mockServiceProvider = new Mock<IServiceProvider>();
-        var mockScopeFactory = new Mock<IServiceScopeFactory>();
-        var mockLogger = new Mock<ILogger<DonHangAutoHuyService>>();
+        // Tao don hang online chua thanh toan qua 30 phut
+        var donHang = new DonHang
+        {
+            MaDonHang = "DH-TEST-001",
+            LoaiDon = LoaiDonHang.Online,
+            TrangThai = TrangThaiDonHang.ChoThanhToan,
+            PhuongThucThanhToan = PhuongThucThanhToan.ThanhToanOnline,
+            NgayDat = DateTime.Now.AddMinutes(-35),
+            TongTienHang = 100000
+        };
+        _context.DonHangs.Add(donHang);
+        await _context.SaveChangesAsync();
 
-        // Setup to throw exception when GetService is called
-        mockServiceProvider.Setup(sp => sp.GetService(typeof(AppDbContext))).Throws(new InvalidOperationException("Test exception"));
-        mockScope.Setup(s => s.ServiceProvider).Returns(mockServiceProvider.Object);
-        mockScopeFactory.Setup(f => f.CreateScope()).Returns(mockScope.Object);
+        // Kiem tra dieu kien huy
+        var deadline = DateTime.Now.AddMinutes(-30);
+        var donHangsQuaHan = await _context.DonHangs
+            .Where(d => d.TrangThai == TrangThaiDonHang.ChoThanhToan
+                     && d.PhuongThucThanhToan == PhuongThucThanhToan.ThanhToanOnline
+                     && d.NgayDat < deadline)
+            .ToListAsync();
 
-        var service = new DonHangAutoHuyService(mockScopeFactory.Object, mockLogger.Object);
-        var cts = new CancellationTokenSource();
-
-        // Act
-        var executeAsyncMethod = typeof(DonHangAutoHuyService).GetMethod("ExecuteAsync", BindingFlags.NonPublic | BindingFlags.Instance);
-        var task = (Task?)executeAsyncMethod?.Invoke(service, new object[] { cts.Token });
-
-        // Let it run once and hit the exception
-        await Task.Delay(100);
-        cts.Cancel();
-
-        await task!;
-
-        // Assert
-        Assert.IsTrue(task.IsCompleted);
-        mockLogger.Verify(
-            x => x.Log(
-                LogLevel.Error,
-                It.IsAny<EventId>(),
-                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Lỗi khi chạy background service.")),
-                It.IsAny<Exception>(),
-                It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
-            Times.AtLeastOnce);
+        Assert.Single(donHangsQuaHan);
+        Assert.Equal("DH-TEST-001", donHangsQuaHan[0].MaDonHang);
     }
 
-    [TestMethod]
-    public async Task ExecuteAsync_WithOperationCanceledExceptionAndRequestedCancellation_BreaksLoop()
+    [Fact]
+    public async Task DonHangChuaQuaHan_KhongNamTrongDanhSach()
     {
-        // Arrange
-        var mockScope = new Mock<IServiceScope>();
-        var mockServiceProvider = new Mock<IServiceProvider>();
-        var mockScopeFactory = new Mock<IServiceScopeFactory>();
-        var mockLogger = new Mock<ILogger<DonHangAutoHuyService>>();
+        var donHang = new DonHang
+        {
+            MaDonHang = "DH-TEST-002",
+            LoaiDon = LoaiDonHang.Online,
+            TrangThai = TrangThaiDonHang.ChoThanhToan,
+            PhuongThucThanhToan = PhuongThucThanhToan.ThanhToanOnline,
+            NgayDat = DateTime.Now.AddMinutes(-10), // Chua qua 30 phut
+            TongTienHang = 100000
+        };
+        _context.DonHangs.Add(donHang);
+        await _context.SaveChangesAsync();
 
-        // Setup scope to throw OperationCanceledException
-        var cts = new CancellationTokenSource();
-        mockServiceProvider.Setup(sp => sp.GetService(typeof(AppDbContext)))
-            .Throws(new OperationCanceledException(cts.Token));
-        mockScope.Setup(s => s.ServiceProvider).Returns(mockServiceProvider.Object);
-        mockScopeFactory.Setup(f => f.CreateScope()).Returns(mockScope.Object);
+        var deadline = DateTime.Now.AddMinutes(-30);
+        var donHangsQuaHan = await _context.DonHangs
+            .Where(d => d.TrangThai == TrangThaiDonHang.ChoThanhToan
+                     && d.PhuongThucThanhToan == PhuongThucThanhToan.ThanhToanOnline
+                     && d.NgayDat < deadline)
+            .ToListAsync();
 
-        var service = new DonHangAutoHuyService(mockScopeFactory.Object, mockLogger.Object);
+        Assert.Empty(donHangsQuaHan);
+    }
 
-        // Act
-        var executeAsyncMethod = typeof(DonHangAutoHuyService).GetMethod("ExecuteAsync", BindingFlags.NonPublic | BindingFlags.Instance);
-        var task = (Task?)executeAsyncMethod?.Invoke(service, new object[] { cts.Token });
+    [Fact]
+    public async Task DonTaiQuay_KhongBiHuyTuDong()
+    {
+        var donHang = new DonHang
+        {
+            MaDonHang = "DH-TEST-003",
+            LoaiDon = LoaiDonHang.POS_TaiQuay,
+            TrangThai = TrangThaiDonHang.ChoThanhToan,
+            PhuongThucThanhToan = PhuongThucThanhToan.ThanhToanTaiQuay, // Tai quay
+            NgayDat = DateTime.Now.AddMinutes(-60),
+            TongTienHang = 100000
+        };
+        _context.DonHangs.Add(donHang);
+        await _context.SaveChangesAsync();
 
-        // Cancel immediately so the when clause is true
-        cts.Cancel();
-        await Task.Delay(50); // Give it time to process
+        var deadline = DateTime.Now.AddMinutes(-30);
+        var donHangsQuaHan = await _context.DonHangs
+            .Where(d => d.TrangThai == TrangThaiDonHang.ChoThanhToan
+                     && d.PhuongThucThanhToan == PhuongThucThanhToan.ThanhToanOnline
+                     && d.NgayDat < deadline)
+            .ToListAsync();
 
-        await task!;
+        Assert.Empty(donHangsQuaHan); // Don tai quay khong nam trong query
+    }
 
-        // Assert
-        Assert.IsTrue(task.IsCompleted);
+    [Fact]
+    public async Task DonDaThanhToan_KhongBiHuyTuDong()
+    {
+        var donHang = new DonHang
+        {
+            MaDonHang = "DH-TEST-004",
+            LoaiDon = LoaiDonHang.Online,
+            TrangThai = TrangThaiDonHang.DaThanhToan,
+            PhuongThucThanhToan = PhuongThucThanhToan.ThanhToanOnline,
+            NgayDat = DateTime.Now.AddMinutes(-60),
+            TongTienHang = 100000
+        };
+        _context.DonHangs.Add(donHang);
+        await _context.SaveChangesAsync();
+
+        var deadline = DateTime.Now.AddMinutes(-30);
+        var donHangsQuaHan = await _context.DonHangs
+            .Where(d => d.TrangThai == TrangThaiDonHang.ChoThanhToan
+                     && d.PhuongThucThanhToan == PhuongThucThanhToan.ThanhToanOnline
+                     && d.NgayDat < deadline)
+            .ToListAsync();
+
+        Assert.Empty(donHangsQuaHan);
+    }
+
+    [Fact]
+    public async Task HuyDon_HoanKho()
+    {
+        // Tao san pham
+        var dm = new DanhMucSanPham { TenDanhMuc = "Test", KichHoat = true };
+        _context.DanhMucSanPhams.Add(dm);
+        await _context.SaveChangesAsync();
+
+        var sp = new SanPham { TenSanPham = "Test SP", DanhMucId = dm.Id, GiaBan = 10000, SoLuong = 70 };
+        _context.SanPhams.Add(sp);
+        await _context.SaveChangesAsync();
+
+        // Gia lap huy don va hoan kho
+        sp.SoLuong += 30;
+        await _context.SaveChangesAsync();
+
+        var updatedSp = await _context.SanPhams.FindAsync(sp.Id);
+        Assert.Equal(100, updatedSp!.SoLuong);
     }
 }

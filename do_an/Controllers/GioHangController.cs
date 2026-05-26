@@ -39,12 +39,14 @@ public class GioHangController : Controller
                     // 4. Kiểm tra sản phẩm còn hợp lệ (Còn hàng, còn bán)
                     if (sp != null && sp.TrenKe && sp.SoLuong > 0)
                     {
+                        int actualQty = Math.Min(ct.SoLuong, sp.SoLuong);
+                        decimal currentPrice = await KhoHelper.LayGiaBanTheoSoLuongAsync(_context, sp.Id, actualQty);
                         loadedItems.Add(new CartItem
                         {
                             SanPhamId  = ct.SanPhamId,
                             TenSanPham = sp.TenSanPham,
-                            GiaBan     = sp.GiaBan,
-                            SoLuong    = Math.Min(ct.SoLuong, sp.SoLuong),
+                            GiaBan     = currentPrice,
+                            SoLuong    = actualQty,
                             HinhAnh    = sp.HinhAnhDaiDien
                         });
                     }
@@ -83,22 +85,34 @@ public class GioHangController : Controller
         }
 
         var cart = CartHelper.GetCart(HttpContext.Session);
-        var existingItem = cart.FirstOrDefault(c => c.SanPhamId == sanPhamId);
+        var existingItem = cart.FirstOrDefault(c => c.SanPhamId == sanPhamId && c.DonThuocId == null);
         var soLuongHienTai = existingItem?.SoLuong ?? 0;
-        if (soLuongHienTai + soLuong > sp.SoLuong)
+        int targetQty = soLuongHienTai + soLuong;
+        if (targetQty > sp.SoLuong)
         {
             TempData["Error"] = $"Số lượng vượt quá tồn kho. Chỉ còn {sp.SoLuong - soLuongHienTai} sản phẩm có thể thêm.";
             return RedirectToAction("Detail", "Store", new { id = sanPhamId });
         }
 
-        CartHelper.AddOrUpdate(HttpContext.Session, new CartItem
+        decimal currentPrice = await KhoHelper.LayGiaBanTheoSoLuongAsync(_context, sp.Id, targetQty);
+
+        if (existingItem is not null)
         {
-            SanPhamId  = sp.Id,
-            TenSanPham = sp.TenSanPham,
-            GiaBan     = sp.GiaBan,
-            SoLuong    = soLuong,
-            HinhAnh    = sp.HinhAnhDaiDien
-        });
+            existingItem.SoLuong = targetQty;
+            existingItem.GiaBan = currentPrice;
+            CartHelper.SaveCart(HttpContext.Session, cart);
+        }
+        else
+        {
+            CartHelper.AddOrUpdate(HttpContext.Session, new CartItem
+            {
+                SanPhamId  = sp.Id,
+                TenSanPham = sp.TenSanPham,
+                GiaBan     = currentPrice,
+                SoLuong    = soLuong,
+                HinhAnh    = sp.HinhAnhDaiDien
+            });
+        }
 
         TempData["Success"] = $"Đã thêm \"{sp.TenSanPham}\" vào giỏ hàng.";
         await SyncCartToDbAsync();
@@ -119,7 +133,24 @@ public class GioHangController : Controller
                 TempData["Error"] = $"Chỉ còn {sp.SoLuong} sản phẩm trong kho.";
                 soLuong = sp.SoLuong; // Giới hạn số lượng
             }
-            CartHelper.UpdateQuantity(HttpContext.Session, sanPhamId, soLuong);
+
+            decimal currentPrice = await KhoHelper.LayGiaBanTheoSoLuongAsync(_context, sp.Id, soLuong);
+
+            var cart = CartHelper.GetCart(HttpContext.Session);
+            var item = cart.FirstOrDefault(c => c.SanPhamId == sanPhamId && c.DonThuocId == null);
+            if (item is not null)
+            {
+                if (soLuong <= 0)
+                {
+                    cart.Remove(item);
+                }
+                else
+                {
+                    item.SoLuong = soLuong;
+                    item.GiaBan = currentPrice;
+                }
+                CartHelper.SaveCart(HttpContext.Session, cart);
+            }
         }
         await SyncCartToDbAsync();
         return RedirectToAction(nameof(Index));
@@ -144,22 +175,34 @@ public class GioHangController : Controller
 
         // Kiểm tra xem giỏ hàng hiện tại đã có bao nhiêu sản phẩm này
         var cart = CartHelper.GetCart(HttpContext.Session);
-        var existingItem = cart.FirstOrDefault(c => c.SanPhamId == sanPhamId);
+        var existingItem = cart.FirstOrDefault(c => c.SanPhamId == sanPhamId && c.DonThuocId == null);
         var soLuongHienTai = existingItem?.SoLuong ?? 0;
+        int targetQty = soLuongHienTai + soLuong;
 
-        if (soLuongHienTai + soLuong > sp.SoLuong)
+        if (targetQty > sp.SoLuong)
         {
             return Json(new { success = false, message = $"Số lượng vượt quá tồn kho. Chỉ còn trống {sp.SoLuong - soLuongHienTai} sản phẩm có thể mua thêm." });
         }
 
-        CartHelper.AddOrUpdate(HttpContext.Session, new CartItem
+        decimal currentPrice = await KhoHelper.LayGiaBanTheoSoLuongAsync(_context, sp.Id, targetQty);
+
+        if (existingItem is not null)
         {
-            SanPhamId  = sp.Id,
-            TenSanPham = sp.TenSanPham,
-            GiaBan     = sp.GiaBan,
-            SoLuong    = soLuong,
-            HinhAnh    = sp.HinhAnhDaiDien
-        });
+            existingItem.SoLuong = targetQty;
+            existingItem.GiaBan = currentPrice;
+            CartHelper.SaveCart(HttpContext.Session, cart);
+        }
+        else
+        {
+            CartHelper.AddOrUpdate(HttpContext.Session, new CartItem
+            {
+                SanPhamId  = sp.Id,
+                TenSanPham = sp.TenSanPham,
+                GiaBan     = currentPrice,
+                SoLuong    = soLuong,
+                HinhAnh    = sp.HinhAnhDaiDien
+            });
+        }
 
         // Tính tổng số lượng item để cập nhật badge
         var updatedCart = CartHelper.GetCart(HttpContext.Session);
@@ -407,28 +450,25 @@ public class GioHangController : Controller
             foreach (var item in cart)
             {
                 var sp = await _context.SanPhams.FindAsync(item.SanPhamId);
+                if (sp == null || sp.SoLuong < item.SoLuong)
+                    throw new DbUpdateException($"\"{item.TenSanPham}\" không đủ hàng.");
                 
-                // Sử dụng FEFO nếu sản phẩm là Thuốc
-                if (sp!.IsThuoc)
-                {
-                    bool truThuocThanhCong = await KhoHelper.TruKhoFEFOAsync(_context, sp.Id, item.SoLuong);
-                    if (!truThuocThanhCong)
-                        throw new DbUpdateException($"\"{item.TenSanPham}\" không đủ kho thực tế.");
-                }
-                else
-                {
-                    sp!.SoLuong -= item.SoLuong;
-                    if (sp.SoLuong < 0)
-                        throw new DbUpdateException($"\"{item.TenSanPham}\" không đủ hàng.");
-                }
+                var truResult = await KhoHelper.TruKhoFEFOAsync(_context, sp.Id, item.SoLuong);
+                if (!truResult.Success)
+                    throw new DbUpdateException($"\"{item.TenSanPham}\" không đủ kho thực tế.");
 
-                donHang.ChiTietDonHangs.Add(new ChiTietDonHang
+                foreach (var split in truResult.CacLoDaTru)
                 {
-                    SanPhamId = item.SanPhamId,
-                    TenSanPhamSnapshot = sp!.TenSanPham,
-                    SoLuong   = item.SoLuong,
-                    GiaBan    = sp!.GiaBan
-                });
+                    donHang.ChiTietDonHangs.Add(new ChiTietDonHang
+                    {
+                        SanPhamId = item.SanPhamId,
+                        TenSanPhamSnapshot = string.IsNullOrEmpty(split.MaLo) 
+                            ? sp.TenSanPham 
+                            : $"{sp.TenSanPham} (Lô: {split.MaLo})",
+                        SoLuong   = split.SoLuong,
+                        GiaBan    = split.GiaBan
+                    });
+                }
             }
 
             // Cập nhật tổng tiền theo giá thực tế từ DB
@@ -492,7 +532,7 @@ public class GioHangController : Controller
         {
             await transaction.RollbackAsync();
             ModelState.AddModelError("", "Đã xảy ra lỗi hệ thống nghiêm trọng. Xin lỗi vì sự bất tiện.");
-            return View("Checkout", vm);
+            return View("Checkout_v2", vm);
         }
 
         // Redirect theo phương thức thanh toán

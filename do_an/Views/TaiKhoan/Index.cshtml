@@ -1,6 +1,27 @@
 @model List<do_an.Models.TaiKhoan>
 @{
-    ViewData["Title"] = "Quản lý hệ thống tài khoản";
+    var allTaiKhoans = ViewBag.AllTaiKhoans as List<do_an.Models.TaiKhoan> ?? new();
+    var selectedUserName = ViewBag.UserName as string;
+    var vaiTroQuery = ViewBag.VaiTro as string;
+
+    string pageTitle = "Hệ Thống Tài Khoản";
+    string pageSubtitle = "Quản lý người dùng, phân quyền và bảo mật truy cập";
+    if (vaiTroQuery == "KhachHang")
+    {
+        pageTitle = "Quản Lý Khách Hàng";
+        pageSubtitle = "Quản lý thông tin khách hàng, số điện thoại và địa chỉ";
+        ViewData["Title"] = "Quản lý Khách Hàng";
+    }
+    else if (vaiTroQuery == "NhanVien")
+    {
+        pageTitle = "Quản Lý Nhân Viên";
+        pageSubtitle = "Quản lý nhân sự, bộ phận và hệ số lương nhân viên";
+        ViewData["Title"] = "Quản lý Nhân Viên";
+    }
+    else
+    {
+        ViewData["Title"] = "Quản lý hệ thống tài khoản";
+    }
 }
 
 <style>
@@ -28,44 +49,87 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h4 class="fw-bold mb-1 text-dark"><i class="bi bi-shield-lock-fill text-brand me-2"></i>Hệ Thống Tài Khoản</h4>
-        <p class="text-muted small mb-0">Quản lý người dùng, phân quyền và bảo mật truy cập</p>
+        <h4 class="fw-bold mb-1 text-dark">
+            @if (vaiTroQuery == "KhachHang")
+            {
+                <i class="bi bi-person-circle text-brand me-2"></i>
+            }
+            else if (vaiTroQuery == "NhanVien")
+            {
+                <i class="bi bi-people text-brand me-2"></i>
+            }
+            else
+            {
+                <i class="bi bi-shield-lock-fill text-brand me-2"></i>
+            }
+            @pageTitle
+        </h4>
+        <p class="text-muted small mb-0">@pageSubtitle</p>
     </div>
-    @if (User.IsInRole("Admin"))
+    @if (vaiTroQuery == "NhanVien")
     {
-        <a asp-controller="NhanVien" asp-action="Create" class="btn btn-brand px-4 rounded-pill">
-            <i class="bi bi-person-plus-fill me-1"></i> Thêm Nhân Viên
-        </a>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="NhanVien" asp-action="Create" class="btn btn-brand px-4 rounded-pill">
+                <i class="bi bi-person-plus-fill me-1"></i> Thêm Nhân Viên
+            </a>
+        }
     }
-    else
+    else if (vaiTroQuery == "KhachHang")
     {
         <a asp-controller="TaiKhoan" asp-action="CreateKhachHang" class="btn btn-brand px-4 rounded-pill">
             <i class="bi bi-person-plus-fill me-1"></i> Thêm Khách Hàng
         </a>
     }
+    else
+    {
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-controller="NhanVien" asp-action="Create" class="btn btn-brand px-4 rounded-pill">
+                <i class="bi bi-person-plus-fill me-1"></i> Thêm Nhân Viên
+            </a>
+        }
+        else
+        {
+            <a asp-controller="TaiKhoan" asp-action="CreateKhachHang" class="btn btn-brand px-4 rounded-pill">
+                <i class="bi bi-person-plus-fill me-1"></i> Thêm Khách Hàng
+            </a>
+        }
+    }
 </div>
 
 <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
     <div class="card-header bg-white py-4 px-4 border-0">
-        <form method="get" class="row g-3 align-items-end">
-            <div class="col-md-5">
-                <label class="form-label small fw-bold text-muted text-uppercase">Tìm kiếm người dùng</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
-                    <input type="text" name="search" class="form-control bg-light border-0"
-                           placeholder="Tên đăng nhập, Họ tên hoặc Email..."
-                           value="@ViewBag.Search" />
-                </div>
+        <form method="get" class="row g-3 align-items-end" autocomplete="off">
+            <div class="col-md-4">
+                <label class="form-label small fw-bold text-muted text-uppercase">Lọc theo tài khoản</label>
+                <select name="userName" id="selTaiKhoan" class="form-select">
+                    <option value="">-- Tất cả tài khoản --</option>
+                    @foreach (var tk in allTaiKhoans)
+                    {
+                        <option value="@tk.TenDangNhap" selected="@(selectedUserName == tk.TenDangNhap ? "selected" : null)">
+                            @tk.TenDangNhap (@tk.HoTen)
+                        </option>
+                    }
+                </select>
             </div>
             <div class="col-md-3">
                 <label class="form-label small fw-bold text-muted text-uppercase">Phân quyền</label>
-                <select name="vaiTro" class="form-select bg-light border-0" asp-items="ViewBag.VaiTroList">
+                <select name="vaiTro" id="selVaiTro" class="form-select" asp-items="ViewBag.VaiTroList">
                     <option value="">-- Tất cả vai trò --</option>
                 </select>
             </div>
-            <div class="col-md-4 d-flex gap-2">
-                <button type="submit" class="btn btn-brand rounded-pill flex-fill">Lọc dữ liệu</button>
-                <a asp-action="Index" class="btn btn-light rounded-pill">Xóa lọc</a>
+            <div class="col-md-3">
+                <label class="form-label small fw-bold text-muted text-uppercase">Tìm kiếm</label>
+                <input type="text" name="search" class="form-control form-control-custom-sm" placeholder="Tên đăng nhập, họ tên..."
+                       value="@ViewBag.Search" autocomplete="off" />
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-brand btn-custom-sm flex-fill">Lọc</button>
+                @if (!string.IsNullOrEmpty(ViewBag.Search as string) || !string.IsNullOrEmpty(selectedUserName) || !string.IsNullOrEmpty(ViewBag.VaiTro as string))
+                {
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-custom-sm"><i class="bi bi-x-circle me-1"></i>Xóa</a>
+                }
             </div>
         </form>
     </div>
@@ -91,11 +155,37 @@
                                 </div>
                                 <div>
                                     <div class="fw-bold text-dark">@tk.TenDangNhap</div>
-                                    <div class="text-muted small">@tk.HoTen</div>
+                                    <div class="text-muted small mb-1">@tk.HoTen</div>
+                                    @if (tk.VaiTro == "NhanVien" && !string.IsNullOrEmpty(tk.BoPhan))
+                                    {
+                                        <span class="badge bg-secondary-subtle text-secondary border border-secondary border-opacity-25 px-2 py-1" style="font-size: 0.75rem;">
+                                            <i class="bi bi-briefcase me-1"></i>@tk.BoPhan
+                                        </span>
+                                    }
+                                    @if (tk.VaiTro == "KhachHang" && !string.IsNullOrEmpty(tk.SoDienThoai))
+                                    {
+                                        <span class="text-muted small d-block" style="font-size: 0.75rem;">
+                                            <i class="bi bi-telephone me-1"></i>@tk.SoDienThoai
+                                        </span>
+                                    }
                                 </div>
                             </div>
                         </td>
-                        <td class="text-muted small">@(tk.Email ?? "—")</td>
+                        <td class="text-muted small">
+                            <div>@(tk.Email ?? "—")</div>
+                            @if (tk.VaiTro == "NhanVien" && tk.LuongTheoGio.HasValue)
+                            {
+                                <div class="mt-1" style="font-size: 0.75rem; color: #64748b;">
+                                    HSL: @tk.HeSoLuong | @tk.LuongTheoGio?.ToString("N0")đ/h
+                                </div>
+                            }
+                            @if (tk.VaiTro == "KhachHang" && !string.IsNullOrEmpty(tk.DiaChi))
+                            {
+                                <div class="mt-1 text-truncate" style="max-width: 200px; font-size: 0.75rem; color: #64748b;" title="@tk.DiaChi">
+                                    <i class="bi bi-geo-alt me-1"></i>@tk.DiaChi
+                                </div>
+                            }
+                        </td>
                         <td class="text-center">
                             @switch (tk.VaiTro)
                             {
@@ -152,3 +242,89 @@
         <span class="text-muted small">Hiển thị <strong>@Model.Count()</strong> người dùng</span>
     </div>
 </div>
+
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <style>
+        .select2-container--bootstrap-5 .select2-selection {
+            background-color: #fff !important;
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 0.375rem !important;
+            height: 38px !important;
+            display: flex !important;
+            align-items: center !important;
+        }
+        .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+            color: #1e293b;
+            line-height: 38px !important;
+            font-size: 0.875rem !important;
+            padding-left: 8px !important;
+        }
+        .select2-container--bootstrap-5 .select2-dropdown {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        .select2-container--bootstrap-5 .select2-results__option--highlighted[aria-selected] {
+            background-color: #059669 !important;
+        }
+        .select2-container--bootstrap-5 .select2-search--dropdown .select2-search__field {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 6px 12px;
+        }
+        .form-control-custom-sm {
+            height: 38px !important;
+            border: 1px solid #cbd5e1 !important;
+            border-radius: 0.375rem !important;
+            font-size: 0.875rem !important;
+            padding: 6px 12px !important;
+            background-color: #fff !important;
+            color: #1e293b !important;
+        }
+        .form-control-custom-sm:focus {
+            border-color: #059669 !important;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12) !important;
+            outline: 0 !important;
+        }
+        .btn-custom-sm {
+            height: 38px !important;
+            border-radius: 0.375rem !important;
+            font-size: 0.875rem !important;
+            font-weight: 500 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $('#selTaiKhoan').select2({
+                theme: 'bootstrap-5',
+                placeholder: '-- Tất cả tài khoản --',
+                allowClear: true,
+                language: {
+                    noResults: function() { return 'Không tìm thấy tài khoản nào'; },
+                    searching: function() { return 'Đang tìm...'; }
+                }
+            });
+
+            $('#selVaiTro').select2({
+                theme: 'bootstrap-5',
+                placeholder: '-- Tất cả vai trò --',
+                allowClear: true,
+                language: {
+                    noResults: function() { return 'Không tìm thấy vai trò nào'; },
+                    searching: function() { return 'Đang tìm...'; }
+                }
+            });
+
+            // Tự động submit khi thay đổi
+            $('#selTaiKhoan, #selVaiTro').on('change', function() {
+                $(this).closest('form').submit();
+            });
+        });
+    </script>
+}

@@ -17,10 +17,13 @@ public class TaiKhoanController : Controller
     public TaiKhoanController(AppDbContext context) => _context = context;
 
     // GET: /TaiKhoan
-    public async Task<IActionResult> Index(string? search, string? vaiTro)
+    public async Task<IActionResult> Index(string? search, string? vaiTro, string? userName)
     {
         // NhanVien trước đây quản lý riêng, giờ đã gộp chung vào bảng TaiKhoan
         var query = _context.TaiKhoans.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(userName))
+            query = query.Where(t => t.TenDangNhap == userName);
 
         if (!string.IsNullOrWhiteSpace(search))
             query = query.Where(t => t.TenDangNhap.Contains(search) ||
@@ -41,6 +44,16 @@ public class TaiKhoanController : Controller
 
         ViewBag.Search    = search;
         ViewBag.VaiTro    = vaiTro;
+        ViewBag.UserName  = userName;
+
+        if (User.IsInRole("Admin"))
+        {
+            ViewBag.AllTaiKhoans = await _context.TaiKhoans.OrderBy(t => t.TenDangNhap).ToListAsync();
+        }
+        else
+        {
+            ViewBag.AllTaiKhoans = await _context.TaiKhoans.Where(t => t.VaiTro == "KhachHang").OrderBy(t => t.TenDangNhap).ToListAsync();
+        }
 
         return View(await query.OrderBy(t => t.VaiTro).ThenBy(t => t.TenDangNhap).ToListAsync());
     }

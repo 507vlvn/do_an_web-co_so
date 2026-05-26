@@ -222,6 +222,23 @@
 
                 @if (User.IsInRole("Admin"))
                 {
+                    <div class="sidebar-label">Nghệp Vụ</div>
+                    <li>
+                        <a asp-controller="PhieuNhapHang" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "PhieuNhapHang" ? "active" : "")">
+                            <i class="bi bi-box-arrow-in-down"></i> Phiếu Nhập Hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="NhaCungCap" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "NhaCungCap" ? "active" : "")">
+                            <i class="bi bi-truck"></i> Nhà Cung Cấp
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="BaoCao" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "BaoCao" ? "active" : "")">
+                            <i class="bi bi-bar-chart-line"></i> Báo Cáo
+                        </a>
+                    </li>
+
                     <div class="sidebar-label">Hệ Thống</div>
                     <li>
                         <a asp-controller="TaiKhoan" asp-action="Index" asp-route-vaiTro="NhanVien" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "TaiKhoan" && ViewContext.HttpContext.Request.Query["vaiTro"].ToString() == "NhanVien" ? "active" : "")">
@@ -304,6 +321,7 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
@@ -314,3 +332,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

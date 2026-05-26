@@ -12,49 +12,122 @@
 }
 
 @* Premium Banner Section *@
-<div class="rounded-5 mb-5 p-5 text-white text-center position-relative overflow-hidden shadow-lg"
-     style="background: linear-gradient(135deg, var(--brand-dark), var(--brand)); min-height: 400px; display: flex; align-items: center; justify-content: center;">
+<div class="hero-banner mb-5 position-relative overflow-hidden shadow-lg border-0" style="border-radius: 30px;">
+    <!-- Elegant background: gradient mesh & glows -->
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: radial-gradient(circle at 10% 20%, rgba(6, 78, 59, 1) 0%, rgba(5, 150, 105, 1) 90.1%);"></div>
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 24px 24px;"></div>
     
-    <!-- Animated background elements -->
-    <div class="position-absolute top-0 start-0 w-100 h-100" style="background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 30px 30px;"></div>
-    <div class="position-absolute" style="width: 300px; height: 300px; background: rgba(52, 211, 153, 0.4); filter: blur(80px); top: -100px; left: -100px; border-radius: 50%;"></div>
-    <div class="position-absolute" style="width: 250px; height: 250px; background: rgba(245, 158, 11, 0.3); filter: blur(70px); bottom: -50px; right: -50px; border-radius: 50%;"></div>
-    
-    <div class="position-relative z-index-1 w-100" style="max-width: 800px; z-index: 2;">
-        <span class="badge rounded-pill text-white mb-4 shadow-sm" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); padding: 10px 24px; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.3);">
-           <i class="bi bi-shield-check me-2 text-warning"></i>Sản phẩm đạt chuẩn GPP Toàn Quốc
-        </span>
-        <h1 class="display-4 fw-800 mb-3 text-white" style="letter-spacing: -1.5px; text-shadow: 0 4px 20px rgba(0,0,0,0.1);">Chăm sóc sức khỏe gia đình bạn</h1>
-        <p class="mb-5 fs-5 text-white-50 fw-medium">Dược phẩm chính hãng — Chuyên gia tư vấn — Giao hàng hỏa tốc trong 2h</p>
-        
-        <form asp-controller="Store" asp-action="Index" method="get" class="d-flex justify-content-center">
-            <div class="search-box w-100 shadow" style="max-width: 650px; background: rgba(255,255,255,0.2); backdrop-filter: blur(15px); padding: 6px; border: 1px solid rgba(255,255,255,0.4);">
-                <div class="input-group">
-                    <span class="input-group-text bg-transparent border-0 text-white ps-4">
-                        <i class="bi bi-search fs-5"></i>
-                    </span>
-                    <input type="text" name="search" class="form-control border-0 bg-transparent text-white shadow-none fs-5"
-                           placeholder="Bạn đang tìm kiếm thuốc hay sản phẩm gì?" value="@searchStr" style="padding-left: 10px;" />
-                    <button class="btn bg-white text-brand rounded-pill px-5 fw-bold fs-6 shadow-sm" style="transition: all 0.3s; margin-left: 10px;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                        TÌM KIẾM
-                    </button>
+    <!-- Glowing Orbs -->
+    <div class="position-absolute" style="width: 400px; height: 400px; background: rgba(52, 211, 153, 0.35); filter: blur(100px); top: -150px; left: -150px; border-radius: 50%;"></div>
+    <div class="position-absolute" style="width: 300px; height: 300px; background: rgba(245, 158, 11, 0.2); filter: blur(80px); bottom: -100px; right: -50px; border-radius: 50%;"></div>
+
+    <div class="container position-relative z-3 py-5 px-4 px-lg-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7 text-start">
+                <span class="badge rounded-pill text-white mb-4 d-inline-flex align-items-center" 
+                      style="background: rgba(255,255,255,0.12); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 8px 16px; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.25);">
+                   <i class="bi bi-shield-check me-2 text-warning fs-6"></i>Sản phẩm đạt chuẩn GPP Toàn Quốc
+                </span>
+                <h1 class="display-4 fw-800 text-white mb-3 hero-title" style="letter-spacing: -2px; line-height: 1.15; text-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                    Chăm sóc sức khỏe <br/>
+                    <span style="background: linear-gradient(45deg, #34d399, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">gia đình bạn</span>
+                </h1>
+                <p class="mb-4 fs-5 text-white-50 fw-medium">
+                    Dược phẩm chính hãng — Chuyên gia tư vấn — Giao hàng hỏa tốc trong 2 giờ.
+                </p>
+                
+                <form asp-controller="Store" asp-action="Index" method="get" class="mb-4">
+                    <div class="search-box-premium shadow-lg d-flex align-items-center p-2" 
+                         style="background: rgba(255,255,255,0.15); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-radius: 100px; border: 1px solid rgba(255,255,255,0.3); max-width: 580px;">
+                        <span class="text-white ps-3 pe-2">
+                            <i class="bi bi-search fs-5"></i>
+                        </span>
+                        <input type="text" name="search" class="form-control border-0 bg-transparent text-white shadow-none py-2"
+                               placeholder="Tìm thuốc, thực phẩm chức năng, mỹ phẩm..." value="@searchStr" 
+                               style="font-size: 1rem; font-weight: 500;" />
+                        <button class="btn btn-search-premium rounded-pill px-4 fw-bold shadow-sm" type="submit" 
+                                style="background: #fff; color: var(--brand); transition: all 0.3s ease; border: none; white-space: nowrap; height: 46px;">
+                            Tìm Kiếm
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Small trust badges -->
+                <div class="d-flex flex-wrap gap-4 text-white-50" style="font-size: 0.85rem;">
+                    <div class="d-flex align-items-center"><i class="bi bi-patch-check-fill text-brand-light me-2"></i> 100% Thuốc Chính Hãng</div>
+                    <div class="d-flex align-items-center"><i class="bi bi-truck text-brand-light me-2"></i> Freeship từ 300k</div>
+                    <div class="d-flex align-items-center"><i class="bi bi-clock-history text-brand-light me-2"></i> Phục vụ 24/7</div>
                 </div>
             </div>
-        </form>
+            
+            <div class="col-lg-5 d-none d-lg-block text-center">
+                <div class="position-relative hero-img-container">
+                    <div class="hero-img-glow"></div>
+                    <img src="/images/pharmacy_hero_asset.png" alt="Pharmacy Hero" class="img-fluid rounded-4 position-relative z-1 hero-floating-img" 
+                         style="max-height: 380px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.25));" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+@* Trust Pillar Section *@
+<div class="row g-4 mb-5">
+    <div class="col-6 col-md-3">
+        <div class="trust-card p-4 rounded-4 shadow-sm border text-center h-100 bg-white">
+            <div class="icon-box rounded-circle bg-success bg-opacity-10 text-success mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                <i class="bi bi-shield-fill-check fs-4"></i>
+            </div>
+            <h6 class="fw-bold text-dark mb-1">100% Chính Hãng</h6>
+            <p class="text-muted mb-0 small">Đạt chuẩn GPP, nguồn gốc rõ ràng</p>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="trust-card p-4 rounded-4 shadow-sm border text-center h-100 bg-white">
+            <div class="icon-box rounded-circle bg-primary bg-opacity-10 text-primary mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                <i class="bi bi-lightning-charge-fill fs-4"></i>
+            </div>
+            <h6 class="fw-bold text-dark mb-1">Giao Hỏa Tốc 2h</h6>
+            <p class="text-muted mb-0 small">Nhanh chóng, đóng gói cẩn thận</p>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="trust-card p-4 rounded-4 shadow-sm border text-center h-100 bg-white">
+            <div class="icon-box rounded-circle bg-warning bg-opacity-10 text-warning mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                <i class="bi bi-chat-heart-fill fs-4"></i>
+            </div>
+            <h6 class="fw-bold text-dark mb-1">Dược Sĩ Tư Vấn</h6>
+            <p class="text-muted mb-0 small">Hỗ trợ 24/7 nhiệt tình, chuyên môn cao</p>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="trust-card p-4 rounded-4 shadow-sm border text-center h-100 bg-white">
+            <div class="icon-box rounded-circle bg-danger bg-opacity-10 text-danger mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 56px; height: 56px;">
+                <i class="bi bi-gift-fill fs-4"></i>
+            </div>
+            <h6 class="fw-bold text-dark mb-1">Ưu Đãi Lớn</h6>
+            <p class="text-muted mb-0 small">Tích điểm thành viên, nhiều voucher</p>
+        </div>
+    </div>
+</div>
+
+
 
 @* Featured Products Section *@
 @if (noiBat.Count > 0 && string.IsNullOrEmpty(searchStr) && filterDm == null)
 {
-    <section class="mb-5 py-2">
+    <section class="mb-5 py-4 px-4 rounded-5 position-relative overflow-hidden" 
+             style="background: linear-gradient(135deg, rgba(236,253,245,0.7), rgba(240,253,250,0.7)); border: 1px solid rgba(52, 211, 153, 0.2);">
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h4 class="fw-800 text-dark mb-1">Dành cho bạn</h4>
-                <p class="text-muted small mb-0">Những sản phẩm được quan tâm nhiều nhất</p>
+                <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 mb-2 rounded-pill">
+                    <i class="bi bi-star-fill text-warning me-1"></i> BÁN CHẠY NHẤT
+                </span>
+                <h4 class="fw-800 text-dark mb-1">Gợi ý dành riêng cho bạn</h4>
+                <p class="text-muted small mb-0">Những sản phẩm chăm sóc sức khỏe được tin dùng hàng đầu</p>
             </div>
             <a asp-controller="Store" asp-action="Index" class="btn btn-link text-brand fw-bold text-decoration-none p-0">
-                Khám phá thêm <i class="bi bi-arrow-right ms-1"></i>
+                Xem tất cả <i class="bi bi-arrow-right ms-1"></i>
             </a>
         </div>
         <div class="row g-4">
@@ -69,7 +142,6 @@
 }
 
 @* Main Product Listing Section *@
-
 <section class="pb-5">
     <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
         <div>
@@ -87,11 +159,11 @@
             }
             else
             {
-                <h5 class="fw-800 text-dark mb-0">Tất cả sản phẩm</h5>
+                <h5 class="fw-800 text-dark mb-0">Tất cả sản phẩm dược phẩm</h5>
             }
         </div>
         <div class="d-flex gap-2">
-            <select class="form-select form-select-sm border-0 bg-light rounded-3 px-3 fw-bold text-muted" style="width: 140px;">
+            <select class="form-select form-select-sm border-0 bg-light rounded-3 px-3 fw-bold text-muted" style="width: 140px; height: 36px; cursor: pointer;">
                 <option selected>Phổ biến nhất</option>
                 <option>Giá thấp đến cao</option>
                 <option>Giá cao đến thấp</option>
@@ -106,7 +178,7 @@
                 <i class="bi bi-search text-light" style="font-size: 5rem;"></i>
             </div>
             <h5 class="fw-bold text-dark">Rất tiếc, không tìm thấy sản phẩm!</h5>
-            <p class="text-muted small">Hãy thử tìm kiếm với từ khóa khác.</p>
+            <p class="text-muted small">Hãy thử tìm kiếm với từ khóa khác hoặc danh mục khác.</p>
             <a asp-action="Index" class="btn btn-brand px-4 py-2 mt-2 rounded-pill shadow-sm">Xem tất cả sản phẩm</a>
         </div>
     }
@@ -130,10 +202,10 @@
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
                 <span class="badge rounded-pill bg-brand bg-opacity-10 text-brand fw-bold px-3 py-2 mb-2">
-                    <i class="bi bi-clipboard2-pulse me-1"></i> Thuốc không kê đơn
+                    <i class="bi bi-clipboard2-pulse me-1"></i> LIỆU TRÌNH KÊ SẴN
                 </span>
-                <h4 class="fw-800 text-dark mb-1">Tủ thuốc chuẩn chăm sức khỏe cả nhà</h4>
-                <p class="text-muted small mb-0">Toa thuốc được dược sĩ kê sẵn — mua đúng liều, đúng cách</p>
+                <h4 class="fw-800 text-dark mb-1">Tủ thuốc gia đình chuẩn hóa</h4>
+                <p class="text-muted small mb-0">Giải pháp điều trị tổng hợp được thiết kế đúng liều lượng bởi Dược sĩ chuyên môn</p>
             </div>
         </div>
         <div class="row g-4">
@@ -147,3 +219,147 @@
         </div>
     </section>
 }
+
+@* Interactive AI Pharmacist CTA Section *@
+<section class="mb-5 py-5 rounded-5 text-white position-relative overflow-hidden shadow-lg border-0" 
+         style="background: linear-gradient(135deg, var(--brand-dark), #0f172a); border-radius: 30px;">
+    <!-- Background glowing orbs -->
+    <div class="position-absolute" style="width: 250px; height: 250px; background: rgba(52, 211, 153, 0.25); filter: blur(60px); top: -50px; right: -50px; border-radius: 50%;"></div>
+    <div class="position-absolute" style="width: 300px; height: 300px; background: rgba(245, 158, 11, 0.15); filter: blur(80px); bottom: -100px; left: -50px; border-radius: 50%;"></div>
+    
+    <div class="row align-items-center justify-content-between position-relative z-3 px-4 px-lg-5">
+        <div class="col-md-8 text-center text-md-start">
+            <span class="badge rounded-pill bg-success bg-opacity-25 text-brand-light mb-3 border border-success border-opacity-50 px-3 py-2" style="font-size: 0.8rem;">
+                <span class="pulse-dot me-2"></span> Dược sĩ AI đang trực tuyến
+            </span>
+            <h3 class="fw-800 text-white mb-2 fs-2">Bạn cần tư vấn sức khỏe hay hướng dẫn mua thuốc?</h3>
+            <p class="text-white-50 mb-0">Hỏi ngay Dược sĩ AI của chúng tôi để được giải đáp mọi thắc mắc về liều lượng, công dụng hoàn toàn miễn phí.</p>
+        </div>
+        <div class="col-md-4 text-center text-md-end mt-4 mt-md-0">
+            <button onclick="toggleChat()" class="btn btn-brand rounded-pill px-5 py-3 fw-bold text-white fs-6 shadow-lg btn-cta-ai" 
+                    style="background: var(--brand); border: none; transition: all 0.3s ease;">
+                <i class="bi bi-robot me-2"></i> Trò Chuyện Ngay
+            </button>
+        </div>
+    </div>
+</section>
+
+
+<style>
+    .fw-800 { font-weight: 800 !important; }
+    
+    /* Hero animations & styles */
+    .hero-banner {
+        position: relative;
+    }
+    
+    .hero-title {
+        animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .search-box-premium {
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    
+    .search-box-premium:focus-within {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.22) !important;
+        border-color: rgba(255, 255, 255, 0.6) !important;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .btn-search-premium:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-img-container {
+        display: inline-block;
+        position: relative;
+    }
+    
+    .hero-img-glow {
+        position: absolute;
+        width: 80%;
+        height: 80%;
+        background: rgba(52, 211, 153, 0.3);
+        filter: blur(50px);
+        top: 10%;
+        left: 10%;
+        border-radius: 50%;
+        z-index: 0;
+        animation: pulseGlow 4s infinite ease-in-out;
+    }
+    
+    .hero-floating-img {
+        animation: floatImg 6s ease-in-out infinite;
+    }
+
+    
+    /* Trust Cards */
+    .trust-card {
+        transition: all 0.3s ease;
+        border-color: #f1f5f9 !important;
+    }
+    
+    .trust-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05) !important;
+        border-color: rgba(5, 150, 105, 0.15) !important;
+    }
+    
+    /* Bottom CTA AI button */
+    .btn-cta-ai:hover {
+        transform: translateY(-3px) scale(1.03);
+        box-shadow: 0 12px 25px rgba(5, 150, 105, 0.4) !important;
+        background-color: var(--brand-light) !important;
+    }
+    
+    .pulse-dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        background-color: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+        animation: pulseDot 2s infinite;
+        vertical-align: middle;
+    }
+    
+    /* Keyframes */
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @@keyframes floatImg {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+    }
+    
+    @@keyframes pulseGlow {
+        0%, 100% { transform: scale(1); opacity: 0.6; }
+        50% { transform: scale(1.15); opacity: 0.9; }
+    }
+    
+    @@keyframes pulseDot {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+        }
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+        }
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+        }
+    }
+</style>

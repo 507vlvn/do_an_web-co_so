@@ -24,7 +24,7 @@
                     <div class="p-4 p-lg-5">
                         @if (!ViewData.ModelState.IsValid)
                         {
-                            <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-4 border-0 shadow-sm px-4 py-3 mb-5 small fw-600" style="background: #fef2f2; color: #991b1b;"></div>
+                            <div asp-validation-summary="All" class="alert alert-danger rounded-4 border-0 shadow-sm px-4 py-3 mb-5 small fw-600" style="background: #fef2f2; color: #991b1b;"></div>
                         }
 
                         <div class="row g-5">
@@ -57,12 +57,14 @@
                                 
                                         <div>
                                             <label asp-for="DonViTinh" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
-                                             <select id="DonViTinh" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600">
-                                                  <option value="">-- Chọn --</option>
+                                             <select asp-for="DonViTinh" class="form-select rounded-4 py-3 bg-light border-0 shadow-none fw-600">
                                                   <option value="Viên"> Viên</option>
                                                   <option value="Vĩ"> Vĩ</option>
                                                   <option value="Hộp"> Hộp</option>
+                                                  <option value="Chai"> Chai</option>
+                                                  <option value="Tuýp"> Tuýp</option>
                                              </select>
+                                             <span asp-validation-for="DonViTinh" class="text-danger small mt-1 fw-bold"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -86,10 +88,12 @@
                                             <div class="col-md-6">
                                                 <label asp-for="NgaySX" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
                                                 <input asp-for="NgaySX" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" type="date" />
+                                                <span asp-validation-for="NgaySX" class="text-danger small mt-1 fw-bold"></span>
                                             </div>
                                             <div class="col-md-6">
                                                 <label asp-for="HanSuDung" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
                                                 <input asp-for="HanSuDung" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" type="date" />
+                                                <span asp-validation-for="HanSuDung" class="text-danger small mt-1 fw-bold"></span>
                                             </div>
                                         </div>
                                         <div id="hsdAutoNotice" class="d-none">

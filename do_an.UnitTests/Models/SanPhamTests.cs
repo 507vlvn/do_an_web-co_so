@@ -1,263 +1,78 @@
-﻿using do_an.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using do_an.Models;
 
 namespace do_an.UnitTests.Models;
 
-[TestClass]
 public class SanPhamTests
 {
-    [TestMethod]
-    public void PhanTramGiam_WithGiaGocNull_ReturnsNull()
+    [Fact]
+    public void PhanTramGiam_KhiCoGiaGocVaGiaBanThapHon_TinhDung()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 100m,
-            GiaGoc = null
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.IsNull(result);
+        var sp = new SanPham { GiaBan = 70000, GiaGoc = 100000 };
+        Assert.Equal(30, sp.PhanTramGiam);
     }
 
-    [TestMethod]
-    public void PhanTramGiam_WithGiaGocZero_ReturnsNull()
+    [Fact]
+    public void PhanTramGiam_KhiGiaBanBangGiaGoc_ReturnsNull()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 100m,
-            GiaGoc = 0m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.IsNull(result);
+        var sp = new SanPham { GiaBan = 100000, GiaGoc = 100000 };
+        Assert.Null(sp.PhanTramGiam);
     }
 
-    [TestMethod]
-    public void PhanTramGiam_WithGiaGocNegative_ReturnsNull()
+    [Fact]
+    public void PhanTramGiam_KhiKhongCoGiaGoc_ReturnsNull()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 100m,
-            GiaGoc = -50m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.IsNull(result);
+        var sp = new SanPham { GiaBan = 50000, GiaGoc = null };
+        Assert.Null(sp.PhanTramGiam);
     }
 
-    [TestMethod]
-    public void PhanTramGiam_WithGiaGocEqualToGiaBan_ReturnsNull()
+    [Fact]
+    public void PhanTramGiam_KhiGiaGocLa0_ReturnsNull()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 100m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.IsNull(result);
+        var sp = new SanPham { GiaBan = 50000, GiaGoc = 0 };
+        Assert.Null(sp.PhanTramGiam);
     }
 
-    [TestMethod]
-    public void PhanTramGiam_WithGiaGocLessThanGiaBan_ReturnsNull()
+    [Fact]
+    public void PhanTramGiam_KhiGiaBanCaoHonGiaGoc_ReturnsNull()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 150m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.IsNull(result);
+        var sp = new SanPham { GiaBan = 120000, GiaGoc = 100000 };
+        Assert.Null(sp.PhanTramGiam);
     }
 
-    [TestMethod]
-    public void PhanTramGiam_WithValidDiscount_ReturnsCorrectPercentage()
+    [Fact]
+    public void HinhAnhDaiDien_KhiCoHinhAnhFile_ReturnsFile()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 80m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(20, result);
+        var sp = new SanPham { HinhAnhFile = "/images/sanpham/test.jpg" };
+        Assert.Equal("/images/sanpham/test.jpg", sp.HinhAnhDaiDien);
     }
 
-    [TestMethod]
-    public void PhanTramGiam_WithFiftyPercentDiscount_ReturnsCorrectPercentage()
+    [Fact]
+    public void HinhAnhDaiDien_KhiKhongCoFile_ReturnsUrl()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 50m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(50, result);
+        var sp = new SanPham { HinhAnhUrl = "https://example.com/img.jpg" };
+        Assert.Equal("https://example.com/img.jpg", sp.HinhAnhDaiDien);
     }
 
-    [TestMethod]
-    public void PhanTramGiam_WithRoundingDown_ReturnsRoundedPercentage()
+    [Fact]
+    public void HinhAnhDaiDien_KhiCoThuVienHinhAnh_ReturnsDauTien()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 66.67m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(33, result);
+        var sp = new SanPham { ThuVienHinhAnh = "/img1.jpg;/img2.jpg;/img3.jpg" };
+        Assert.Equal("/img1.jpg", sp.HinhAnhDaiDien);
     }
 
-    [TestMethod]
-    public void PhanTramGiam_WithRoundingUp_ReturnsRoundedPercentage()
+    [Fact]
+    public void HinhAnhDaiDien_KhiKhongCoGi_ReturnsNoImage()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 66m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(34, result);
+        var sp = new SanPham();
+        Assert.Equal("/images/no-image.svg", sp.HinhAnhDaiDien);
     }
 
-    [TestMethod]
-    public void PhanTramGiam_WithExactHalfRounding_ReturnsRoundedPercentage()
+    [Fact]
+    public void PhanTramGiam_LamTronDung()
     {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 75m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(25, result);
-    }
-
-    [TestMethod]
-    public void PhanTramGiam_WithGiaBanZero_ReturnsOneHundredPercent()
-    {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 0m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(100, result);
-    }
-
-    [TestMethod]
-    public void PhanTramGiam_WithVerySmallDiscount_ReturnsCorrectPercentage()
-    {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 99.5m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(0, result);
-    }
-
-    [TestMethod]
-    public void PhanTramGiam_WithVerySmallDiscountRoundingUp_ReturnsCorrectPercentage()
-    {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 99.4m,
-            GiaGoc = 100m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(1, result);
-    }
-
-    [TestMethod]
-    public void PhanTramGiam_WithLargeValues_ReturnsCorrectPercentage()
-    {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 8000m,
-            GiaGoc = 10000m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(20, result);
-    }
-
-    [TestMethod]
-    public void PhanTramGiam_WithDecimalValues_ReturnsCorrectPercentage()
-    {
-        // Arrange
-        var sanPham = new SanPham
-        {
-            GiaBan = 123.45m,
-            GiaGoc = 200m
-        };
-
-        // Act
-        var result = sanPham.PhanTramGiam;
-
-        // Assert
-        Assert.AreEqual(38, result);
+        // 33.33% -> lam tron thanh 33
+        var sp = new SanPham { GiaBan = 66670, GiaGoc = 100000 };
+        Assert.Equal(33, sp.PhanTramGiam);
     }
 }

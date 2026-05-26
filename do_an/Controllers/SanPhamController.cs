@@ -20,12 +20,15 @@ public class SanPhamController : Controller
     }
 
     // GET: /SanPham
-    public async Task<IActionResult> Index(string? search, int? danhMucId)
+    public async Task<IActionResult> Index(string? search, int? danhMucId, int? sanPhamId)
     {
         var query = _context.SanPhams
             .Include(s => s.DanhMuc)
             .Include(s => s.DanhSachLo)
             .AsQueryable();
+
+        if (sanPhamId.HasValue)
+            query = query.Where(s => s.Id == sanPhamId);
 
         if (!string.IsNullOrWhiteSpace(search))
         {
@@ -37,7 +40,9 @@ public class SanPhamController : Controller
 
         ViewBag.Search      = search;
         ViewBag.DanhMucId   = danhMucId;
+        ViewBag.SanPhamId   = sanPhamId;
         ViewBag.DanhMucs    = await _context.DanhMucSanPhams.OrderBy(d => d.TenDanhMuc).ToListAsync();
+        ViewBag.AllSanPhams = await _context.SanPhams.OrderBy(s => s.TenSanPham).ToListAsync();
         ViewBag.IsAdmin     = User.IsInRole("Admin");
 
         return View(await query.OrderByDescending(s => s.NgayThem).ToListAsync());

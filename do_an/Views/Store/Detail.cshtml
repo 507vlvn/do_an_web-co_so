@@ -87,7 +87,7 @@
 
                 <div class="mb-5 p-4 rounded-4 shadow-sm" style="background: var(--brand-soft); border: 1px solid var(--brand-light);">
                     <div class="d-flex align-items-baseline gap-3">
-                        <span class="price-new text-brand" style="font-size: 2.5rem; letter-spacing: -1.5px;">@Model.GiaBan.ToString("N0")đ</span>
+                        <span id="displayPrice" class="price-new text-brand" style="font-size: 2.5rem; letter-spacing: -1.5px;">@Model.GiaBan.ToString("N0")đ</span>
                         @if (Model.GiaGoc.HasValue)
                         {
                             <span class="price-old" style="font-size: 1.25rem;">
@@ -302,8 +302,25 @@
             if (input) {
                 const val = (parseInt(input.value) || 1) + delta;
                 const max = parseInt(input.max) || 999;
-                input.value = Math.max(1, Math.min(max, val));
+                const newVal = Math.max(1, Math.min(max, val));
+                input.value = newVal;
+                updateDynamicPrice(newVal);
             }
+        }
+
+        function updateDynamicPrice(qty) {
+            const productId = @Model.Id;
+            const priceSpan = document.getElementById('displayPrice');
+            if (!priceSpan) return;
+
+            fetch(`/Store/GetPriceForQuantity?productId=${productId}&quantity=${qty}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        priceSpan.textContent = new Intl.NumberFormat('vi-VN').format(data.price) + 'đ';
+                    }
+                })
+                .catch(err => console.error('Error fetching dynamic price:', err));
         }
 
         function changeMainImg(src, element) {

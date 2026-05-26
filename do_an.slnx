@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="do_an/do_an.csproj" />
+  <Project Path="do_an.UnitTests/do_an.UnitTests.csproj" />
 </Solution>

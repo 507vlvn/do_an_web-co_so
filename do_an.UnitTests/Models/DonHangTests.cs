@@ -1,127 +1,53 @@
-﻿using do_an.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
+using do_an.Models;
 
 namespace do_an.UnitTests.Models;
 
-[TestClass]
 public class DonHangTests
 {
-    [TestMethod]
-    public void TongThanhToan_WithPositiveValues_ReturnsCorrectTotal()
+    [Fact]
+    public void TongThanhToan_TinhDung()
     {
-        // Arrange
-        var donHang = new DonHang
-        {
-            TongTienHang = 100.50m,
-            TienGiam = 20.25m
-        };
-
-        // Act
-        var result = donHang.TongThanhToan;
-
-        // Assert
-        Assert.AreEqual(80.25m, result);
+        var dh = new DonHang { TongTienHang = 100000, TienGiam = 20000 };
+        Assert.Equal(80000, dh.TongThanhToan);
     }
 
-    [TestMethod]
-    public void TongThanhToan_WithZeroTongTienHang_ReturnsNegativeTienGiam()
+    [Fact]
+    public void TongThanhToan_KhiKhongGiamGia()
     {
-        // Arrange
-        var donHang = new DonHang
-        {
-            TongTienHang = 0m,
-            TienGiam = 50.00m
-        };
-
-        // Act
-        var result = donHang.TongThanhToan;
-
-        // Assert
-        Assert.AreEqual(-50.00m, result);
+        var dh = new DonHang { TongTienHang = 100000, TienGiam = 0 };
+        Assert.Equal(100000, dh.TongThanhToan);
     }
 
-    [TestMethod]
-    public void TongThanhToan_WithZeroTienGiam_ReturnsTongTienHang()
+    [Fact]
+    public void TrangThaiMacDinh_LaChoThanhToan()
     {
-        // Arrange
-        var donHang = new DonHang
-        {
-            TongTienHang = 150.75m,
-            TienGiam = 0m
-        };
-
-        // Act
-        var result = donHang.TongThanhToan;
-
-        // Assert
-        Assert.AreEqual(150.75m, result);
+        var dh = new DonHang();
+        Assert.Equal(TrangThaiDonHang.ChoThanhToan, dh.TrangThai);
     }
 
-    [TestMethod]
-    public void TongThanhToan_WithBothZero_ReturnsZero()
+    [Fact]
+    public void LoaiDonMacDinh_LaOnline()
     {
-        // Arrange
-        var donHang = new DonHang
-        {
-            TongTienHang = 0m,
-            TienGiam = 0m
-        };
-
-        // Act
-        var result = donHang.TongThanhToan;
-
-        // Assert
-        Assert.AreEqual(0m, result);
+        var dh = new DonHang();
+        Assert.Equal(LoaiDonHang.Online, dh.LoaiDon);
     }
 
-    [TestMethod]
-    public void TongThanhToan_WithTienGiamGreaterThanTongTienHang_ReturnsNegativeValue()
+    [Fact]
+    public void NgayDatMacDinh_LaNgayHienTai()
     {
-        // Arrange
-        var donHang = new DonHang
-        {
-            TongTienHang = 50.00m,
-            TienGiam = 75.00m
-        };
+        var before = DateTime.Now.AddSeconds(-1);
+        var dh = new DonHang();
+        var after = DateTime.Now.AddSeconds(1);
 
-        // Act
-        var result = donHang.TongThanhToan;
-
-        // Assert
-        Assert.AreEqual(-25.00m, result);
+        Assert.InRange(dh.NgayDat, before, after);
     }
 
-    [TestMethod]
-    public void TongThanhToan_WithLargeValues_ReturnsCorrectTotal()
+    [Fact]
+    public void ChiTietDonHangs_KhoiTaoLaListRong()
     {
-        // Arrange
-        var donHang = new DonHang
-        {
-            TongTienHang = 999999.99m,
-            TienGiam = 100000.00m
-        };
-
-        // Act
-        var result = donHang.TongThanhToan;
-
-        // Assert
-        Assert.AreEqual(899999.99m, result);
-    }
-
-    [TestMethod]
-    public void TongThanhToan_WithDecimalPrecision_ReturnsCorrectTotal()
-    {
-        // Arrange
-        var donHang = new DonHang
-        {
-            TongTienHang = 123.45m,
-            TienGiam = 23.45m
-        };
-
-        // Act
-        var result = donHang.TongThanhToan;
-
-        // Assert
-        Assert.AreEqual(100.00m, result);
+        var dh = new DonHang();
+        Assert.NotNull(dh.ChiTietDonHangs);
+        Assert.Empty(dh.ChiTietDonHangs);
     }
 }

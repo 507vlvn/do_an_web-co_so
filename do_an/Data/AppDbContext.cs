@@ -18,6 +18,10 @@ public class AppDbContext : DbContext
     public DbSet<ChiTietGioHang> ChiTietGioHangs { get; set; }
     public DbSet<DonThuoc> DonThuocs { get; set; }
     public DbSet<ChiTietDonThuoc> ChiTietDonThuocs { get; set; }
+    public DbSet<NhaCungCap> NhaCungCaps { get; set; }
+    public DbSet<PhieuNhapHang> PhieuNhapHangs { get; set; }
+    public DbSet<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,6 +39,10 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<ChiTietGioHang>().ToTable("ChiTietGioHang");
         modelBuilder.Entity<DonThuoc>().ToTable("DonThuoc");
         modelBuilder.Entity<ChiTietDonThuoc>().ToTable("ChiTietDonThuoc");
+        modelBuilder.Entity<NhaCungCap>().ToTable("NhaCungCap");
+        modelBuilder.Entity<PhieuNhapHang>().ToTable("PhieuNhapHang");
+        modelBuilder.Entity<ChiTietPhieuNhap>().ToTable("ChiTietPhieuNhap");
+
 
         // ── Quan hệ ───────────────────────────────────
         modelBuilder.Entity<SanPham>()
@@ -84,6 +92,33 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<ChiTietDonHang>().Ignore(c => c.ThanhTien);
         modelBuilder.Entity<Voucher>().Ignore(v => v.ConHieuLuc);
         modelBuilder.Entity<SanPham>().Ignore(s => s.PhanTramGiam);
+        modelBuilder.Entity<ChiTietPhieuNhap>().Ignore(c => c.ThanhTien);
+
+        // ── Quan hệ Phiếu nhập hàng ──────────────────
+        modelBuilder.Entity<PhieuNhapHang>()
+            .HasOne(p => p.NhaCungCap)
+            .WithMany(n => n.PhieuNhapHangs)
+            .HasForeignKey(p => p.NhaCungCapId);
+
+        modelBuilder.Entity<PhieuNhapHang>()
+            .HasOne(p => p.NhanVienNhap)
+            .WithMany()
+            .HasForeignKey(p => p.NhanVienNhapId)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<ChiTietPhieuNhap>()
+            .HasOne(c => c.PhieuNhapHang)
+            .WithMany(p => p.ChiTietPhieuNhaps)
+            .HasForeignKey(c => c.PhieuNhapHangId);
+
+        modelBuilder.Entity<ChiTietPhieuNhap>()
+            .HasOne(c => c.SanPham)
+            .WithMany()
+            .HasForeignKey(c => c.SanPhamId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+
 
         // ── Kiểu decimal ──────────────────────────────────────
         modelBuilder.Entity<TaiKhoan>(e =>
@@ -115,6 +150,22 @@ public class AppDbContext : DbContext
             e.Property(v => v.PhanTramGiam).HasColumnType("decimal(5,2)");
             e.Property(v => v.GiamToiDa).HasColumnType("decimal(18,2)");
             e.Property(v => v.DonHangToiThieu).HasColumnType("decimal(18,2)");
+        });
+
+        modelBuilder.Entity<PhieuNhapHang>(e =>
+        {
+            e.Property(p => p.TongTien).HasColumnType("decimal(18,2)");
+        });
+
+        modelBuilder.Entity<ChiTietPhieuNhap>(e =>
+        {
+            e.Property(c => c.GiaNhap).HasColumnType("decimal(18,2)");
+        });
+
+        modelBuilder.Entity<LoThuoc>(e =>
+        {
+            e.Property(l => l.GiaNhap).HasColumnType("decimal(18,2)");
+            e.Property(l => l.GiaBan).HasColumnType("decimal(18,2)");
         });
 
         // ── Seed data ─────────────────────────────────

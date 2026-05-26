@@ -33,8 +33,9 @@ namespace do_an.Controllers
 
             try
             {
-                // 1. Lấy API Key
-                var apiKey = _config["Gemini:ApiKey"];
+                // 1. Lấy API Key (uu tien environment variable)
+                var apiKey = Environment.GetEnvironmentVariable("GEMINI_API_KEY")
+                             ?? _config["Gemini:ApiKey"];
                 if (string.IsNullOrEmpty(apiKey))
                 {
                     return Ok(new { response = "Hệ thống đang bảo trì AI (Thiếu API Key). Vui lòng thử lại sau hoặc liên hệ Admin." });
@@ -42,7 +43,7 @@ namespace do_an.Controllers
 
                 // 2. Tìm kiếm sản phẩm liên quan để cung cấp Context cho AI
                 var keywords = request.Message.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                var query = _context.SanPhams.Where(s => s.TrenKe && s.SoLuong > 0 && !s.IsThuoc);
+                var query = _context.SanPhams.Where(s => s.TrenKe && s.SoLuong > 0 );
                 
                 // Giới hạn context khoảng 5 sản phẩm khớp nhất
                 var relatedProducts = await query.ToListAsync();

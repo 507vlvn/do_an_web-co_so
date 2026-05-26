@@ -1,0 +1,207 @@
+@model do_an.ViewModels.BaoCaoViewModel
+@{
+    ViewData["Title"] = "Bao cao doanh thu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-bar-chart-line"></i> Bao cao doanh thu</h2>
+</div>
+
+<!-- Thong ke tong quan -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Doanh thu thang</h6>
+                        <h3>@Model.DoanhThuThang.ToString("N0") đ</h3>
+                    </div>
+                    <i class="bi bi-cash-stack fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Doanh thu hom nay</h6>
+                        <h3>@Model.DoanhThuHomNay.ToString("N0") đ</h3>
+                    </div>
+                    <i class="bi bi-graph-up fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Loi nhuan thang</h6>
+                        <h3>@Model.LoiNhuanThang.ToString("N0") đ</h3>
+                    </div>
+                    <i class="bi bi-wallet2 fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-warning text-dark">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6 class="card-title">Don hang thang</h6>
+                        <h3>@Model.TongDonHangThang</h3>
+                    </div>
+                    <i class="bi bi-receipt fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bieu do doanh thu 7 ngay -->
+<div class="row g-3 mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Doanh thu 7 ngay gan nhat</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="chart7Ngay" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Doanh thu theo danh muc</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="chartDanhMuc" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top san pham ban chay va loi nhuan -->
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-trophy"></i> Top san pham ban chay (thang nay)</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>San pham</th>
+                            <th class="text-end">SL ban</th>
+                            <th class="text-end">Doanh thu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            var stt = 0;
+                        }
+                        @foreach (var sp in Model.TopSanPhamBanChay)
+                        {
+                            stt++;
+                            <tr>
+                                <td>@stt</td>
+                                <td>@sp.TenSanPham</td>
+                                <td class="text-end">@sp.SoLuongBan</td>
+                                <td class="text-end">@sp.DoanhThu.ToString("N0") đ</td>
+                            </tr>
+                        }
+                        @if (!Model.TopSanPhamBanChay.Any())
+                        {
+                            <tr><td colspan="4" class="text-center text-muted">Chua co du lieu</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-pie-chart"></i> Doanh thu theo danh muc</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Danh muc</th>
+                            <th class="text-end">SL ban</th>
+                            <th class="text-end">Doanh thu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dm in Model.DoanhThuTheoDanhMuc)
+                        {
+                            <tr>
+                                <td>@dm.TenDanhMuc</td>
+                                <td class="text-end">@dm.SoLuongBan</td>
+                                <td class="text-end">@dm.DoanhThu.ToString("N0") đ</td>
+                            </tr>
+                        }
+                        @if (!Model.DoanhThuTheoDanhMuc.Any())
+                        {
+                            <tr><td colspan="3" class="text-center text-muted">Chua co du lieu</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Bieu do 7 ngay
+        const labels7 = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.DoanhThu7Ngay.Select(d => d.Ngay.ToString("dd/MM"))));
+        const data7 = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.DoanhThu7Ngay.Select(d => d.DoanhThu)));
+
+        new Chart(document.getElementById('chart7Ngay'), {
+            type: 'bar',
+            data: {
+                labels: labels7,
+                datasets: [{
+                    label: 'Doanh thu (đ)',
+                    data: data7,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // Bieu do danh muc
+        const labelsDM = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.DoanhThuTheoDanhMuc.Select(d => d.TenDanhMuc)));
+        const dataDM = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.DoanhThuTheoDanhMuc.Select(d => d.DoanhThu)));
+        const colors = ['#FF6384','#36A2EB','#FFCE56','#4BC0C0','#9966FF','#FF9F40','#C9CBCF'];
+
+        new Chart(document.getElementById('chartDanhMuc'), {
+            type: 'doughnut',
+            data: {
+                labels: labelsDM,
+                datasets: [{
+                    data: dataDM,
+                    backgroundColor: colors.slice(0, labelsDM.length)
+                }]
+            },
+            options: { responsive: true }
+        });
+    </script>
+}

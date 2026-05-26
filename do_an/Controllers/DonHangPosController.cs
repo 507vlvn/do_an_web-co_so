@@ -106,29 +106,27 @@ public class DonHangPosController : Controller
                 if (sp == null || sp.SoLuong < item.SoLuong)
                     throw new DbUpdateException($"\"{item.TenSanPham}\" không đủ hàng.");
                 
-                if (sp.IsThuoc)
-                {
-                    bool truThanhCong = await KhoHelper.TruKhoFEFOAsync(_context, sp.Id, item.SoLuong);
-                    if (!truThanhCong)
-                        throw new DbUpdateException($"\"{item.TenSanPham}\" không đủ kho thực tế.");
-                }
-                else
-                {
-                    sp.SoLuong -= item.SoLuong;
-                }
+                var truResult = await KhoHelper.TruKhoFEFOAsync(_context, sp.Id, item.SoLuong);
+                if (!truResult.Success)
+                    throw new DbUpdateException($"\"{item.TenSanPham}\" không đủ kho thực tế.");
 
-                donHangPos.ChiTietDonHangs.Add(new ChiTietDonHang
+                foreach (var split in truResult.CacLoDaTru)
                 {
-                    SanPhamId = item.SanPhamId,
-                    TenSanPhamSnapshot = sp.TenSanPham,
-                    SoVienMoiNgay = item.SoVienMoiNgay,
-                    SoNgayUong = item.SoNgayUong,
-                    SoLuong = item.SoLuong,
-                    GiaBan = sp.GiaBan,
-                    ThoiDiemUong = item.ThoiDiemUong,
-                    CachDung = item.CachDung,
-                    GhiChuLieuDung = item.GhiChuLieuDung
-                });
+                    donHangPos.ChiTietDonHangs.Add(new ChiTietDonHang
+                    {
+                        SanPhamId = item.SanPhamId,
+                        TenSanPhamSnapshot = string.IsNullOrEmpty(split.MaLo) 
+                            ? sp.TenSanPham 
+                            : $"{sp.TenSanPham} (Lô: {split.MaLo})",
+                        SoVienMoiNgay = item.SoVienMoiNgay,
+                        SoNgayUong = item.SoNgayUong,
+                        SoLuong = split.SoLuong,
+                        GiaBan = split.GiaBan,
+                        ThoiDiemUong = item.ThoiDiemUong,
+                        CachDung = item.CachDung,
+                        GhiChuLieuDung = item.GhiChuLieuDung
+                    });
+                }
             }
 
             donHangPos.TongTienHang = donHangPos.ChiTietDonHangs.Sum(c => c.SoLuong * c.GiaBan);

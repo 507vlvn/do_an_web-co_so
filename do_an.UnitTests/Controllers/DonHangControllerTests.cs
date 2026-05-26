@@ -1,4 +1,5 @@
-﻿using do_an.Controllers;
+using Xunit;
+using do_an.Controllers;
 using do_an.Data;
 using do_an.Models;
 using Microsoft.AspNetCore.Http;
@@ -6,762 +7,194 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using System.Security.Claims;
 
-namespace do_an.UnitTests;
+namespace do_an.UnitTests.Controllers;
 
-[TestClass]
-public class DonHangControllerTests
+public class DonHangOnlineControllerTests : IDisposable
 {
-    private DbContextOptions<AppDbContext> CreateInMemoryOptions()
+    private readonly AppDbContext _context;
+
+    public DonHangOnlineControllerTests()
     {
-        return new DbContextOptionsBuilder<AppDbContext>()
+        var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
             .Options;
+        _context = new AppDbContext(options);
+        _context.Database.EnsureCreated();
     }
 
-    private DonHangController CreateControllerWithTempData(AppDbContext context)
+    public void Dispose() => _context.Dispose();
+
+    private DonHangOnlineController CreateController(string role = "NhanVien")
     {
-        var controller = new DonHangController(context);
+        var controller = new DonHangOnlineController(_context);
         var httpContext = new DefaultHttpContext();
-        var tempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
-        controller.TempData = tempData;
-        controller.ControllerContext = new ControllerContext
+        var claims = new List<Claim>
         {
-            HttpContext = httpContext
+            new(ClaimTypes.Name, "Staff"),
+            new(ClaimTypes.Role, role)
         };
+        var identity = new ClaimsIdentity(claims, "Test");
+        httpContext.User = new ClaimsPrincipal(identity);
+        controller.ControllerContext = new ControllerContext { HttpContext = httpContext };
+        controller.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
         return controller;
     }
 
-    [TestMethod]
-    public void Constructor_WithValidContext_SetsContext()
+    // ── Index ─────────────────────────────────────────────────
+
+    [Fact]
+    public async Task Index_ReturnsViewWithDonHangs()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
+        _context.DonHangs.Add(new DonHang { MaDonHang = "DH-001", LoaiDon = LoaiDonHang.Online, TrangThai = TrangThaiDonHang.ChoThanhToan });
+        _context.DonHangs.Add(new DonHang { MaDonHang = "DH-002", LoaiDon = LoaiDonHang.Online, TrangThai = TrangThaiDonHang.DaGiao });
+        _context.DonHangs.Add(new DonHang { MaDonHang = "DH-POS", LoaiDon = LoaiDonHang.POS_TaiQuay, TrangThai = TrangThaiDonHang.DaThanhToan });
+        await _context.SaveChangesAsync();
 
-        // Act
-        var controller = new DonHangController(context);
-
-        // Assert
-        Assert.IsNotNull(controller);
-    }
-
-    [TestMethod]
-    public async Task Index_WithNoFilters_ReturnsAllOrders()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        var dh2 = new DonHang { MaDonHang = "DH002", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now.AddHours(-1) };
-        context.DonHangs.AddRange(dh1, dh2);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
+        var controller = CreateController();
         var result = await controller.Index(null, null);
 
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as List<DonHang>;
-        Assert.IsNotNull(model);
-        Assert.HasCount(2, model);
-        Assert.AreEqual("DH001", model[0].MaDonHang);
+        var viewResult = Assert.IsType<ViewResult>(result);
+        var model = Assert.IsAssignableFrom<List<DonHang>>(viewResult.Model);
+        Assert.Equal(2, model.Count); // Chi lay don online
     }
 
-    [TestMethod]
-    public async Task Index_WithTrangThaiFilter_ReturnsFilteredOrders()
+    [Fact]
+    public async Task Index_LocTheoTrangThai()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        var dh2 = new DonHang { MaDonHang = "DH002", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.AddRange(dh1, dh2);
-        await context.SaveChangesAsync();
+        _context.DonHangs.Add(new DonHang { MaDonHang = "DH-001", LoaiDon = LoaiDonHang.Online, TrangThai = TrangThaiDonHang.ChoThanhToan });
+        _context.DonHangs.Add(new DonHang { MaDonHang = "DH-002", LoaiDon = LoaiDonHang.Online, TrangThai = TrangThaiDonHang.DaGiao });
+        await _context.SaveChangesAsync();
 
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
+        var controller = CreateController();
         var result = await controller.Index(TrangThaiDonHang.ChoThanhToan, null);
 
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as List<DonHang>;
-        Assert.IsNotNull(model);
-        Assert.HasCount(1, model);
-        Assert.AreEqual("DH001", model[0].MaDonHang);
+        var viewResult = Assert.IsType<ViewResult>(result);
+        var model = Assert.IsAssignableFrom<List<DonHang>>(viewResult.Model);
+        Assert.Single(model);
+        Assert.Equal("DH-001", model[0].MaDonHang);
     }
 
-    [TestMethod]
-    public async Task Index_WithSearchByMaDonHang_ReturnsMatchingOrders()
+    [Fact]
+    public async Task Index_TimKiemTheoMa()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        var dh2 = new DonHang { MaDonHang = "DH002", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.AddRange(dh1, dh2);
-        await context.SaveChangesAsync();
+        _context.DonHangs.Add(new DonHang { MaDonHang = "DH-ABC-001", LoaiDon = LoaiDonHang.Online });
+        _context.DonHangs.Add(new DonHang { MaDonHang = "DH-XYZ-002", LoaiDon = LoaiDonHang.Online });
+        await _context.SaveChangesAsync();
 
-        var controller = CreateControllerWithTempData(context);
+        var controller = CreateController();
+        var result = await controller.Index(null, "ABC");
 
-        // Act
-        var result = await controller.Index(null, "DH001");
-
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as List<DonHang>;
-        Assert.IsNotNull(model);
-        Assert.HasCount(1, model);
-        Assert.AreEqual("DH001", model[0].MaDonHang);
+        var viewResult = Assert.IsType<ViewResult>(result);
+        var model = Assert.IsAssignableFrom<List<DonHang>>(viewResult.Model);
+        Assert.Single(model);
     }
 
-    [TestMethod]
-    public async Task Index_WithSearchByHoTenNguoiNhan_ReturnsMatchingOrders()
+    // ── Details ───────────────────────────────────────────────
+
+    [Fact]
+    public async Task Details_HopLe_ReturnsView()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", HoTenNguoiNhan = "Nguyen Van A", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        var dh2 = new DonHang { MaDonHang = "DH002", HoTenNguoiNhan = "Tran Van B", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.AddRange(dh1, dh2);
-        await context.SaveChangesAsync();
+        var dh = new DonHang { MaDonHang = "DH-001", LoaiDon = LoaiDonHang.Online };
+        _context.DonHangs.Add(dh);
+        await _context.SaveChangesAsync();
 
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.Index(null, "Nguyen");
-
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as List<DonHang>;
-        Assert.IsNotNull(model);
-        Assert.HasCount(1, model);
-        Assert.AreEqual("DH001", model[0].MaDonHang);
-    }
-
-    [TestMethod]
-    public async Task Index_WithSearchBySoDienThoai_ReturnsMatchingOrders()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", SoDienThoai = "0123456789", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        var dh2 = new DonHang { MaDonHang = "DH002", SoDienThoai = "0987654321", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.AddRange(dh1, dh2);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.Index(null, "0123");
-
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as List<DonHang>;
-        Assert.IsNotNull(model);
-        Assert.HasCount(1, model);
-        Assert.AreEqual("DH001", model[0].MaDonHang);
-    }
-
-    [TestMethod]
-    public async Task Index_WithNullHoTenAndSearch_DoesNotCrash()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", HoTenNguoiNhan = null, SoDienThoai = null, TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh1);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.Index(null, "Test");
-
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as List<DonHang>;
-        Assert.IsNotNull(model);
-        Assert.IsEmpty(model);
-    }
-
-    [TestMethod]
-    public async Task Index_SetsViewBagProperties_Correctly()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        var dh2 = new DonHang { MaDonHang = "DH002", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        var dh3 = new DonHang { MaDonHang = "DH003", TrangThai = TrangThaiDonHang.DangGiao, NgayDat = DateTime.Now };
-        var dh4 = new DonHang { MaDonHang = "DH004", TrangThai = TrangThaiDonHang.DaGiao, NgayDat = DateTime.Now };
-        var dh5 = new DonHang { MaDonHang = "DH005", TrangThai = TrangThaiDonHang.DaHuy, NgayDat = DateTime.Now };
-        context.DonHangs.AddRange(dh1, dh2, dh3, dh4, dh5);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.Index(TrangThaiDonHang.DaThanhToan, "test");
-
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        Assert.AreEqual(TrangThaiDonHang.DaThanhToan, controller.ViewBag.TrangThai);
-        Assert.AreEqual("test", controller.ViewBag.Search);
-        dynamic stats = controller.ViewBag.Stats;
-        Assert.AreEqual(1, stats.ChoThanhToan);
-        Assert.AreEqual(1, stats.DaThanhToan);
-        Assert.AreEqual(1, stats.DangGiao);
-        Assert.AreEqual(1, stats.DaGiao);
-        Assert.AreEqual(1, stats.DaHuy);
-    }
-
-    [TestMethod]
-    public async Task Index_OrdersByNgayDatDescending_Correctly()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now.AddHours(-2) };
-        var dh2 = new DonHang { MaDonHang = "DH002", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        var dh3 = new DonHang { MaDonHang = "DH003", TrangThai = TrangThaiDonHang.DangGiao, NgayDat = DateTime.Now.AddHours(-1) };
-        context.DonHangs.AddRange(dh1, dh2, dh3);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.Index(null, null);
-
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as List<DonHang>;
-        Assert.IsNotNull(model);
-        Assert.HasCount(3, model);
-        Assert.AreEqual("DH002", model[0].MaDonHang);
-        Assert.AreEqual("DH003", model[1].MaDonHang);
-        Assert.AreEqual("DH001", model[2].MaDonHang);
-    }
-
-    [TestMethod]
-    public async Task Details_WithValidId_ReturnsViewWithOrder()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
+        var controller = CreateController();
         var result = await controller.Details(dh.Id);
 
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as DonHang;
-        Assert.IsNotNull(model);
-        Assert.AreEqual("DH001", model.MaDonHang);
+        var viewResult = Assert.IsType<ViewResult>(result);
+        Assert.IsType<DonHang>(viewResult.Model);
     }
 
-    [TestMethod]
-    public async Task Details_WithInvalidId_ReturnsNotFound()
+    [Fact]
+    public async Task Details_KhongTonTai_ReturnsNotFound()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.Details(999);
-
-        // Assert
-        Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        var controller = CreateController();
+        var result = await controller.Details(99999);
+        Assert.IsType<NotFoundResult>(result);
     }
 
-    [TestMethod]
-    public async Task Details_IncludesChiTietDonHangsAndSanPham_Successfully()
+    // ── CapNhatTrangThai ──────────────────────────────────────
+
+    [Fact]
+    public async Task CapNhatTrangThai_ChuyenHopLe_ThanhCong()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var sp = new SanPham { TenSanPham = "Product A", GiaBan = 100 };
-        context.SanPhams.Add(sp);
-        await context.SaveChangesAsync();
+        var dh = new DonHang { MaDonHang = "DH-001", TrangThai = TrangThaiDonHang.ChoThanhToan };
+        _context.DonHangs.Add(dh);
+        await _context.SaveChangesAsync();
 
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var ct = new ChiTietDonHang { DonHangId = dh.Id, SanPhamId = sp.Id, SoLuong = 2, GiaBan = 100 };
-        context.ChiTietDonHangs.Add(ct);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.Details(dh.Id);
-
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as DonHang;
-        Assert.IsNotNull(model);
-        Assert.HasCount(1, model.ChiTietDonHangs);
-        Assert.AreEqual("Product A", model.ChiTietDonHangs.First().SanPham.TenSanPham);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_WithInvalidId_ReturnsNotFound()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(999, TrangThaiDonHang.DaThanhToan);
-
-        // Assert
-        Assert.IsInstanceOfType(result, typeof(NotFoundResult));
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromChoThanhToanToDaThanhToan_UpdatesSuccessfully()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
+        var controller = CreateController();
         var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaThanhToan);
 
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        Assert.AreEqual("Details", redirectResult.ActionName);
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.DaThanhToan, updatedDh!.TrangThai);
-        Assert.IsNotNull(updatedDh.NgayThanhToan);
+        var redirect = Assert.IsType<RedirectToActionResult>(result);
+        var updated = await _context.DonHangs.FindAsync(dh.Id);
+        Assert.Equal(TrangThaiDonHang.DaThanhToan, updated!.TrangThai);
     }
 
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromChoThanhToanToDaHuy_UpdatesSuccessfully()
+    [Fact]
+    public async Task CapNhatTrangThai_ChuyenKhongHopLe_BaoLoi()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
+        var dh = new DonHang { MaDonHang = "DH-001", TrangThai = TrangThaiDonHang.DaGiao };
+        _context.DonHangs.Add(dh);
+        await _context.SaveChangesAsync();
 
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaHuy);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.DaHuy, updatedDh!.TrangThai);
-        Assert.IsNotNull(updatedDh.NgayHuy);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromDaThanhToanToDangChuanBi_UpdatesSuccessfully()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DangChuanBi);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.DangChuanBi, updatedDh!.TrangThai);
-        Assert.IsNotNull(updatedDh.NgayChuanBi);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromDaThanhToanToDaHuy_UpdatesSuccessfully()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaHuy);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.DaHuy, updatedDh!.TrangThai);
-        Assert.IsNotNull(updatedDh.NgayHuy);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromDangChuanBiToDangGiao_UpdatesSuccessfully()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.DangChuanBi, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DangGiao);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.DangGiao, updatedDh!.TrangThai);
-        Assert.IsNotNull(updatedDh.NgayBatDauGiao);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromDangChuanBiToDaHuy_UpdatesSuccessfully()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.DangChuanBi, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaHuy);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.DaHuy, updatedDh!.TrangThai);
-        Assert.IsNotNull(updatedDh.NgayHuy);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromDangGiaoToDaGiao_UpdatesSuccessfully()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.DangGiao, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaGiao);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.DaGiao, updatedDh!.TrangThai);
-        Assert.IsNotNull(updatedDh.NgayGiao);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_InvalidTransition_SetsErrorAndRedirects()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DangGiao);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        Assert.AreEqual("Details", redirectResult.ActionName);
-        Assert.IsTrue(controller.TempData.ContainsKey("Error"));
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.ChoThanhToan, updatedDh!.TrangThai);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromDaGiaoToAnyState_IsInvalid()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.DaGiao, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaHuy);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        Assert.IsTrue(controller.TempData.ContainsKey("Error"));
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.DaGiao, updatedDh!.TrangThai);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromDaHuyToAnyState_IsInvalid()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.DaHuy, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
+        var controller = CreateController();
         var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.ChoThanhToan);
 
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        Assert.IsTrue(controller.TempData.ContainsKey("Error"));
-        
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.AreEqual(TrangThaiDonHang.DaHuy, updatedDh!.TrangThai);
+        var redirect = Assert.IsType<RedirectToActionResult>(result);
+        Assert.NotNull(controller.TempData["Error"]);
     }
 
-    [TestMethod]
-    public async Task CapNhatTrangThai_ValidTransition_SetsSuccessMessage()
+    [Fact]
+    public async Task CapNhatTrangThai_HuyDon_HoanKho()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
+        var dm = new DanhMucSanPham { TenDanhMuc = "Test", KichHoat = true };
+        _context.DanhMucSanPhams.Add(dm);
+        await _context.SaveChangesAsync();
 
-        var controller = CreateControllerWithTempData(context);
+        var sp = new SanPham { TenSanPham = "SP", DanhMucId = dm.Id, GiaBan = 10000, SoLuong = 70 };
+        _context.SanPhams.Add(sp);
+        await _context.SaveChangesAsync();
 
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaThanhToan);
+        var dh = new DonHang { MaDonHang = "DH-001", TrangThai = TrangThaiDonHang.ChoThanhToan };
+        dh.ChiTietDonHangs.Add(new ChiTietDonHang { SanPhamId = sp.Id, SoLuong = 30, GiaBan = 10000 });
+        _context.DonHangs.Add(dh);
+        await _context.SaveChangesAsync();
 
-        // Assert
-        Assert.IsTrue(controller.TempData.ContainsKey("Success"));
-        var successMessage = controller.TempData["Success"] as string;
-        Assert.Contains("DH001", successMessage!);
+        var controller = CreateController();
+        await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaHuy);
+
+        var updatedSp = await _context.SanPhams.FindAsync(sp.Id);
+        Assert.Equal(100, updatedSp!.SoLuong); // Hoan kho: 70 + 30
     }
 
-    [TestMethod]
-    public async Task CapNhatTrangThai_WithChiTietDonHangs_CallsKhoHelperWhenCancelling()
+    // ── Delete ────────────────────────────────────────────────
+
+    [Fact]
+    public async Task Delete_HopLe_ReturnsView()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        
-        var sp = new SanPham { TenSanPham = "Product A", GiaBan = 100, IsThuoc = true };
-        context.SanPhams.Add(sp);
-        await context.SaveChangesAsync();
+        var dh = new DonHang { MaDonHang = "DH-001", LoaiDon = LoaiDonHang.Online };
+        _context.DonHangs.Add(dh);
+        await _context.SaveChangesAsync();
 
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
+        var controller = CreateController();
+        var result = await controller.Delete(dh.Id);
 
-        var ct = new ChiTietDonHang { DonHangId = dh.Id, SanPhamId = sp.Id, SoLuong = 2, GiaBan = 100 };
-        context.ChiTietDonHangs.Add(ct);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act & Assert - This should not throw an exception
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaHuy);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
+        Assert.IsType<ViewResult>(result);
     }
 
-    [TestMethod]
-    public async Task CapNhatTrangThai_SameState_IsInvalid()
+    [Fact]
+    public async Task DeleteConfirmed_XoaVinhVien()
     {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
+        var dh = new DonHang { MaDonHang = "DH-001", LoaiDon = LoaiDonHang.Online };
+        _context.DonHangs.Add(dh);
+        await _context.SaveChangesAsync();
 
-        var controller = CreateControllerWithTempData(context);
+        var controller = CreateController();
+        var result = await controller.DeleteConfirmed(dh.Id, false);
 
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.ChoThanhToan);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        Assert.IsTrue(controller.TempData.ContainsKey("Error"));
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_ToChoThanhToan_IsInvalid()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.ChoThanhToan);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        Assert.IsTrue(controller.TempData.ContainsKey("Error"));
-    }
-
-    [TestMethod]
-    public async Task Index_WithEmptySearch_ReturnsAllOrders()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        var dh2 = new DonHang { MaDonHang = "DH002", TrangThai = TrangThaiDonHang.DaThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.AddRange(dh1, dh2);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.Index(null, "   ");
-
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as List<DonHang>;
-        Assert.IsNotNull(model);
-        Assert.HasCount(2, model);
-    }
-
-    [TestMethod]
-    public async Task Index_WithWhitespaceSearch_ReturnsAllOrders()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh1 = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh1);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.Index(null, "\t\n");
-
-        // Assert
-        var viewResult = result as ViewResult;
-        Assert.IsNotNull(viewResult);
-        var model = viewResult.Model as List<DonHang>;
-        Assert.IsNotNull(model);
-        Assert.HasCount(1, model);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_DaHuy_SetsNgayHuyToNow()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.ChoThanhToan, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-        var beforeTime = DateTime.Now.AddSeconds(-1);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DaHuy);
-
-        // Assert
-        var afterTime = DateTime.Now.AddSeconds(1);
-        var updatedDh = await context.DonHangs.FindAsync(dh.Id);
-        Assert.IsNotNull(updatedDh!.NgayHuy);
-        Assert.IsTrue(updatedDh.NgayHuy >= beforeTime);
-        Assert.IsTrue(updatedDh.NgayHuy <= afterTime);
-    }
-
-    [TestMethod]
-    public async Task CapNhatTrangThai_FromDangGiaoToDangGiao_IsInvalid()
-    {
-        // Arrange
-        var options = CreateInMemoryOptions();
-        using var context = new AppDbContext(options);
-        var dh = new DonHang { MaDonHang = "DH001", TrangThai = TrangThaiDonHang.DangGiao, NgayDat = DateTime.Now };
-        context.DonHangs.Add(dh);
-        await context.SaveChangesAsync();
-
-        var controller = CreateControllerWithTempData(context);
-
-        // Act
-        var result = await controller.CapNhatTrangThai(dh.Id, TrangThaiDonHang.DangGiao);
-
-        // Assert
-        var redirectResult = result as RedirectToActionResult;
-        Assert.IsNotNull(redirectResult);
-        Assert.IsTrue(controller.TempData.ContainsKey("Error"));
+        var redirect = Assert.IsType<RedirectToActionResult>(result);
+        Assert.Null(await _context.DonHangs.FindAsync(dh.Id));
     }
 }

@@ -48,6 +48,7 @@ public class DonHangAutoHuyService : BackgroundService
         var donHangsQuaHan = await db.DonHangs
             .Include(d => d.ChiTietDonHangs)
             .Where(d => d.TrangThai == TrangThaiDonHang.ChoThanhToan
+                     && d.LoaiDon == LoaiDonHang.Online
                      && d.PhuongThucThanhToan == PhuongThucThanhToan.ThanhToanOnline
                      && d.NgayDat < deadline)
             .ToListAsync();
@@ -57,6 +58,7 @@ public class DonHangAutoHuyService : BackgroundService
         foreach (var donHang in donHangsQuaHan)
         {
             donHang.TrangThai = TrangThaiDonHang.DaHuy;
+            donHang.NgayHuy = DateTime.Now;
 
             foreach (var ct in donHang.ChiTietDonHangs)
             {

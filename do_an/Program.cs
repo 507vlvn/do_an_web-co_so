@@ -1,10 +1,20 @@
 using do_an.Data;
+using do_an.HealthChecks;
 using do_an.Helpers;
+using do_an.Middleware;
 using do_an.Models;
 using do_an.Services;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+
+// ── Serilog ──────────────────────────────────────────────────
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/app-.log", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 7)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
 
 builder.Services.AddControllersWithViews();
 
@@ -38,6 +48,15 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ChiKhachHang",    p => p.RequireRole("KhachHang"));
 });
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<ICartSyncService, CartSyncService>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
+builder.Services.AddScoped<IDonHangService, DonHangService>();
+builder.Services.AddScoped<IVoucherService, VoucherService>();
+builder.Services.AddHealthChecks()
+    .AddCheck<DatabaseHealthCheck>("database");
+
 builder.Services.AddHostedService<DonHangAutoHuyService>();
 
 var app = builder.Build();
@@ -50,10 +69,15 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-// Chạy // với database , load nhanh 
+// Middleware bao mat
+app.UseMiddleware<GlobalExceptionMiddleware>();
+app.UseMiddleware<RateLimitingMiddleware>();
+// Chạy // với database , load nhanh
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
+// Health check endpoint
+app.MapHealthChecks("/health");
 // thư viện áh xạ cho phép load ảnh tỉnh nhanh hơn (chỉ net 9 >)
 app.MapStaticAssets();
 
@@ -67,25 +91,37 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    // EnsureCreated: tạo DB nếu chưa tồn tại, KHÔNG xóa dữ liệu cũ
-    db.Database.EnsureCreated();
-
+    // Thử Migrate trước (tạo bảng mới từ migration), nếu fail thì EnsureCreated
     try
     {
-        db.Database.ExecuteSqlRaw("ALTER TABLE SanPham ADD ThuVienHinhAnh nvarchar(max) NULL;");
+        db.Database.Migrate();
     }
-    catch { /* Ignore if column already exists */ }
+    catch
+    {
+        db.Database.EnsureCreated();
+    }
+
+
 
     if (!db.TaiKhoans.Any(t => t.VaiTro == "Admin"))
     {
+        // Doc mat khau tu environment variable, neu khong co thi tao random
+        var adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD");
+        if (string.IsNullOrWhiteSpace(adminPassword))
+        {
+            adminPassword = Guid.NewGuid().ToString("N")[..12] + "Aa1!";
+            Log.Warning("Mat khau admin tu tao: {Password} - HAY DOI NGAY SAU LAN DANG NHAP DAU!", adminPassword);
+        }
+
         db.TaiKhoans.Add(new TaiKhoan
         {
             TenDangNhap = "admin",
             HoTen       = "Quản trị viên",
-            MatKhauHash = PasswordHelper.Hash("Admin@123"),
+            MatKhauHash = PasswordHelper.Hash(adminPassword),
             VaiTro      = "Admin"
         });
         db.SaveChanges();
+        Log.Information("Da tao tai khoan admin. Mat khau: {Password}", adminPassword);
     }
 
     // ── Tự động đồng bộ HSD theo lô FEFO mỗi khi app khởi động ──

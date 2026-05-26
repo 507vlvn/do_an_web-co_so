@@ -1,0 +1,59 @@
+@model do_an.Models.NhaCungCap
+@{
+    ViewData["Title"] = "Sua nha cung cap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><i class="bi bi-truck"></i> Sua nha cung cap</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="NgayTao" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="TenNCC" class="form-label"></label>
+                <input asp-for="TenNCC" class="form-control" />
+                <span asp-validation-for="TenNCC" class="text-danger"></span>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="SoDienThoai" class="form-label"></label>
+                    <input asp-for="SoDienThoai" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DiaChi" class="form-label"></label>
+                <input asp-for="DiaChi" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NguoiLienHe" class="form-label"></label>
+                <input asp-for="NguoiLienHe" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GhiChu" class="form-label"></label>
+                <textarea asp-for="GhiChu" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input asp-for="KichHoat" class="form-check-input" />
+                <label asp-for="KichHoat" class="form-check-label"></label>
+            </div>
+
+            <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Luu</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lai</a>
+        </form>
+    </div>
+</div>

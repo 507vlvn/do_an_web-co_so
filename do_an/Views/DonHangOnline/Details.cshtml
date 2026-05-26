@@ -90,7 +90,7 @@
                             @foreach (var ct in Model.ChiTietDonHangs)
                             {
                                 <tr>
-                                    <td class="ps-4 py-3 fw-800 text-dark">@(ct.SanPham?.TenSanPham ?? ct.TenSanPhamSnapshot ?? "Sản phẩm đã xóa")</td>
+                                    <td class="ps-4 py-3 fw-800 text-dark">@(ct.TenSanPhamSnapshot ?? ct.SanPham?.TenSanPham ?? "Sản phẩm đã xóa")</td>
                                     <td class="py-3 text-center fw-800">@ct.SoLuong</td>
                                     <td class="py-3 text-end fw-600">@ct.GiaBan.ToString("N0")đ</td>
                                     <td class="pe-4 py-3 text-end fw-800 text-brand">@ct.ThanhTien.ToString("N0")đ</td>

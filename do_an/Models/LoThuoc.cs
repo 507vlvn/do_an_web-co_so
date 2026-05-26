@@ -36,6 +36,14 @@ public class LoThuoc
     [DataType(DataType.Date)]
     public DateTime HanSuDung { get; set; }
 
+    [Column(TypeName = "decimal(18,2)")]
+    [Display(Name = "Giá Nhập")]
+    public decimal GiaNhap { get; set; }
+
+    [Column(TypeName = "decimal(18,2)")]
+    [Display(Name = "Giá Bán")]
+    public decimal GiaBan { get; set; }
+
     [Display(Name = "Trạng Thái")]
     public bool TrangThai { get; set; } = true;
 }

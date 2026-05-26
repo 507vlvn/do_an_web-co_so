@@ -124,6 +124,7 @@ public class DonHangOnlineController : Controller
     }
 
     // POST: /DonHang/Delete/{id}
+    [Authorize(Roles = "Admin")]
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id, bool hoanKho = true)
