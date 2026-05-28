@@ -153,41 +153,81 @@
         /* Category nav */
         .cat-nav {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #f1f5f9;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.02);
             position: sticky;
             top: 72px;
             z-index: 1010;
-            padding: 10px 0;
+            padding: 12px 0;
+            transition: all 0.3s;
+        }
+
+        .cat-nav .nav {
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+            -ms-overflow-style: none;  /* Hide scrollbar for IE/Edge */
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cat-nav .nav::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome/Safari */
         }
 
         .cat-nav .nav-link {
-            color: #64748b;
-            padding: 10px 24px;
-            margin: 0 4px;
-            font-size: 0.9rem;
+            color: #475569;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 8px 20px;
+            margin: 0 6px;
+            font-size: 0.875rem;
             font-weight: 700;
             border-radius: 100px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: transparent;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+        }
+
+        .cat-nav .nav-link i {
+            font-size: 1.05rem;
+            opacity: 0.9;
         }
 
         .cat-nav .nav-link:hover {
             color: var(--brand);
             background: var(--brand-soft);
-            transform: translateY(-1px);
+            border-color: var(--brand-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(5, 150, 105, 0.08);
         }
         
         .cat-nav .nav-link.active {
-            background: var(--brand);
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
             color: #fff;
-            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.3);
+            border-color: transparent;
+            box-shadow: 0 6px 18px rgba(5, 150, 105, 0.35);
         }
         
+        .cat-nav .nav-link .badge {
+            background: #f1f5f9;
+            color: #64748b;
+            font-size: 0.725rem;
+            padding: 4px 8px;
+            border-radius: 100px;
+            font-weight: 800;
+            transition: all 0.25s ease;
+        }
+
+        .cat-nav .nav-link:hover .badge {
+            background: rgba(5, 150, 105, 0.15);
+            color: var(--brand) !important;
+        }
+
         .cat-nav .nav-link.active .badge {
             background: rgba(255,255,255,0.2) !important;
             color: #fff !important;
@@ -294,6 +334,22 @@
             font-size: 0.85rem;
             text-decoration: line-through;
             font-weight: 500;
+        }
+
+        .text-brand { color: var(--brand) !important; }
+        .bg-brand { background-color: var(--brand) !important; }
+        .bg-brand-soft { background-color: var(--brand-soft) !important; }
+        .shadow-brand { box-shadow: 0 10px 15px -3px rgba(5, 150, 105, 0.3); }
+        
+        .btn-brand {
+            background: var(--brand);
+            border-color: var(--brand);
+            color: #fff;
+        }
+        .btn-brand:hover {
+            background: var(--brand-dark);
+            border-color: var(--brand-dark);
+            color: #fff;
         }
 
         .btn-brand-outline {
@@ -614,7 +670,7 @@
                 <li class="nav-item">
                     <a class="nav-link @(ViewBag.DanhMucId == null ? "active" : "")"
                        asp-controller="Store" asp-action="Index">
-                        <i class="bi bi-grid me-1"></i>Tất cả
+                        <i class="bi bi-grid-fill me-1"></i>Tất cả
                         @if (ViewBag.TotalAll is int totalAll && totalAll > 0)
                         {
                             <span class="badge bg-light text-muted rounded-pill ms-1" style="font-size:0.7rem;">@totalAll</span>
@@ -624,6 +680,21 @@
                 @{
                     var navDms = ViewBag.DanhMucs as List<do_an.Models.DanhMucSanPham> ?? new List<do_an.Models.DanhMucSanPham>();
                     var countPerDm = ViewBag.CountPerDm as Dictionary<int, int> ?? new Dictionary<int, int>();
+                    Func<string, string> getCategoryIcon = (string name) => {
+                        if (string.IsNullOrEmpty(name)) return "bi-tag";
+                        name = name.ToLower();
+                        if (name.Contains("giảm đau") || name.Contains("hạ sốt")) return "bi-capsule";
+                        if (name.Contains("kháng sinh")) return "bi-capsule-pill";
+                        if (name.Contains("mỹ phẩm")) return "bi-sparkles";
+                        if (name.Contains("thiết bị")) return "bi-heart-pulse";
+                        if (name.Contains("dinh dưỡng") || name.Contains("chức năng") || name.Contains("thực phẩm")) return "bi-shield-plus";
+                        if (name.Contains("tiêu hóa")) return "bi-droplet-half";
+                        if (name.Contains("tim mạch")) return "bi-heart-pulse-fill";
+                        if (name.Contains("hô hấp")) return "bi-wind";
+                        if (name.Contains("dị ứng")) return "bi-shield-exclamation";
+                        if (name.Contains("da liễu")) return "bi-hand-index-thumb";
+                        return "bi-tag";
+                    };
                 }
                 @foreach (var dm in navDms)
                 {
@@ -632,7 +703,8 @@
                         <a class="nav-link @(ViewBag.DanhMucId?.ToString() == dm.Id.ToString() ? "active" : "")"
                            asp-controller="Store" asp-action="Index"
                            asp-route-danhMucId="@dm.Id">
-                            @dm.TenDanhMuc
+                            <i class="bi @getCategoryIcon(dm.TenDanhMuc) me-1"></i>
+                            <span>@dm.TenDanhMuc</span>
                             @if (dmCount > 0)
                             {
                                 <span class="badge bg-light text-muted rounded-pill ms-1" style="font-size:0.7rem;">@dmCount</span>
