@@ -121,6 +121,17 @@ do_an/
 - Audit trail cho cac hanh dong nhay cam
 - Global exception handling
 
-## License
+## Bản quyền & Điều khoản sử dụng (License & Copyright)
 
-Do an hoc tap.
+Dự án này được phát triển phục vụ cho mục đích học tập và làm đồ án tốt nghiệp. Khi sử dụng, sao chép hoặc phát triển tiếp dự án này, vui lòng tuân thủ các điều khoản sau:
+
+### 1. Quyền sử dụng (Terms of Use)
+- **Mục đích phi thương mại**: Dự án được cấp quyền sử dụng miễn phí cho các mục đích học tập, nghiên cứu cá nhân hoặc tham khảo phi thương mại.
+- **Nghiêm cấm thương mại hóa**: Không được phép sử dụng bất kỳ phần nào của mã nguồn dự án này để kinh doanh, thương mại hóa hoặc tích hợp vào các sản phẩm thương mại khi chưa có sự đồng ý bằng văn bản từ tác giả.
+
+### 2. Trích dẫn nguồn (Attribution & Citation)
+Mọi hình thức tham khảo hoặc tái sử dụng một phần hay toàn bộ mã nguồn đều cần phải ghi công và trích dẫn nguồn đầy đủ:
+- **Tên tác giả**: Nguyễn Thái Bình (507vlvn)
+- **Liên kết dự án gốc**: [https://github.com/507vlvn/do_an_web-co_so](https://github.com/507vlvn/do_an_web-co_so)
+- **Mẫu trích dẫn đề xuất**:
+  > *"Dự án này có tham khảo/sử dụng mã nguồn từ hệ thống Nhà Thuốc Plus, phát triển bởi Nguyễn Thái Bình ([Link repository](https://github.com/507vlvn/do_an_web-co_so))."*
