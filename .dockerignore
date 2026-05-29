@@ -1,9 +1,0 @@
-**/.git
-**/bin
-**/obj
-**/node_modules
-**/.vs
-**/*.user
-**/*.suo
-**/logs
-**/.env

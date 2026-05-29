@@ -41,3 +41,11 @@ logs/
 # SQL Server local DB files
 *.mdf
 *.ldf
+
+# Custom excluded files
+BaoCaoDoAn_TotNghiep.docx
+BaoCaoDoAn_TotNghiep.md
+check_pages.ps1
+reset_admin.csx
+docker-compose.yml
+.dockerignore
