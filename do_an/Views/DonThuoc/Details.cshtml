@@ -153,75 +153,78 @@
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="bg-white rounded-5 shadow-sm border p-4 mb-4" style="border-color: #f1f5f9 !important;">
-                <h6 class="fw-800 text-muted small text-uppercase mb-3" style="letter-spacing:1px;">
-                    <i class="bi bi-gear me-2"></i> Thao tác
-                </h6>
-                <div class="d-flex flex-wrap gap-3">
-                    @if (Model.TrangThai == TrangThaiDonThuoc.MoiTao)
-                    {
-                        <form asp-action="Duyet" asp-route-id="@Model.Id" method="post" class="d-inline">
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-success rounded-pill px-4 fw-800"
-                                    onclick="return confirm('Duyệt đơn thuốc này?')">
-                                <i class="bi bi-check-circle me-2"></i> Duyệt đơn
-                            </button>
-                        </form>
-                    }
-
-                    @if (Model.TrangThai == TrangThaiDonThuoc.DaDuyet)
-                    {
-                        @if (!Model.DaDangStore)
+            @if (User.IsInRole("Admin") || User.IsInRole("BacSi"))
+            {
+                <!-- Action Buttons -->
+                <div class="bg-white rounded-5 shadow-sm border p-4 mb-4" style="border-color: #f1f5f9 !important;">
+                    <h6 class="fw-800 text-muted small text-uppercase mb-3" style="letter-spacing:1px;">
+                        <i class="bi bi-gear me-2"></i> Thao tác
+                    </h6>
+                    <div class="d-flex flex-wrap gap-3">
+                        @if (Model.TrangThai == TrangThaiDonThuoc.MoiTao)
                         {
-                            <!-- Form đăng lên Store -->
-                            <form asp-action="DangStore" asp-route-id="@Model.Id" method="post" class="d-inline-flex align-items-center gap-2">
+                            <form asp-action="Duyet" asp-route-id="@Model.Id" method="post" class="d-inline">
                                 @Html.AntiForgeryToken()
-                                <select name="danhMucId" class="form-select form-select-sm rounded-pill border fw-600" style="width:200px;">
-                                    <option value="">-- Chọn danh mục --</option>
-                                    @foreach (var dm in danhMucs)
-                                    {
-                                        <option value="@dm.Id">@dm.TenDanhMuc</option>
-                                    }
-                                </select>
-                                <button type="submit" class="btn btn-info rounded-pill px-4 fw-800 text-white">
-                                    <i class="bi bi-shop me-2"></i> Đăng lên Store
+                                <button type="submit" class="btn btn-success rounded-pill px-4 fw-800"
+                                        onclick="return confirm('Duyệt đơn thuốc này?')">
+                                    <i class="bi bi-check-circle me-2"></i> Duyệt đơn
                                 </button>
                             </form>
                         }
-                        else
+
+                        @if (Model.TrangThai == TrangThaiDonThuoc.DaDuyet)
                         {
-                            <form asp-action="DangStore" asp-route-id="@Model.Id" method="post" class="d-inline">
+                            @if (!Model.DaDangStore)
+                            {
+                                <!-- Form đăng lên Store -->
+                                <form asp-action="DangStore" asp-route-id="@Model.Id" method="post" class="d-inline-flex align-items-center gap-2">
+                                    @Html.AntiForgeryToken()
+                                    <select name="danhMucId" class="form-select form-select-sm rounded-pill border fw-600" style="width:200px;">
+                                        <option value="">-- Chọn danh mục --</option>
+                                        @foreach (var dm in danhMucs)
+                                        {
+                                            <option value="@dm.Id">@dm.TenDanhMuc</option>
+                                        }
+                                    </select>
+                                    <button type="submit" class="btn btn-info rounded-pill px-4 fw-800 text-white">
+                                        <i class="bi bi-shop me-2"></i> Đăng lên Store
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-action="DangStore" asp-route-id="@Model.Id" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-secondary rounded-pill px-4 fw-800"
+                                            onclick="return confirm('Gỡ đơn thuốc này khỏi Store?')">
+                                        <i class="bi bi-shop me-2"></i> Gỡ khỏi Store
+                                    </button>
+                                </form>
+                            }
+                        }
+
+                        @if (Model.TrangThai != TrangThaiDonThuoc.DaHuy)
+                        {
+                            <form asp-action="Huy" asp-route-id="@Model.Id" method="post" class="d-inline">
                                 @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-outline-secondary rounded-pill px-4 fw-800"
-                                        onclick="return confirm('Gỡ đơn thuốc này khỏi Store?')">
-                                    <i class="bi bi-shop me-2"></i> Gỡ khỏi Store
+                                <button type="submit" class="btn btn-outline-danger rounded-pill px-4 fw-800"
+                                        onclick="return confirm('Hủy đơn thuốc này?')">
+                                    <i class="bi bi-x-circle me-2"></i> Hủy đơn
                                 </button>
                             </form>
                         }
-                    }
 
-                    @if (Model.TrangThai != TrangThaiDonThuoc.DaHuy)
-                    {
-                        <form asp-action="Huy" asp-route-id="@Model.Id" method="post" class="d-inline">
-                            @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-outline-danger rounded-pill px-4 fw-800"
-                                    onclick="return confirm('Hủy đơn thuốc này?')">
-                                <i class="bi bi-x-circle me-2"></i> Hủy đơn
-                            </button>
-                        </form>
-                    }
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Delete" asp-route-id="@Model.Id"
-                               class="btn btn-outline-danger rounded-pill px-4 fw-800 ms-auto"
-                               onclick="return confirm('Xóa vĩnh viễn đơn thuốc này?')">
-                            <i class="bi bi-trash3 me-2"></i> Xóa
-                        </a>
-                    }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@Model.Id"
+                                   class="btn btn-outline-danger rounded-pill px-4 fw-800 ms-auto"
+                                   onclick="return confirm('Xóa vĩnh viễn đơn thuốc này?')">
+                                <i class="bi bi-trash3 me-2"></i> Xóa
+                            </a>
+                        }
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>

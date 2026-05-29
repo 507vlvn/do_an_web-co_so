@@ -638,6 +638,15 @@
                                         </a>
                                     </li>
                                 }
+                                @if (Context.User.IsInRole("BacSi"))
+                                {
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item fw-bold text-info" asp-controller="DonThuoc" asp-action="Index">
+                                            <i class="bi bi-clipboard2-pulse me-1"></i>Vào Trang Kê Đơn
+                                        </a>
+                                    </li>
+                                }
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form asp-controller="Account" asp-action="Logout" method="post">

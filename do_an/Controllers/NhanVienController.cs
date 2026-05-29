@@ -39,7 +39,7 @@ public class NhanVienController : Controller
             HoTen = vm.HoTen,
             Email = vm.Email,
             MatKhauHash = PasswordHelper.Hash(vm.MatKhau),
-            VaiTro = "NhanVien",
+            VaiTro = vm.VaiTro,
             BoPhan = vm.BoPhan,
             HeSoLuong = vm.HeSoLuong,
             LuongTheoGio = vm.LuongTheoGio

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace do_an.Controllers;
 
-[Authorize(Roles = "Admin,NhanVien")]
+[Authorize(Roles = "Admin,NhanVien,BacSi")]
 public class DonHangOnlineController : Controller
 {
     private readonly AppDbContext _context;

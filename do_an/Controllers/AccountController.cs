@@ -269,6 +269,7 @@ public class AccountController : Controller
     {
         "Admin"     => RedirectToAction("Index", "Home"),
         "NhanVien"  => RedirectToAction("Create", "DonHangPos"),
+        "BacSi"     => RedirectToAction("Index", "DonThuoc"),
         "KhachHang" => RedirectToAction("Index", "Store"),
         _           => RedirectToAction("Index", "Home")
     };

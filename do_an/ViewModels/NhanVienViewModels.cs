@@ -20,6 +20,10 @@ public class NhanVienCreateViewModel
     [Display(Name = "Bộ phận")]
     public string? BoPhan { get; set; }
 
+    [Required(ErrorMessage = "Vai trò không được để trống")]
+    [Display(Name = "Vai trò")]
+    public string VaiTro { get; set; } = "NhanVien";
+
     [Range(0, 99, ErrorMessage = "Hệ số lương không hợp lệ")]
     [Display(Name = "Hệ số lương")]
     public decimal HeSoLuong { get; set; }

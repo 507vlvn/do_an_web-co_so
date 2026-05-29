@@ -51,6 +51,7 @@ public class DonThuocController : Controller
     }
 
     // GET: /DonThuoc/Create
+    [Authorize(Roles = "Admin,BacSi")]
     public async Task<IActionResult> Create()
     {
         var vm = new CreateDonThuocViewModel();
@@ -61,6 +62,7 @@ public class DonThuocController : Controller
     // POST: /DonThuoc/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin,BacSi")]
     public async Task<IActionResult> Create(CreateDonThuocViewModel vm)
     {
         var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
@@ -144,6 +146,7 @@ public class DonThuocController : Controller
 
     // POST: /DonThuoc/Duyet/5
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin,BacSi")]
     public async Task<IActionResult> Duyet(int id)
     {
         var dt = await _context.DonThuocs.FindAsync(id);
@@ -164,6 +167,7 @@ public class DonThuocController : Controller
 
     // POST: /DonThuoc/Huy/5
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin,BacSi")]
     public async Task<IActionResult> Huy(int id)
     {
         var dt = await _context.DonThuocs
@@ -183,6 +187,7 @@ public class DonThuocController : Controller
 
     // POST: /DonThuoc/DangStore/5
     [HttpPost, ValidateAntiForgeryToken]
+    [Authorize(Roles = "Admin,BacSi")]
     public async Task<IActionResult> DangStore(int id)
     {
         var dt = await _context.DonThuocs

@@ -12,7 +12,7 @@
                     <h4 class="fw-800 text-dark mb-1" style="letter-spacing: -1px;">Quản lý nhân sự</h4>
                     <p class="text-muted small fw-600 mb-0">Thêm nhân viên mới vào hệ thống vận hành nhà thuốc.</p>
                 </div>
-                <a asp-action="Index" class="btn btn-light rounded-pill px-4 fw-800 text-muted border transition-all">
+                <a asp-controller="TaiKhoan" asp-action="Index" asp-route-vaiTro="NhanVien" class="btn btn-light rounded-pill px-4 fw-800 text-muted border transition-all">
                     <i class="bi bi-arrow-left me-2"></i> Quay lại
                 </a>
             </div>
@@ -48,9 +48,19 @@
                                             <span asp-validation-for="HoTen" class="text-danger small mt-1 fw-bold"></span>
                                         </div>
                                     </div>
-                                    <div>
-                                        <label asp-for="BoPhan" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
-                                        <input asp-for="BoPhan" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="VD: Dược sĩ, Kế toán..." />
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label asp-for="BoPhan" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <input asp-for="BoPhan" class="form-control rounded-4 py-3 bg-light border-0 shadow-none fw-600" placeholder="VD: Dược sĩ, Bác sĩ..." />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label asp-for="VaiTro" class="form-label fw-800 text-muted small text-uppercase mb-2" style="letter-spacing: 0.5px;"></label>
+                                            <select asp-for="VaiTro" class="form-select rounded-4 py-3 bg-light border-0 shadow-none fw-600">
+                                                <option value="NhanVien">Nhân viên (Dược sĩ tại quầy)</option>
+                                                <option value="BacSi">Bác sĩ (Kê đơn mẫu)</option>
+                                            </select>
+                                            <span asp-validation-for="VaiTro" class="text-danger small mt-1 fw-bold"></span>
+                                        </div>
                                     </div>
                                     <div class="row g-3">
                                         <div class="col-md-6">

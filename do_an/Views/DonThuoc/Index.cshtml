@@ -20,9 +20,12 @@
             <h1 class="display-6 fw-800 text-dark mb-1" style="letter-spacing: -2px;">Đơn thuốc kê đơn</h1>
             <p class="text-muted fw-600 mb-0">Tạo, quản lý và đăng đơn thuốc lên Store online.</p>
         </div>
-        <a asp-action="Create" class="btn btn-brand rounded-pill px-4 py-2 fw-800 text-white shadow-brand transition-all">
-            <i class="bi bi-plus-circle me-2 fs-5"></i> TẠO ĐƠN THUỐC MỚI
-        </a>
+        @if (User.IsInRole("Admin") || User.IsInRole("BacSi"))
+        {
+            <a asp-action="Create" class="btn btn-brand rounded-pill px-4 py-2 fw-800 text-white shadow-brand transition-all">
+                <i class="bi bi-plus-circle me-2 fs-5"></i> TẠO ĐƠN THUỐC MỚI
+            </a>
+        }
     </div>
 
     <!-- Stats -->
@@ -127,9 +130,12 @@
                             <td colspan="7" class="text-center py-5">
                                 <i class="bi bi-clipboard2-x fs-1 text-muted opacity-25 d-block mb-3"></i>
                                 <p class="text-muted fw-600">Chưa có đơn thuốc nào.</p>
-                                <a asp-action="Create" class="btn btn-brand rounded-pill px-4 fw-800 text-white">
-                                    <i class="bi bi-plus-circle me-2"></i> Tạo đơn đầu tiên
-                                </a>
+                                @if (User.IsInRole("Admin") || User.IsInRole("BacSi"))
+                                {
+                                    <a asp-action="Create" class="btn btn-brand rounded-pill px-4 fw-800 text-white">
+                                        <i class="bi bi-plus-circle me-2"></i> Tạo đơn đầu tiên
+                                    </a>
+                                }
                             </td>
                         </tr>
                     }

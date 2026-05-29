@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace do_an.Controllers;
 
-[Authorize(Roles = "Admin,NhanVien")]
+[Authorize(Roles = "Admin,NhanVien,BacSi")]
 public class DonHangPosController : Controller
 {
     private readonly AppDbContext _context;
@@ -237,7 +237,7 @@ public class DonHangPosController : Controller
     private async Task LoadDropdowns(string? selectedTaiKhoanId = null)
     {
         ViewBag.NhanViens = await _context.TaiKhoans
-            .Where(t => t.VaiTro == "Admin" || t.VaiTro == "NhanVien")
+            .Where(t => t.VaiTro == "Admin" || t.VaiTro == "NhanVien" || t.VaiTro == "BacSi")
             .ToListAsync();
 
         ViewBag.SanPhams = await _context.SanPhams

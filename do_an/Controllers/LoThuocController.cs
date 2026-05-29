@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace do_an.Controllers;
 
-[Authorize(Roles = "Admin,NhanVien")]
+[Authorize(Roles = "Admin,NhanVien,BacSi")]
 public class LoThuocController : Controller
 {
     private readonly AppDbContext _context;
@@ -47,7 +47,7 @@ public class LoThuocController : Controller
     }
 
     // GET: /LoThuoc/Edit/5
-    [Authorize(Roles = "Admin,NhanVien")]
+    [Authorize(Roles = "Admin,NhanVien,BacSi")]
     public async Task<IActionResult> Edit(int id)
     {
         var lo = await _context.LoThuocs
@@ -59,7 +59,7 @@ public class LoThuocController : Controller
     }
 
     // POST: /LoThuoc/Edit/5
-    [Authorize(Roles = "Admin,NhanVien")]
+    [Authorize(Roles = "Admin,NhanVien,BacSi")]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, LoThuoc model)

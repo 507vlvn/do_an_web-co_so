@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace do_an.Controllers;
 
-[Authorize(Roles = "Admin,NhanVien")]
+[Authorize(Roles = "Admin,NhanVien,BacSi")]
 public class TaiKhoanController : Controller
 {
     private readonly AppDbContext _context;
@@ -39,7 +39,7 @@ public class TaiKhoanController : Controller
         }
         else
         {
-            ViewBag.VaiTroList = new SelectList(new[] { "Admin", "NhanVien", "KhachHang" });
+            ViewBag.VaiTroList = new SelectList(new[] { "Admin", "NhanVien", "BacSi", "KhachHang" });
         }
 
         ViewBag.Search    = search;

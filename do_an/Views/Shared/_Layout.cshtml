@@ -159,6 +159,7 @@
 
         .badge-admin { background: #ef4444; }
         .badge-staff { background: #3b82f6; }
+        .badge-doctor { background: #0ea5e9; }
 
         @@media (max-width: 768px) {
             #sidebar { margin-left: -260px; }
@@ -185,41 +186,47 @@
                     </li>
                 }
 
-                @if (User.IsInRole("Admin") || User.IsInRole("NhanVien"))
+                @if (User.IsInRole("Admin") || User.IsInRole("NhanVien") || User.IsInRole("BacSi"))
                 {
-                    <div class="sidebar-label">Bán Hàng</div>
-                    <li>
-                        <a asp-controller="DonHangPos" asp-action="Create" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHangPos" && ViewContext.RouteData.Values["Action"]?.ToString() == "Create" ? "active" : "") text-success fw-bold">
-                            <i class="bi bi-plus-circle-fill"></i> Bán Tại Quầy
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="DonHangPos" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHangPos" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
-                            <i class="bi bi-clock-history"></i> Lịch sử Hóa đơn
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="DonHangOnline" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHangOnline" ? "active" : "")">
-                            <i class="bi bi-cart-check"></i> Đơn Online
-                        </a>
-                    </li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("NhanVien") || User.IsInRole("BacSi"))
+                    {
+                        <div class="sidebar-label">Bán Hàng</div>
+                        <li>
+                            <a asp-controller="DonHangPos" asp-action="Create" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHangPos" && ViewContext.RouteData.Values["Action"]?.ToString() == "Create" ? "active" : "") text-success fw-bold">
+                                <i class="bi bi-plus-circle-fill"></i> Bán Tại Quầy
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="DonHangPos" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHangPos" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                                <i class="bi bi-clock-history"></i> Lịch sử Hóa đơn
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="DonHangOnline" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHangOnline" ? "active" : "")">
+                                <i class="bi bi-cart-check"></i> Đơn Online
+                            </a>
+                        </li>
+                    }
 
                     <div class="sidebar-label">Danh Mục</div>
-                    <li>
-                        <a asp-controller="SanPham" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "SanPham" ? "active" : "")">
-                            <i class="bi bi-box-seam"></i> Sản Phẩm
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="LoThuoc" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "LoThuoc" ? "active" : "")">
-                            <i class="bi bi-box-seam-fill"></i> Lô Thuốc
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="TaiKhoan" asp-action="Index" asp-route-vaiTro="KhachHang" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "TaiKhoan" && ViewContext.HttpContext.Request.Query["vaiTro"].ToString() == "KhachHang" ? "active" : "")">
-                            <i class="bi bi-person-circle"></i> Khách Hàng
-                        </a>
-                    </li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("NhanVien") || User.IsInRole("BacSi"))
+                    {
+                        <li>
+                            <a asp-controller="SanPham" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "SanPham" ? "active" : "")">
+                                <i class="bi bi-box-seam"></i> Sản Phẩm
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="LoThuoc" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "LoThuoc" ? "active" : "")">
+                                <i class="bi bi-box-seam-fill"></i> Lô Thuốc
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="TaiKhoan" asp-action="Index" asp-route-vaiTro="KhachHang" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "TaiKhoan" && ViewContext.HttpContext.Request.Query["vaiTro"].ToString() == "KhachHang" ? "active" : "")">
+                                <i class="bi bi-person-circle"></i> Khách Hàng
+                            </a>
+                        </li>
+                    }
                     <li>
                         <a asp-controller="DonThuoc" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonThuoc" ? "active" : "")">
                             <i class="bi bi-clipboard2-pulse"></i> Đơn Thuốc
@@ -291,6 +298,10 @@
                         else if (User.IsInRole("NhanVien"))
                         {
                             <span class="badge badge-staff">NV</span>
+                        }
+                        else if (User.IsInRole("BacSi"))
+                        {
+                            <span class="badge badge-doctor">BS</span>
                         }
                         else
                         {

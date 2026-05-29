@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace do_an.Controllers;
 
-[Authorize(Roles = "Admin,NhanVien")]
+[Authorize(Roles = "Admin,NhanVien,BacSi")]
 public class HomeController : Controller
 {
     private readonly AppDbContext _context;
