@@ -19,15 +19,13 @@ public class TaiKhoanController : Controller
     // GET: /TaiKhoan
     public async Task<IActionResult> Index(string? search, string? vaiTro, string? userName)
     {
-        // NhanVien trước đây quản lý riêng, giờ đã gộp chung vào bảng TaiKhoan
         var query = _context.TaiKhoans.AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(userName))
             query = query.Where(t => t.TenDangNhap == userName);
 
         if (!string.IsNullOrWhiteSpace(search))
-            query = query.Where(t => t.TenDangNhap.Contains(search) ||
-                                     (t.HoTen != null && t.HoTen.Contains(search)));
+            query = query.Where(t => t.TenDangNhap.Contains(search) ||(t.HoTen != null && t.HoTen.Contains(search)));
         if (!string.IsNullOrWhiteSpace(vaiTro))
             query = query.Where(t => t.VaiTro == vaiTro);
 

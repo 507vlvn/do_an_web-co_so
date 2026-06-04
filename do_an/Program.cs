@@ -32,11 +32,11 @@ builder.Services.AddSession(options =>
 builder.Services.AddAuthentication(
     Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
-    {   // Chưa đăng nhập trả về địa chỉ "/Account/Login"
+    {   //  Chưa đăng nhập trả về địa chỉ "/Account/Login"
         options.LoginPath = "/Account/Login";
         //  Người dùng không đủ quyền => Cook
         options.AccessDeniedPath = "/Account/AccessDenied";
-        // Time lưu Cookie = 8h
+        //  Time lưu Cookie = 8h
         options.ExpireTimeSpan = TimeSpan.FromHours(8);
     });
 
